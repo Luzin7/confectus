@@ -179,3 +179,4 @@ dist
 src/test/tests/*
 src/test/tests/package-lock.json
 src/test/tests/package.json
+.vscode*
