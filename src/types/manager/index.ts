@@ -4,7 +4,7 @@ export interface ManagerProps {
 }
 
 export interface Managers {
-  npm: ManagerProps;
-  yarn: ManagerProps;
-  bun: ManagerProps;
+  NPM: ManagerProps;
+  Yarn: ManagerProps;
+  Bun: ManagerProps;
 }

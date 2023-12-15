@@ -28,6 +28,7 @@
       "@infra/*": ["src/infra/*"],
       "@app/*": ["src/app/*"],
       "@domain/*": ["src/domain/*"],
+      "@providers/*": ["src/providers/*"],
     },
     "types": ["node", "vitest/globals"]
   },
