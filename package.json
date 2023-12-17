@@ -37,11 +37,11 @@
     "tsx": "^4.4.0",
     "typescript": "^5.3.2"
   },
-  "version": "0.0.4",
+  "version": "0.0.5",
   "main": "./src/app.ts",
   "license": "MIT",
   "bin": {
-    "confectus": "./dist/app.js"
+    "confectus": "npm run build && node ./dist/app.js"
   },
   "repository": {
     "type": "git",
