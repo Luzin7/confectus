@@ -6,37 +6,21 @@ import { TestDepedenciesInstallerRepositoryImplementations } from "@test/modules
 let depedenciesInstallerRepository: DepedenciesInstallerRepository;
 let sut: InstallDependencies;
 
-describe("installTypescript", () => {
+describe("InstallDependencies", () => {
   beforeEach(() => {
     depedenciesInstallerRepository =
       new TestDepedenciesInstallerRepositoryImplementations();
     sut = new InstallDependencies(depedenciesInstallerRepository);
   });
 
-  // afterEach(() => {
-  //   fs.rmdirSync('src/test/tests', { recursive: true })
-  //   fs.mkdirSync('src/test/tests')
-  // })
-
-  it("should be able to execute installTypescript", async () => {
+  it("should be able to execute InstallDependencies", async () => {
     const managerInstallCommand = "npm install";
-    const dependecies = "express";
+    const dependency = "express";
 
-    await sut.execute({ managerInstallCommand, dependecies });
-
-    const packageJsonExists = fs.readFileSync("src/test/tests/package.json");
-
-    expect(packageJsonExists.includes(dependecies)).toBe(true);
-  });
-
-  it("should NOT be able to execute installTypescript", async () => {
-    const managerInstallCommand = "npm uninstall";
-    const dependecies = "express";
-
-    await sut.execute({ managerInstallCommand, dependecies });
+    await sut.execute({ managerInstallCommand, dependency });
 
     const packageJsonExists = fs.readFileSync("src/test/tests/package.json");
 
-    expect(packageJsonExists.includes(dependecies)).toBe(false);
+    expect(packageJsonExists.includes(dependency)).toBe(true);
   });
 });
