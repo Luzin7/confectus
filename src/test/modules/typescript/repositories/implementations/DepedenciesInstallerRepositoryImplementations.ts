@@ -1,5 +1,5 @@
-import { DepedenciesInstallerRepository } from "@modules/depedenciesInstaller/repositories/contracts/DepedenciesInstallerRepository";
 import { exec } from "child_process";
+import { DepedenciesInstallerRepository } from "src/modules/depedenciesInstaller/repositories/contracts/DepedenciesInstallerRepository";
 import { promisify } from "util";
 
 export class TestDepedenciesInstallerRepositoryImplementations

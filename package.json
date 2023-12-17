@@ -41,7 +41,8 @@
   "main": "/dist/app.js",
   "license": "MIT",
   "bin": {
-    "confectus": "/dist/app.js"
+    "confectus": "/dist/app.js",
+    "cf": "/dist/app.js"
   },
   "repository": {
     "type": "git",
