@@ -37,7 +37,7 @@
     "tsx": "^4.4.0",
     "typescript": "^5.3.2"
   },
-  "version": "0.0.6",
+  "version": "0.0.7",
   "main": "./src/app.ts",
   "license": "MIT",
   "bin": {
