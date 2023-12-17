@@ -6,6 +6,7 @@
   "scripts": {
     "build": "tsc",
     "dev": "tsx ./src/app.ts",
+    "start": "npm run build && node ./dist/app.js",
     "test": "vitest"
   },
   "devDependencies": {
@@ -36,7 +37,7 @@
     "tsx": "^4.4.0",
     "typescript": "^5.3.2"
   },
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "./src/app.ts",
   "license": "MIT",
   "repository": {
