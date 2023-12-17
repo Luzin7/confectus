@@ -6,6 +6,7 @@ export class InitializeNewProjectRepositoryImplementations
   implements InitializeNewProjectRepository
 {
   async install(initCommand: string): Promise<void> {
-    await promisify(exec)(`${initCommand}`);
+    // TIRA ESSE MOCK DPS
+    await promisify(exec)(`cd ./mock && ${initCommand}`);
   }
 }

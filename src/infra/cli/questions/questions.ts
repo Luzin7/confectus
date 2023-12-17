@@ -1,7 +1,7 @@
 import chalk from "chalk";
-import { Question } from "src/types/question";
+import { QuestionProps } from "src/types/question";
 
-export const questions: Question[] = [
+export const questions: QuestionProps[] = [
   {
     name: "hasPackageJson",
     type: "list",

@@ -23,11 +23,12 @@
     "paths": {
       "@shared/*": ["./src/shared/*"],
       "@modules/*": ["./src/modules/*"],
-      "@test/*": ["src/test/*"],
-      "@env/*": ["src/env/*"],
-      "@infra/*": ["src/infra/*"],
-      "@app/*": ["src/app/*"],
-      "@domain/*": ["src/domain/*"],
+      "@test/*": ["./src/test/*"],
+      "@env/*": ["./src/env/*"],
+      "@infra/*": ["./src/infra/*"],
+      "@app/*": ["./src/app/*"],
+      "@domain/*": ["./src/domain/*"],
+      "@providers/*": ["./src/providers/*"],
     },
     "types": ["node", "vitest/globals"]
   },

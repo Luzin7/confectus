@@ -1,23 +1,112 @@
-import { log } from "console";
 import { SetupManagerRepository } from "../contracts/SetupManagerRepository";
 import Answers from "src/types/answers";
+import fs from "fs";
+import path from "path";
+import { InitializeNewProjectRepository } from "@modules/initializeNewProject/repositories/contracts/InitializeNewProjectRepository";
+import managers from "@infra/cli/managers";
+import { DepedenciesInstallerRepository } from "@modules/depedenciesInstaller/repositories/contracts/DepedenciesInstallerRepository";
 
 export class SetupManagerRepositoryImplementation
   implements SetupManagerRepository
 {
-  async installDependencies(
-    answers: Pick<Answers, "wichLanguage" | "willLint">,
-  ): Promise<void> {
-    const { wichLanguage, willLint } = answers;
-    const dep = { wichLanguage, willLint };
-    log(dep);
+  constructor(
+    private initializeNewProjectRepository: InitializeNewProjectRepository,
+    private depedenciesInstallerRepository: DepedenciesInstallerRepository,
+  ) {}
+
+  async installDependencies({
+    wichLanguage,
+    willLint,
+    wichManager,
+  }: Pick<
+    Answers,
+    "wichLanguage" | "willLint" | "wichManager"
+  >): Promise<void> {
+    const { installCommand } = managers[wichManager];
+    const isTypescript = wichLanguage === "Typescript";
+
+    if (isTypescript) {
+      await this.depedenciesInstallerRepository.install(
+        installCommand,
+        wichLanguage,
+      );
+    }
+
+    if (willLint === "Yes") {
+      await this.depedenciesInstallerRepository.install(
+        installCommand,
+        isTypescript ? "EslintTS" : "Eslint",
+      );
+    }
   }
 
-  async setupConfigurations(
-    answers: Pick<Answers, "hasPackageJson" | "wichManager" | "isVscode">,
-  ): Promise<void> {
-    const { hasPackageJson, isVscode, wichManager } = answers;
-    const setup = { hasPackageJson, isVscode, wichManager };
-    log(setup);
+  async setupConfigurations({
+    hasPackageJson,
+    isVscode,
+    wichManager,
+    wichLanguage,
+    willLint,
+  }: Pick<
+    Answers,
+    "hasPackageJson" | "isVscode" | "wichManager" | "wichLanguage" | "willLint"
+  >): Promise<void> {
+    const isTypescript = wichLanguage === "Typescript";
+    const currentPath = new URL(".", import.meta.url).pathname;
+    const rootPath = path.resolve(currentPath, "../../../../..");
+    const templatesPath = (subpath: string) =>
+      path.join(
+        rootPath,
+        "src",
+        "modules",
+        "setupManager",
+        "templates",
+        subpath,
+      );
+
+    const copyFiles = async (source: string, destination: string) => {
+      try {
+        fs.mkdirSync(path.dirname(destination), { recursive: true });
+        fs.copyFileSync(source, destination);
+      } catch (error) {
+        console.error(`Erro ao copiar ${source} para ${destination}:`, error);
+      }
+    };
+
+    if (isVscode === "Yes") {
+      await copyFiles(
+        templatesPath("ide/vscode/.editorconfig"),
+        "./mock/.editorconfig",
+      );
+      await copyFiles(
+        templatesPath("ide/vscode/settings.json"),
+        "./mock/.vscode/settings.json",
+      );
+    }
+
+    if (isTypescript) {
+      await copyFiles(
+        templatesPath("typescript/tsconfig.json"),
+        "./mock/tsconfig.json",
+      );
+    }
+
+    if (willLint === "Yes") {
+      isTypescript
+        ? await copyFiles(
+            templatesPath("lint/typescript/.eslintrc.json"),
+            "./mock/.eslintrc.json",
+          )
+        : await copyFiles(
+            templatesPath("lint/javascript/.eslintrc.json"),
+            "./mock/.eslintrc.json",
+          );
+    }
+
+    fs.mkdirSync("./mock/src", { recursive: true });
+
+    if (hasPackageJson === "No") {
+      const { initCommand } = managers[wichManager];
+      await this.initializeNewProjectRepository.install(initCommand);
+    }
   }
 }

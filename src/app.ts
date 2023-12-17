@@ -2,10 +2,19 @@ import { QuestionnaireRepositoryImplementations } from "@modules/questionnaire/r
 import Questionnaire from "@modules/questionnaire/useCases/questionnaire";
 import { SetupManagerRepositoryImplementation } from "@modules/setupManager/repositories/implementations/SetupManagerRepositoryImplementations";
 import { SetupManager } from "@modules/setupManager/useCases/SetupManager";
+import { InitializeNewProjectRepositoryImplementations } from "./modules/initializeNewProject/repositories/implementations/InitializeNewProjectRepositoryImplementations";
+import { DepedenciesInstallerRepositoryImplementations } from "@modules/depedenciesInstaller/repositories/implementations/DepedenciesInstallerRepositoryImplementations";
 
 const questionnaireRepository = new QuestionnaireRepositoryImplementations();
+const initializeNewProjectRepository =
+  new InitializeNewProjectRepositoryImplementations();
+const depedenciesRepository =
+  new DepedenciesInstallerRepositoryImplementations();
 const setupManagerRepositoryImplementation =
-  new SetupManagerRepositoryImplementation();
+  new SetupManagerRepositoryImplementation(
+    initializeNewProjectRepository,
+    depedenciesRepository,
+  );
 const questionnaire = new Questionnaire(questionnaireRepository);
 const setupManager = new SetupManager(setupManagerRepositoryImplementation);
 
