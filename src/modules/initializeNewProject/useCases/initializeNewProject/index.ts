@@ -1,3 +1,3 @@
-import { InstallTypescript } from "./InitializeNewProject";
+import { InitializeNewProject } from "./InitializeNewProject";
 
-export default InstallTypescript
+export default InitializeNewProject;
