@@ -37,8 +37,8 @@
     "tsx": "^4.4.0",
     "typescript": "^5.3.2"
   },
-  "version": "0.0.7",
-  "main": "./src/app.ts",
+  "version": "0.0.8",
+  "main": "/dist/app.js",
   "license": "MIT",
   "bin": {
     "confectus": "/dist/app.js"
