@@ -20,6 +20,6 @@ describe("initializeNewProjectRepository", () => {
 
     const packageJsonExists = fs.readFileSync("src/test/tests/package.json");
 
-    expect(packageJsonExists.includes("main")).toBe(true);
+    expect(packageJsonExists.includes("name")).toBe(true);
   });
 });
