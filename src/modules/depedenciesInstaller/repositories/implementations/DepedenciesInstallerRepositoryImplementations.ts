@@ -24,9 +24,9 @@ export class DepedenciesInstallerRepositoryImplementations
         : false;
 
     productionDependencies &&
-      (await promisify(exec)(`cd ./mock && ${productionDependencies}`));
+      (await promisify(exec)(`${productionDependencies}`));
 
     developmentDependencies &&
-      (await promisify(exec)(`cd ./mock && ${developmentDependencies} -D`));
+      (await promisify(exec)(`${developmentDependencies} -D`));
   }
 }

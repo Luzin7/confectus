@@ -75,18 +75,18 @@ export class SetupManagerRepositoryImplementation
     if (isVscode === "Yes") {
       await copyFiles(
         templatesPath("ide/vscode/.editorconfig"),
-        "./mock/.editorconfig",
+        ".editorconfig",
       );
       await copyFiles(
         templatesPath("ide/vscode/settings.json"),
-        "./mock/.vscode/settings.json",
+        ".vscode/settings.json",
       );
     }
 
     if (isTypescript) {
       await copyFiles(
         templatesPath("typescript/tsconfig.json"),
-        "./mock/tsconfig.json",
+        "tsconfig.json",
       );
     }
 
@@ -94,15 +94,15 @@ export class SetupManagerRepositoryImplementation
       isTypescript
         ? await copyFiles(
             templatesPath("lint/typescript/.eslintrc.json"),
-            "./mock/.eslintrc.json",
+            ".eslintrc.json",
           )
         : await copyFiles(
             templatesPath("lint/javascript/.eslintrc.json"),
-            "./mock/.eslintrc.json",
+            ".eslintrc.json",
           );
     }
 
-    fs.mkdirSync("./mock/src", { recursive: true });
+    fs.mkdirSync("src", { recursive: true });
 
     if (hasPackageJson === "No") {
       const { initCommand } = managers[wichManager];
