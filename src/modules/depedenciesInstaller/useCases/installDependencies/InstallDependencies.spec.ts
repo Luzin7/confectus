@@ -1,7 +1,7 @@
-import { DepedenciesInstallerRepository } from "@modules/depedenciesInstaller/repositories/contracts/DepedenciesInstallerRepository";
 import fs from "fs";
 import { InstallDependencies } from "./InstallDependencies";
-import { TestDepedenciesInstallerRepositoryImplementations } from "@test/modules/typescript/repositories/implementations/DepedenciesInstallerRepositoryImplementations";
+import { DepedenciesInstallerRepository } from "../../repositories/contracts/DepedenciesInstallerRepository";
+import { TestDepedenciesInstallerRepositoryImplementations } from "src/test/modules/typescript/repositories/implementations/DepedenciesInstallerRepositoryImplementations";
 
 let depedenciesInstallerRepository: DepedenciesInstallerRepository;
 let sut: InstallDependencies;

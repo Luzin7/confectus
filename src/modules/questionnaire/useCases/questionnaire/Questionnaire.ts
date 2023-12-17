@@ -1,4 +1,4 @@
-import { UseCase } from "@shared/core/modules/UseCase";
+import { UseCase } from "src/shared/core/modules/UseCase";
 import { QuestionnaireRepository } from "../../repositories/contracts/QuestionnaireRepository";
 
 export class Questionnaire implements UseCase<null> {

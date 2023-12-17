@@ -2,9 +2,9 @@ import { SetupManagerRepository } from "../contracts/SetupManagerRepository";
 import Answers from "src/types/answers";
 import fs from "fs";
 import path from "path";
-import { InitializeNewProjectRepository } from "@modules/initializeNewProject/repositories/contracts/InitializeNewProjectRepository";
-import managers from "@infra/cli/managers";
-import { DepedenciesInstallerRepository } from "@modules/depedenciesInstaller/repositories/contracts/DepedenciesInstallerRepository";
+import { InitializeNewProjectRepository } from "src/modules/initializeNewProject/repositories/contracts/InitializeNewProjectRepository";
+import { DepedenciesInstallerRepository } from "src/modules/depedenciesInstaller/repositories/contracts/DepedenciesInstallerRepository";
+import managers from "src/infra/cli/managers";
 
 export class SetupManagerRepositoryImplementation
   implements SetupManagerRepository

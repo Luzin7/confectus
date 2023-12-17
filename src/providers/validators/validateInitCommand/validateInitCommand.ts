@@ -1,4 +1,4 @@
-import managers from "@infra/cli/managers";
+import managers from "src/infra/cli/managers";
 
 export function validateManagerInitCommand(managerInitCommand: string) {
   const isValidManagerInitCommand = Object.values(managers).some(

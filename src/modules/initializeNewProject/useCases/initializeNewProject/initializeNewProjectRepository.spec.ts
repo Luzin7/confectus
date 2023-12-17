@@ -1,7 +1,7 @@
-import { InitializeNewProjectRepository } from "@modules/initializeNewProject/repositories/contracts/InitializeNewProjectRepository";
 import fs from "fs";
 import { InitializeNewProject } from "./InitializeNewProject";
-import { TestInitializeNewProjectRepositoryImplementations } from "@test/modules/initializeNewProject/repositories/implementations/InitializeNewProjectRepositoryImplementations";
+import { InitializeNewProjectRepository } from "../../repositories/contracts/InitializeNewProjectRepository";
+import { TestInitializeNewProjectRepositoryImplementations } from "src/test/modules/initializeNewProject/repositories/implementations/InitializeNewProjectRepositoryImplementations";
 
 let initializeNewProjectRepository: InitializeNewProjectRepository;
 let sut: InitializeNewProject;
