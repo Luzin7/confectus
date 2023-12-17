@@ -5,8 +5,11 @@ import { promisify } from "util";
 export class TestDepedenciesInstallerRepositoryImplementations
   implements DepedenciesInstallerRepository
 {
-  async install(managerInstallCommand): Promise<void> {
-    const command = `${managerInstallCommand} ${dependecies}`;
+  async install(
+    managerInstallCommand: string,
+    dependency: string,
+  ): Promise<void> {
+    const command = `${managerInstallCommand} ${dependency}`;
 
     await promisify(exec)(`cd src/test/tests && ${command}`);
   }
