@@ -37,9 +37,12 @@
     "tsx": "^4.4.0",
     "typescript": "^5.3.2"
   },
-  "version": "0.0.3",
+  "version": "0.0.4",
   "main": "./src/app.ts",
   "license": "MIT",
+  "bin": {
+    "confectus": "./dist/app.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Luzin7/confectus.git"
