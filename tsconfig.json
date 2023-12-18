@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "module": "ESNext",
+    "target": "ESNext",
     "moduleResolution": "Node",
     "declaration": true,
     "removeComments": true,
@@ -8,7 +9,6 @@
     "experimentalDecorators": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "target": "ES2020",
     "sourceMap": true,
     "outDir": "./dist",
     "baseUrl": "./",
