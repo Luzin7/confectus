@@ -5,20 +5,24 @@ import Questionnaire from "./modules/questionnaire/useCases/questionnaire";
 import { SetupManagerRepositoryImplementation } from "./modules/setupManager/repositories/implementations/SetupManagerRepositoryImplementations";
 import { SetupManager } from "./modules/setupManager/useCases/SetupManager";
 
-const questionnaireRepository = new QuestionnaireRepositoryImplementations();
-const initializeNewProjectRepository =
-  new InitializeNewProjectRepositoryImplementations();
-const depedenciesRepository =
-  new DepedenciesInstallerRepositoryImplementations();
-const setupManagerRepositoryImplementation =
-  new SetupManagerRepositoryImplementation(
-    initializeNewProjectRepository,
-    depedenciesRepository,
-  );
-const questionnaire = new Questionnaire(questionnaireRepository);
-const setupManager = new SetupManager(setupManagerRepositoryImplementation);
+async function bootstrap() {
+  const questionnaireRepository = new QuestionnaireRepositoryImplementations();
+  const initializeNewProjectRepository =
+    new InitializeNewProjectRepositoryImplementations();
+  const depedenciesRepository =
+    new DepedenciesInstallerRepositoryImplementations();
+  const setupManagerRepositoryImplementation =
+    new SetupManagerRepositoryImplementation(
+      initializeNewProjectRepository,
+      depedenciesRepository,
+    );
+  const questionnaire = new Questionnaire(questionnaireRepository);
+  const setupManager = new SetupManager(setupManagerRepositoryImplementation);
 
-await questionnaire.execute();
-const answers = questionnaireRepository.Answers;
+  await questionnaire.execute();
+  const answers = questionnaireRepository.Answers;
 
-await setupManager.execute(answers);
+  await setupManager.execute(answers);
+}
+
+bootstrap();
