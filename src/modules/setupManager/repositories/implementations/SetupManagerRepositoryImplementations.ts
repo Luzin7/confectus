@@ -54,14 +54,7 @@ export class SetupManagerRepositoryImplementation
     const currentPath = new URL(".", import.meta.url).pathname;
     const rootPath = path.resolve(currentPath, "../../../../..");
     const templatesPath = (subpath: string) =>
-      path.join(
-        rootPath,
-        "src",
-        "modules",
-        "setupManager",
-        "templates",
-        subpath,
-      );
+      path.join(rootPath, "src", "templates", subpath);
 
     const copyFiles = async (source: string, destination: string) => {
       try {
