@@ -54,8 +54,8 @@ export class SetupManagerRepositoryImplementation
     const isTypescript = wichLanguage === "Typescript";
     const currentPath = new URL(".", import.meta.url).pathname;
     const rootPath = isDev
-      ? path.resolve(currentPath, "../../../../../../")
-      : path.resolve(currentPath, "../../../../../../../../");
+      ? path.resolve(currentPath, "../../../../")
+      : path.resolve(currentPath, "../../../../../../");
     const templatesPath = (subpath: string) =>
       path.join(rootPath, "templates", subpath);
 
