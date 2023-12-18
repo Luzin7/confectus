@@ -3,7 +3,7 @@
   "type": "module",
   "author": "Luan Victor de Souza Dutra",
   "main": "./dist/app.js",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "license": "MIT",
   "scripts": {
     "build": "tsup && cp ./run.sh ./dist",
@@ -13,6 +13,9 @@
   "bin": {
     "confectus": "./run.sh"
   },
+  "files": [
+    "./dist/**/*"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Luzin7/confectus.git"

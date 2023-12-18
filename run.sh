@@ -1,1 +1,1 @@
-node ./dist/app.js
+node ./node_modules/confectus/dist/app.js
