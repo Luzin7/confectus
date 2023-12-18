@@ -52,9 +52,9 @@ export class SetupManagerRepositoryImplementation
   >): Promise<void> {
     const isTypescript = wichLanguage === "Typescript";
     const currentPath = new URL(".", import.meta.url).pathname;
-    const rootPath = path.resolve(currentPath, "../../../../..");
+    const rootPath = path.resolve(currentPath, "../../../../../../");
     const templatesPath = (subpath: string) =>
-      path.join(rootPath, "src", "templates", subpath);
+      path.join(rootPath, "templates", subpath);
 
     const copyFiles = async (source: string, destination: string) => {
       try {
