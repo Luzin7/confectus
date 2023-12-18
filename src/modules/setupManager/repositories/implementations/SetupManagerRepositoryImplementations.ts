@@ -50,14 +50,12 @@ export class SetupManagerRepositoryImplementation
     Answers,
     "hasPackageJson" | "isVscode" | "wichManager" | "wichLanguage" | "willLint"
   >): Promise<void> {
-    const isDev = process.env.NODE_ENV === "development";
+    // const isDev = process.env.NODE_ENV === "development";
     const isTypescript = wichLanguage === "Typescript";
     const currentPath = new URL(".", import.meta.url).pathname;
-    const rootPath = isDev
-      ? path.resolve(currentPath, "../../../../")
-      : path.resolve(currentPath, "../../../../../../");
+    const rootPath = path.resolve(currentPath, "../../../../../../");
     const templatesPath = (subpath: string) =>
-      path.join(rootPath, "templates", subpath);
+      path.join(rootPath, "src", "templates", subpath);
 
     const copyFiles = async (source: string, destination: string) => {
       try {
