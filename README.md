@@ -1,15 +1,37 @@
-# confectus
+### This tool is currently in development
 
-To install dependencies:
+# Confectus
+
+Welcome to Confectus, your friendly tool for automating development environment setup!
+
+## About
+
+Confectus is a Command Line Interface (CLI) designed to simplify the process of configuring development environments, especially for JavaScript and TypeScript backend projects.
+
+## Key Features
+
+- **Simple Configuration:** Confectus makes setting up your development environment an easy and effective task.
+- **Linux Compatibility:** Currently, Confectus supports Linux environments, making it even more user-friendly.
+
+## Installation
+
+To get started, ensure you have Node.js installed. Then, use the following command to install Confectus:
 
 ```bash
-bun install
+npm install confectus
 ```
 
-To run:
+## How to use Confectus
+After installation, you can use Confectus as follows:
 
 ```bash
-bun run index.ts
+npx confectus
 ```
 
-This project was created using `bun init` in bun v1.0.13. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+## Contribution
+
+If you encounter issues, bugs, or want to contribute to Confectus development, feel free to open an [issue](https://github.com/Luzin7/confectus) or submit a [pull request](https://github.com/Luzin7/confectus).
+
+#
+
+Thank you for using Confectus!
