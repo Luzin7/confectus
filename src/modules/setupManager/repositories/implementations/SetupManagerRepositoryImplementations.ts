@@ -70,6 +70,13 @@ export class SetupManagerRepositoryImplementation
       }
     };
 
+    if (hasPackageJson === "No") {
+      const { initCommand } = managers[wichManager];
+      await this.initializeNewProjectRepository.install(initCommand);
+    }
+
+    fs.mkdirSync("src", { recursive: true });
+
     if (isVscode === "Yes") {
       await copyFiles(
         templatesPath("ide", "vscode", ".editorconfig"),
@@ -84,8 +91,20 @@ export class SetupManagerRepositoryImplementation
 
     if (isTypescript) {
       await copyFiles(
+        templatesPath("greetings", "helloWorld.ts"),
+        "src/app.ts",
+      );
+
+      await copyFiles(
         templatesPath("typescript", "tsconfig.json"),
         "tsconfig.json",
+      );
+    }
+
+    if (!isTypescript) {
+      await copyFiles(
+        templatesPath("greetings", "helloWorld.ts"),
+        "src/app.js",
       );
     }
 
@@ -99,13 +118,6 @@ export class SetupManagerRepositoryImplementation
             templatesPath("lint", "javascript", ".eslintrc.json"),
             ".eslintrc.json",
           );
-    }
-
-    fs.mkdirSync("src", { recursive: true });
-
-    if (hasPackageJson === "No") {
-      const { initCommand } = managers[wichManager];
-      await this.initializeNewProjectRepository.install(initCommand);
     }
   }
 }
