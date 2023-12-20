@@ -57,11 +57,15 @@ export class SetupManagerRepositoryImplementation
       path.join(rootPath, "templates", subpath);
 
     const copyFiles = async (source: string, destination: string) => {
+      const destinationPath = path.resolve(destination);
       try {
-        fs.mkdirSync(path.dirname(destination), { recursive: true });
-        fs.copyFileSync(source, destination);
+        fs.mkdirSync(path.dirname(destinationPath), { recursive: true });
+        fs.copyFileSync(source, destinationPath);
       } catch (error) {
-        console.error(`Erro ao copiar ${source} para ${destination}:`, error);
+        console.error(
+          `Erro ao copiar ${source} para ${destinationPath}:`,
+          error,
+        );
       }
     };
 
