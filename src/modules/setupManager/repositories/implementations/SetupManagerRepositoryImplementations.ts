@@ -1,7 +1,7 @@
 import { SetupManagerRepository } from "../contracts/SetupManagerRepository";
 import Answers from "src/types/answers";
 import fs from "fs";
-import path from "path";
+import * as path from "path";
 import { InitializeNewProjectRepository } from "src/modules/initializeNewProject/repositories/contracts/InitializeNewProjectRepository";
 import { DepedenciesInstallerRepository } from "src/modules/depedenciesInstaller/repositories/contracts/DepedenciesInstallerRepository";
 import managers from "src/infra/cli/managers";
@@ -50,10 +50,8 @@ export class SetupManagerRepositoryImplementation
     Answers,
     "hasPackageJson" | "isVscode" | "wichManager" | "wichLanguage" | "willLint"
   >): Promise<void> {
-    // const isDev = process.env.NODE_ENV === "development";
     const isTypescript = wichLanguage === "Typescript";
-    const currentPath = new URL(".", import.meta.url).pathname;
-    const rootPath = path.resolve(currentPath, "");
+    const rootPath = path.resolve(__dirname, "");
     const templatesPath = (subpath: string) =>
       path.join(rootPath, "templates", subpath);
 
