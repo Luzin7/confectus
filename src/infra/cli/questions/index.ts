@@ -1,3 +1,3 @@
 import { questions } from "./questions";
 
-export default questions
+export default questions;
