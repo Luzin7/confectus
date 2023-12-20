@@ -5,7 +5,7 @@ import Questionnaire from "./modules/questionnaire/useCases/questionnaire";
 import { SetupManagerRepositoryImplementation } from "./modules/setupManager/repositories/implementations/SetupManagerRepositoryImplementations";
 import { SetupManager } from "./modules/setupManager/useCases/SetupManager";
 
-async function bootstrap() {
+export async function app() {
   const questionnaireRepository = new QuestionnaireRepositoryImplementations();
   const initializeNewProjectRepository =
     new InitializeNewProjectRepositoryImplementations();
@@ -24,5 +24,3 @@ async function bootstrap() {
 
   await setupManager.execute(answers);
 }
-
-bootstrap();
