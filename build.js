@@ -26,11 +26,6 @@ function build() {
   const destinationPath = join(currentPath, "./dist/templates");
 
   copyFolder(originPath, destinationPath);
-
-  copyFileSync(
-    join(currentPath, "./run.sh"),
-    join(currentPath, "./dist/run.sh"),
-  );
 }
 
 build();
