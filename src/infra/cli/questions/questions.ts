@@ -5,8 +5,8 @@ export const questions: QuestionProps[] = [
   {
     name: "hasPackageJson",
     type: "list",
-    message: `📦 Have you already initialized your project with a ${chalk.greenBright(
-      "package.json",
+    message: `📦 Have you already initialized your project with a ${chalk.bgWhiteBright(
+      "init command",
     )}?`,
     choices: ["Yes", "No"],
   },
