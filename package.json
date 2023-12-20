@@ -2,17 +2,30 @@
   "name": "confectus",
   "type": "module",
   "author": "Luan Victor de Souza Dutra",
-  "main": "./dist/app.js",
+  "main": "./dist/main.js",
   "version": "0.2.0",
   "license": "MIT",
+  "keywords": [
+    "JavaScript",
+    "TypeScript",
+    "Development",
+    "Environment",
+    "CLI",
+    "Assistant",
+    "Boilerplate",
+    "Bootstrap",
+    "Setup",
+    "Tools",
+    "Configuration"
+  ],
   "scripts": {
     "build": "tsup && node ./build.js",
+    "start": "npm run build && node ./dist/main.js",
     "dev": "tsx ./src/app.ts",
     "test": "vitest"
   },
   "bin": {
-    "confectus": "./run.sh",
-    "cf": "./run.sh"
+    "confectus": "dist/main.js"
   },
   "files": [
     "./dist/**/*"
