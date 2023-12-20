@@ -1,1 +1,0 @@
-node ./node_modules/confectus/dist/app.js
