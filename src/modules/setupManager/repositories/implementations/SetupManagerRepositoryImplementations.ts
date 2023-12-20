@@ -53,17 +53,18 @@ export class SetupManagerRepositoryImplementation
     const isTypescript = wichLanguage === "Typescript";
     const currentPath = new URL(".", import.meta.url).pathname;
     const rootPath = path.resolve(currentPath, "");
-    const templatesPath = (subpath: string) =>
-      path.join(rootPath, "templates", subpath);
+    const templatesPath = (...subpaths: string[]) =>
+      path.resolve(rootPath, "templates", ...subpaths);
 
     const copyFiles = async (source: string, destination: string) => {
+      const sourcePath = path.resolve(source);
       const destinationPath = path.resolve(destination);
       try {
         fs.mkdirSync(path.dirname(destinationPath), { recursive: true });
-        fs.copyFileSync(source, destinationPath);
+        fs.copyFileSync(sourcePath, destinationPath);
       } catch (error) {
         console.error(
-          `Erro ao copiar ${source} para ${destinationPath}:`,
+          `Erro ao copiar ${sourcePath} para ${destinationPath}:`,
           error,
         );
       }
@@ -71,18 +72,19 @@ export class SetupManagerRepositoryImplementation
 
     if (isVscode === "Yes") {
       await copyFiles(
-        templatesPath("ide/vscode/.editorconfig"),
-        ".editorconfig",
+        templatesPath("ide", "vscode", ".editorconfig"),
+        path.resolve(".editorconfig"),
       );
+
       await copyFiles(
-        templatesPath("ide/vscode/settings.json"),
-        ".vscode/settings.json",
+        templatesPath("ide", "vscode", "settings.json"),
+        path.resolve(".vscode", "settings.json"),
       );
     }
 
     if (isTypescript) {
       await copyFiles(
-        templatesPath("typescript/tsconfig.json"),
+        templatesPath("typescript", "tsconfig.json"),
         "tsconfig.json",
       );
     }
@@ -90,11 +92,11 @@ export class SetupManagerRepositoryImplementation
     if (willLint === "Yes") {
       isTypescript
         ? await copyFiles(
-            templatesPath("lint/typescript/.eslintrc.json"),
+            templatesPath("lint", "typescript", ".eslintrc.json"),
             ".eslintrc.json",
           )
         : await copyFiles(
-            templatesPath("lint/javascript/.eslintrc.json"),
+            templatesPath("lint", "javascript", ".eslintrc.json"),
             ".eslintrc.json",
           );
     }
