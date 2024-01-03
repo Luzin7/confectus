@@ -16,7 +16,7 @@ export const questions: QuestionProps[] = [
     message: `🛠️  Which ${chalk.bold.underline(
       "package manager",
     )} do want to use?`,
-    choices: ["NPM", "Yarn", "Bun"],
+    choices: ["NPM", "Yarn", "Bun", "PNPM"],
   },
   {
     name: "isVscode",
