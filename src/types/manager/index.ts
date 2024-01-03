@@ -7,4 +7,5 @@ export interface Managers {
   NPM: ManagerProps;
   Yarn: ManagerProps;
   Bun: ManagerProps;
+  PNPM: ManagerProps;
 }
