@@ -12,11 +12,20 @@ export class SetupManager implements UseCase<Record<string, string>> {
     ).start();
     try {
       await this.setupManagerRepository.setupConfigurations(answers);
-      await this.setupManagerRepository.installDependencies(answers);
       spinner.success({ text: "Project setup completed successfully!" });
     } catch (error) {
       spinner.error({
-        text: chalk.red(`The process has failed...
+        text: chalk.red(`The setup process has failed...
+      \n ${error}`),
+      });
+      process.exit(1);
+    }
+    try {
+      await this.setupManagerRepository.installDependencies(answers);
+      spinner.success({ text: "Project dependencies installed successfully!" });
+    } catch (error) {
+      spinner.error({
+        text: chalk.red(`The installation process has failed...
       \n ${error}`),
       });
       process.exit(1);
