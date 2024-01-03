@@ -77,6 +77,11 @@ export class SetupManagerRepositoryImplementation
 
     fs.mkdirSync("src", { recursive: true });
 
+    await copyFiles(
+      templatesPath("git", ".gitignore"),
+      path.resolve(".gitignore"),
+    );
+
     if (isVscode === "Yes") {
       await copyFiles(
         templatesPath("ide", "vscode", ".editorconfig"),
