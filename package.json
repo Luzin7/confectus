@@ -3,7 +3,7 @@
   "type": "module",
   "author": "Luan Victor de Souza Dutra",
   "main": "./dist/main.js",
-  "version": "0.2.51",
+  "version": "0.2.52",
   "license": "MIT",
   "keywords": [
     "JavaScript",
@@ -21,6 +21,9 @@
   "scripts": {
     "build": "tsup && node ./build.js",
     "start": "npm run build && node ./dist/main.js",
+    "changeset": "changeset",
+    "version": "changeset version",
+    "release": "npm run build && changeset publish",
     "dev": "tsx ./src/app.ts",
     "test": "vitest"
   },
@@ -36,6 +39,7 @@
     "url": "git+https://github.com/Luzin7/confectus.git"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.27.1",
     "@rocketseat/eslint-config": "^2.1.0",
     "@types/inquirer": "^9.0.7",
     "@types/jest": "^29.5.11",
@@ -60,5 +64,10 @@
     "chalk": "^5.3.0",
     "inquirer": "^9.2.12",
     "nanospinner": "^1.1.0"
-  }
+  },
+  "description": "# Confectus",
+  "bugs": {
+    "url": "https://github.com/Luzin7/confectus/issues"
+  },
+  "homepage": "https://github.com/Luzin7/confectus#readme"
 }
