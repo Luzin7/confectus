@@ -1,7 +1,7 @@
 import { SetupManagerRepository } from "../contracts/SetupManagerRepository";
 import Answers from "src/types/answers";
-import fs from "fs";
 import path from "path";
+import fs from "fs-extra";
 import { InitializeNewProjectRepository } from "src/modules/initializeNewProject/repositories/contracts/InitializeNewProjectRepository";
 import { DepedenciesInstallerRepository } from "src/modules/depedenciesInstaller/repositories/contracts/DepedenciesInstallerRepository";
 import managers from "src/infra/cli/managers";
@@ -59,9 +59,9 @@ export class SetupManagerRepositoryImplementation
     const copyFiles = async (source: string, destination: string) => {
       const sourcePath = path.resolve(source);
       const destinationPath = path.resolve(destination);
+
       try {
-        fs.mkdirSync(path.dirname(destinationPath), { recursive: true });
-        fs.copyFileSync(sourcePath, destinationPath);
+        await fs.copy(sourcePath, destinationPath);
       } catch (error) {
         console.error(
           `Erro ao copiar ${sourcePath} para ${destinationPath}:`,
