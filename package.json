@@ -37,6 +37,7 @@
   },
   "devDependencies": {
     "@rocketseat/eslint-config": "^2.1.0",
+    "@types/fs-extra": "^11.0.4",
     "@types/inquirer": "^9.0.7",
     "@types/jest": "^29.5.11",
     "@types/node": "^20.10.4",
@@ -58,6 +59,7 @@
   },
   "dependencies": {
     "chalk": "^5.3.0",
+    "fs-extra": "^11.2.0",
     "inquirer": "^9.2.12",
     "nanospinner": "^1.1.0"
   }
