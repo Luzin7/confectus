@@ -21,6 +21,9 @@
   "scripts": {
     "build": "tsup && node ./build.js",
     "start": "npm run build && node ./dist/main.js",
+    "changeset": "changeset",
+    "version": "changeset version",
+    "release": "npm run build && changeset publish",
     "dev": "tsx ./src/app.ts",
     "test": "vitest"
   },
@@ -36,6 +39,7 @@
     "url": "git+https://github.com/Luzin7/confectus.git"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.27.1",
     "@rocketseat/eslint-config": "^2.1.0",
     "@types/fs-extra": "^11.0.4",
     "@types/inquirer": "^9.0.7",
@@ -62,5 +66,14 @@
     "fs-extra": "^11.2.0",
     "inquirer": "^9.2.12",
     "nanospinner": "^1.1.0"
+
+  },
+  "description": "# Confectus",
+  "bugs": {
+    "url": "https://github.com/Luzin7/confectus/issues"
+  },
+  "homepage": "https://github.com/Luzin7/confectus#readme"
+
   }
+
 }
