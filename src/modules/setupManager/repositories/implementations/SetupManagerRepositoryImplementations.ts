@@ -77,7 +77,7 @@ export class SetupManagerRepositoryImplementation
 
     fs.mkdirSync("src", { recursive: true });
 
-    await copyFiles(templatesPath("git", ".gitignore"), ".gitignore");
+    await copyFiles(templatesPath("git", "gitignore"), ".gitignore");
 
     if (isVscode === "Yes") {
       await copyFiles(
