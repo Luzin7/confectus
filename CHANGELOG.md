@@ -1,5 +1,11 @@
 # confectus
 
+## 0.2.58
+
+### Patch Changes
+
+- fix error that cause error when try create gitignore file
+
 ## 0.2.57
 
 ### Patch Changes
