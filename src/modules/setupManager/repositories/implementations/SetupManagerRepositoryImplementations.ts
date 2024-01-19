@@ -59,9 +59,9 @@ export class SetupManagerRepositoryImplementation
     const copyFiles = async (source: string, destination: string) => {
       const sourcePath = path.resolve(source);
       const destinationPath = path.resolve(destination);
-
       try {
-        await fs.copy(sourcePath, destinationPath);
+        fs.mkdirSync(path.dirname(destinationPath), { recursive: true });
+        fs.copyFileSync(sourcePath, destinationPath);
       } catch (error) {
         console.error(
           `Erro ao copiar ${sourcePath} para ${destinationPath}:`,
@@ -77,15 +77,12 @@ export class SetupManagerRepositoryImplementation
 
     fs.mkdirSync("src", { recursive: true });
 
-    await copyFiles(
-      templatesPath("git", ".gitignore"),
-      path.resolve(".gitignore"),
-    );
+    await copyFiles(templatesPath("git", ".gitignore"), ".gitignore");
 
     if (isVscode === "Yes") {
       await copyFiles(
         templatesPath("ide", "vscode", ".editorconfig"),
-        path.resolve(".editorconfig"),
+        ".editorconfig",
       );
 
       await copyFiles(
