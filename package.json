@@ -3,7 +3,7 @@
   "type": "module",
   "author": "Luan Victor de Souza Dutra",
   "main": "./dist/main.js",
-  "version": "0.2.52",
+  "version": "0.2.53",
   "license": "MIT",
   "keywords": [
     "JavaScript",
@@ -66,14 +66,10 @@
     "fs-extra": "^11.2.0",
     "inquirer": "^9.2.12",
     "nanospinner": "^1.1.0"
-
   },
   "description": "# Confectus",
   "bugs": {
     "url": "https://github.com/Luzin7/confectus/issues"
   },
   "homepage": "https://github.com/Luzin7/confectus#readme"
-
-  }
-
 }
