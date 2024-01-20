@@ -24,7 +24,7 @@
     "changeset": "changeset",
     "version": "changeset version",
     "release": "npm run build && changeset publish",
-    "dev": "tsx ./src/app.ts",
+    "dev": "tsx ./src/main.ts",
     "test": "vitest"
   },
   "bin": {
