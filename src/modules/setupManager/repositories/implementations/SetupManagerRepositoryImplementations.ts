@@ -50,9 +50,14 @@ export class SetupManagerRepositoryImplementation
     Answers,
     "hasPackageJson" | "isVscode" | "wichManager" | "wichLanguage" | "willLint"
   >): Promise<void> {
+    const isDevelopment = process.env.NODE_ENV === "development";
+    console.log({ isDevelopment });
     const isTypescript = wichLanguage === "Typescript";
     const currentPath = new URL(".", import.meta.url).pathname;
-    const rootPath = path.resolve(currentPath);
+    const rootPath = isDevelopment
+      ? path.resolve(currentPath, "../../../../")
+      : path.resolve(currentPath);
+    console.log({ rootPath });
     const templatesPath = (...subpaths: string[]) =>
       path.join(rootPath, "templates", ...subpaths);
 
@@ -75,38 +80,47 @@ export class SetupManagerRepositoryImplementation
       await this.initializeNewProjectRepository.install(initCommand);
     }
 
-    fs.mkdirSync("src", { recursive: true });
+    fs.mkdirSync(isDevelopment ? "./mock/src" : "src", { recursive: true });
 
-    await copyFiles(templatesPath("git", "gitignore"), ".gitignore");
+    await copyFiles(
+      templatesPath("git", "gitignore"),
+      isDevelopment ? path.resolve("mock", ".gitignore") : ".gitignore",
+    );
 
     if (isVscode === "Yes") {
       await copyFiles(
         templatesPath("ide", "vscode", ".editorconfig"),
-        ".editorconfig",
+        isDevelopment ? path.resolve("mock", ".editorconfig") : ".editorconfig",
       );
 
       await copyFiles(
         templatesPath("ide", "vscode", "settings.json"),
-        path.resolve(".vscode", "settings.json"),
+        isDevelopment
+          ? path.resolve("mock", ".vscode", "settings.json")
+          : path.resolve(".vscode", "settings.json"),
       );
     }
 
     if (isTypescript) {
       await copyFiles(
         templatesPath("greetings", "helloWorld.ts"),
-        "src/app.ts",
+        isDevelopment
+          ? path.resolve("mock", "src", "app.ts")
+          : path.resolve("src", "app.ts"),
       );
 
       await copyFiles(
         templatesPath("typescript", "tsconfig.json"),
-        "tsconfig.json",
+        isDevelopment ? path.resolve("mock", "tsconfig.json") : "tsconfig.json",
       );
     }
 
     if (!isTypescript) {
       await copyFiles(
         templatesPath("greetings", "helloWorld.ts"),
-        "src/app.js",
+        isDevelopment
+          ? path.resolve("mock", "src", "app.js")
+          : path.resolve("src", "app.js"),
       );
     }
 
@@ -114,11 +128,15 @@ export class SetupManagerRepositoryImplementation
       isTypescript
         ? await copyFiles(
             templatesPath("lint", "typescript", ".eslintrc.json"),
-            ".eslintrc.json",
+            isDevelopment
+              ? path.resolve("mock", ".eslintrc.json")
+              : ".eslintrc.json",
           )
         : await copyFiles(
             templatesPath("lint", "javascript", ".eslintrc.json"),
-            ".eslintrc.json",
+            isDevelopment
+              ? path.resolve("mock", ".eslintrc.json")
+              : ".eslintrc.json",
           );
     }
   }

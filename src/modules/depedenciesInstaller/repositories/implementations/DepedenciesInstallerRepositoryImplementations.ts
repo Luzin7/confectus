@@ -10,6 +10,7 @@ export class DepedenciesInstallerRepositoryImplementations
     managerInstallCommand: string,
     dependency: string,
   ): Promise<void> {
+    const isDevelopment = process.env.NODE_ENV === "development";
     const dependencies =
       dependeciesSetup[dependency.toLowerCase()].dependencies;
     const devDependencies =
@@ -24,9 +25,13 @@ export class DepedenciesInstallerRepositoryImplementations
         : false;
 
     productionDependencies &&
-      (await promisify(exec)(`${productionDependencies}`));
+      (isDevelopment
+        ? await promisify(exec)(`cd mock && ${productionDependencies}`)
+        : await promisify(exec)(`${productionDependencies}`));
 
     developmentDependencies &&
-      (await promisify(exec)(`${developmentDependencies} -D`));
+      (isDevelopment
+        ? await promisify(exec)(`cd mock && ${developmentDependencies} -D`)
+        : await promisify(exec)(`${developmentDependencies} -D`));
   }
 }

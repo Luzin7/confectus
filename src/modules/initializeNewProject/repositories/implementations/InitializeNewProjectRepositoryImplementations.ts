@@ -6,6 +6,10 @@ export class InitializeNewProjectRepositoryImplementations
   implements InitializeNewProjectRepository
 {
   async install(initCommand: string): Promise<void> {
-    await promisify(exec)(`${initCommand}`);
+    const isDevelopment = process.env.NODE_ENV === "development";
+
+    isDevelopment
+      ? await promisify(exec)(`cd mock && ${initCommand}`)
+      : await promisify(exec)(`${initCommand}`);
   }
 }
