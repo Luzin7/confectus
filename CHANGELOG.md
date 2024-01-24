@@ -1,5 +1,11 @@
 # confectus
 
+## 0.3.0
+
+### Minor Changes
+
+- Fix errors, add errors treatment, improve package size, update questionnaire and more.
+
 ## 0.2.58
 
 ### Patch Changes
