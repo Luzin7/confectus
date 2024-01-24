@@ -2,6 +2,8 @@ import { exec } from "child_process";
 import { promisify } from "util";
 import { DepedenciesInstallerRepository } from "../contracts/DepedenciesInstallerRepository";
 import { dependeciesSetup } from "../../setups";
+import { InstallationDependecyError } from "../../errors/InstallationDependecyError";
+import { InstallationDevelopmentDependecyError } from "../../errors/InstallationDevelopmentDependecyError";
 
 export class DepedenciesInstallerRepositoryImplementations
   implements DepedenciesInstallerRepository
@@ -10,28 +12,39 @@ export class DepedenciesInstallerRepositoryImplementations
     managerInstallCommand: string,
     dependency: string,
   ): Promise<void> {
-    const isDevelopment = process.env.NODE_ENV === "development";
-    const dependencies =
-      dependeciesSetup[dependency.toLowerCase()].dependencies;
-    const devDependencies =
-      dependeciesSetup[dependency.toLowerCase()].devDependencies;
-    const productionDependencies =
-      dependencies !== null
-        ? `${managerInstallCommand} ${dependencies}`
-        : false;
-    const developmentDependencies =
-      devDependencies !== null
-        ? `${managerInstallCommand} ${devDependencies}`
-        : false;
+    const { dependencies, devDependencies } =
+      dependeciesSetup[dependency.toLowerCase()] ?? {};
 
-    productionDependencies &&
-      (isDevelopment
-        ? await promisify(exec)(`cd mock && ${productionDependencies}`)
-        : await promisify(exec)(`${productionDependencies}`));
+    function installCommand(deps: string, dev: boolean) {
+      const isDevelopment = process.env.NODE_ENV === "development";
+      return isDevelopment
+        ? `cd mock && ${managerInstallCommand} ${deps} ${dev ? "-D" : ""}`
+        : `${managerInstallCommand} ${deps} ${dev ? "-D" : ""}`;
+    }
 
-    developmentDependencies &&
-      (isDevelopment
-        ? await promisify(exec)(`cd mock && ${developmentDependencies} -D`)
-        : await promisify(exec)(`${developmentDependencies} -D`));
+    const installDependency = async (
+      deps: string,
+      dev: boolean,
+      errorType: unknown,
+    ) => {
+      try {
+        await promisify(exec)(installCommand(deps, dev));
+      } catch (error) {
+        throw new Error(errorType as string);
+      }
+    };
+
+    dependencies &&
+      (await installDependency(
+        dependencies,
+        false,
+        new InstallationDependecyError(),
+      ));
+    devDependencies &&
+      (await installDependency(
+        devDependencies,
+        true,
+        new InstallationDevelopmentDependecyError(),
+      ));
   }
 }
