@@ -22,7 +22,7 @@ export class TemplatesManagerRepositoryImplementations
     const copyFiles = async (
       source: string,
       destination: string,
-      fileCopyError: unknown,
+      fileCopyError: FileCopyError,
     ) => {
       const sourcePath = path.resolve(source);
       const destinationPath = path.resolve(destination);
@@ -31,7 +31,7 @@ export class TemplatesManagerRepositoryImplementations
         fs.mkdirSync(path.dirname(destinationPath), { recursive: true });
         fs.copyFileSync(sourcePath, destinationPath);
       } catch (error) {
-        throw new Error(fileCopyError as string);
+        throw new Error(fileCopyError.message);
       }
     };
 

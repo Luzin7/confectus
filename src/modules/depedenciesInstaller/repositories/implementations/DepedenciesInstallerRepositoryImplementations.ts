@@ -25,12 +25,14 @@ export class DepedenciesInstallerRepositoryImplementations
     const installDependency = async (
       deps: string,
       dev: boolean,
-      errorType: unknown,
+      errorType:
+        | InstallationDependecyError
+        | InstallationDevelopmentDependecyError,
     ) => {
       try {
         await promisify(exec)(installCommand(deps, dev));
       } catch (error) {
-        throw new Error(errorType as string);
+        throw new Error(errorType.message);
       }
     };
 
