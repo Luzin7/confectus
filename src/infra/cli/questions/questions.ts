@@ -5,7 +5,7 @@ export const questions: QuestionProps[] = [
   {
     name: "hasPackageJson",
     type: "list",
-    message: `📦 Have you already initialized your project with a ${chalk.bgWhiteBright(
+    message: `📦 Have you already initialized your project with a ${chalk.whiteBright.underline(
       "init command",
     )}?`,
     choices: ["Yes", "No"],
@@ -27,13 +27,13 @@ export const questions: QuestionProps[] = [
   {
     name: "wichLanguage",
     type: "list",
-    message: `🪛  Wich language do you want to use?`,
+    message: `🪛  Wich ${chalk.cyan("language")} do you want to use?`,
     choices: ["Javascript", "Typescript"],
   },
   {
     name: "willLint",
     type: "list",
-    message: `🧹 Do you want to configure ${chalk.magentaBright(
+    message: `🧹 Do you want to configure ${chalk.blue(
       "ESLint",
     )} to lint your code?`,
     choices: ["Yes", "No"],

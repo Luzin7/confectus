@@ -1,6 +1,7 @@
 import { TemplatesManagerRepository } from "../contracts/TemplatesManagerRepository";
 import path from "path";
 import fs from "fs-extra";
+import { FileCopyError } from "../../errors/FileCopyError";
 
 export class TemplatesManagerRepositoryImplementations
   implements TemplatesManagerRepository
@@ -18,7 +19,11 @@ export class TemplatesManagerRepositoryImplementations
     const templatesPath = (...subpaths: string[]) =>
       path.join(rootPath, "templates", ...subpaths);
 
-    const copyFiles = async (source: string, destination: string) => {
+    const copyFiles = async (
+      source: string,
+      destination: string,
+      fileCopyError: unknown,
+    ) => {
       const sourcePath = path.resolve(source);
       const destinationPath = path.resolve(destination);
 
@@ -26,10 +31,7 @@ export class TemplatesManagerRepositoryImplementations
         fs.mkdirSync(path.dirname(destinationPath), { recursive: true });
         fs.copyFileSync(sourcePath, destinationPath);
       } catch (error) {
-        console.error(
-          `Erro ao copiar ${sourcePath} para ${destinationPath}:`,
-          error,
-        );
+        throw new Error(fileCopyError as string);
       }
     };
 
@@ -38,6 +40,7 @@ export class TemplatesManagerRepositoryImplementations
       isDevelopment
         ? path.resolve("mock", templateDestination)
         : templateDestination,
+      new FileCopyError(),
     );
   }
 }
