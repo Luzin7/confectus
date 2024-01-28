@@ -1,11 +1,11 @@
-///<reference types="vitest"/>
+/// <reference types="vitest"/>
 import { defineConfig } from "vite";
 
 export default defineConfig({
   test: {
     globals: true,
     include: ["src/**/*.spec.ts"],
-    dir: "src/test"
+    dir: "src/test",
   },
   resolve: {
     alias: {
@@ -17,5 +17,5 @@ export default defineConfig({
       "@app/": "src/app/",
       "@domain/": "src/domain/",
     },
-  }
-})
+  },
+});

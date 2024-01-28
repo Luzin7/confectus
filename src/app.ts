@@ -4,6 +4,7 @@ import { QuestionnaireRepositoryImplementations } from "./modules/questionnaire/
 import Questionnaire from "./modules/questionnaire/useCases/questionnaire";
 import { SetupManagerRepositoryImplementation } from "./modules/setupManager/repositories/implementations/SetupManagerRepositoryImplementations";
 import { SetupManager } from "./modules/setupManager/useCases/SetupManager";
+import { TemplatesManagerRepositoryImplementations } from "./modules/templatesManager/repositories/implementations/TemplatesManagerRepositoryImplementations";
 
 export async function app() {
   const questionnaireRepository = new QuestionnaireRepositoryImplementations();
@@ -11,10 +12,13 @@ export async function app() {
     new InitializeNewProjectRepositoryImplementations();
   const depedenciesRepository =
     new DepedenciesInstallerRepositoryImplementations();
+  const templatesManagerRepository =
+    new TemplatesManagerRepositoryImplementations();
   const setupManagerRepositoryImplementation =
     new SetupManagerRepositoryImplementation(
       initializeNewProjectRepository,
       depedenciesRepository,
+      templatesManagerRepository,
     );
   const questionnaire = new Questionnaire(questionnaireRepository);
   const setupManager = new SetupManager(setupManagerRepositoryImplementation);

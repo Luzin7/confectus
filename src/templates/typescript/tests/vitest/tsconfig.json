@@ -11,11 +11,8 @@
     "rootDir": "./src",
     "resolveJsonModule": true,
     "baseUrl": "./src",
-    "paths": {
-      "*": ["types/*"]
-    },
     "types": ["node", "vitest"]
   },
-  "include": ["src/**/*.ts", "tests/**/*.ts"],
+  "include": ["./src/**/*"],
   "exclude": ["node_modules", "dist"]
 }

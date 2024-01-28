@@ -1,6 +1,7 @@
 import questions from "src/infra/cli/questions";
 import { QuestionnaireRepository } from "../contracts/QuestionnaireRepository";
 import inquirer from "inquirer";
+import { QuestionnaireError } from "../../errors/QuestionnaireError";
 
 export class QuestionnaireRepositoryImplementations
   implements QuestionnaireRepository
@@ -16,7 +17,7 @@ export class QuestionnaireRepositoryImplementations
       const responses = await inquirer.prompt(questions);
       this.saveAnswers(responses);
     } catch (error) {
-      console.error("Error during questionnaire:", error);
+      return console.error(new QuestionnaireError());
     }
   }
 
