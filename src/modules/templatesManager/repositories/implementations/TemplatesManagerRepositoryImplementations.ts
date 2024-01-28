@@ -2,7 +2,10 @@ import { TemplatesManagerRepository } from "../contracts/TemplatesManagerReposit
 import path from "path";
 import fs from "fs-extra";
 import { FileCopyError } from "../../errors/FileCopyError";
-import { log } from "console";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 export class TemplatesManagerRepositoryImplementations
   implements TemplatesManagerRepository
@@ -12,10 +15,9 @@ export class TemplatesManagerRepositoryImplementations
     templateDestination: string,
   ): Promise<void> {
     const isDevelopment = process.env.NODE_ENV === "development";
-    const currentPath = new URL(".", import.meta.url).pathname;
     const rootPath = isDevelopment
-      ? path.resolve(currentPath, "../../../../")
-      : currentPath;
+      ? path.resolve(__dirname, "../../../../")
+      : __dirname;
 
     const templatesPath = (...subpaths: string[]) =>
       path.join(rootPath, "templates", ...subpaths);
@@ -27,13 +29,11 @@ export class TemplatesManagerRepositoryImplementations
     ) => {
       const sourcePath = source;
       const destinationPath = destination;
-      log({ sourcePath, destinationPath });
 
       try {
         fs.mkdirSync(path.dirname(destinationPath), { recursive: true });
         fs.copyFileSync(sourcePath, destinationPath);
       } catch (error) {
-        log({ error });
         throw new Error(fileCopyError.message);
       }
     };
