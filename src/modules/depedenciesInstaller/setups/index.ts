@@ -33,4 +33,24 @@ export const dependeciesSetup: SettingsProps = {
     devDependencies:
       "eslint prettier @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint-config-prettier eslint-plugin-prettier",
   },
+  vitest: {
+    configFiles: [
+      {
+        configFileName: "vitest.config.js",
+        configFilePath: "frameworks/configs/vitest/vitest.config.ts",
+      },
+    ],
+    dependencies: null,
+    devDependencies: "vite vitest",
+  },
+  vitestts: {
+    configFiles: [
+      {
+        configFileName: "vitest.config.ts",
+        configFilePath: "frameworks/configs/vitest/vitest.config.ts",
+      },
+    ],
+    dependencies: null,
+    devDependencies: "vite vitest",
+  },
 };
