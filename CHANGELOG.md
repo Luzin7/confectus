@@ -1,5 +1,11 @@
 # confectus
 
+## 0.4.0
+
+### Minor Changes
+
+- Add compatility for windows, add test to setups options and fix minor bugs.
+
 ## 0.3.0
 
 ### Minor Changes
