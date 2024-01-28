@@ -76,9 +76,10 @@ export class SetupManagerRepositoryImplementation
     }
 
     await fs.mkdir(isDevelopment ? "./mock/src" : "src", { recursive: true });
-    await fs.mkdir(isDevelopment ? "./mock/src/test" : "src/test", {
-      recursive: true,
-    });
+    willTest &&
+      (await fs.mkdir(isDevelopment ? "./mock/src/test" : "src/test", {
+        recursive: true,
+      }));
 
     await this.templatesManagerRepository.install(
       ["git", "gitignore"],
