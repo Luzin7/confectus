@@ -14,7 +14,7 @@ export const managers: Managers = {
     installCommand: "bun add",
   },
   PNPM: {
-    initCommand: "pnpm init -y",
+    initCommand: "pnpm init",
     installCommand: "pnpm install",
   },
 };
