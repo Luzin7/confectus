@@ -2,6 +2,7 @@ import { TemplatesManagerRepository } from "../contracts/TemplatesManagerReposit
 import path from "path";
 import fs from "fs-extra";
 import { FileCopyError } from "../../errors/FileCopyError";
+import { log } from "console";
 
 export class TemplatesManagerRepositoryImplementations
   implements TemplatesManagerRepository
@@ -26,11 +27,13 @@ export class TemplatesManagerRepositoryImplementations
     ) => {
       const sourcePath = source;
       const destinationPath = destination;
+      log({ sourcePath, destinationPath });
 
       try {
         fs.mkdirSync(path.dirname(destinationPath), { recursive: true });
         fs.copyFileSync(sourcePath, destinationPath);
       } catch (error) {
+        log({ error });
         throw new Error(fileCopyError.message);
       }
     };
