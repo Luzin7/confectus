@@ -14,7 +14,7 @@ export class TemplatesManagerRepositoryImplementations
     const currentPath = new URL(".", import.meta.url).pathname;
     const rootPath = isDevelopment
       ? path.resolve(currentPath, "../../../../")
-      : path.resolve(currentPath);
+      : currentPath;
 
     const templatesPath = (...subpaths: string[]) =>
       path.join(rootPath, "templates", ...subpaths);
@@ -24,8 +24,8 @@ export class TemplatesManagerRepositoryImplementations
       destination: string,
       fileCopyError: FileCopyError,
     ) => {
-      const sourcePath = path.resolve(source);
-      const destinationPath = path.resolve(destination);
+      const sourcePath = source;
+      const destinationPath = destination;
 
       try {
         fs.mkdirSync(path.dirname(destinationPath), { recursive: true });

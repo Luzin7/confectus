@@ -4,4 +4,5 @@ export default interface Answers {
   isVscode: string;
   wichLanguage: string;
   willLint: string;
+  wichTest: string;
 }
