@@ -38,12 +38,12 @@ export const questions: QuestionProps[] = [
     )} to lint your code?`,
     choices: ["Yes", "No"],
   },
-  // {
-  //   name: 'test',
-  //   type: 'list',
-  //   message: `🧪 Do you want to setup a ${chalk.yellowBright(
-  //     'Test',
-  //   )} to this project?`,
-  //   choices: ['vitest'],
-  // },
+  {
+    name: "wichTest",
+    type: "list",
+    message: `🧪 Do you want to setup a ${chalk.greenBright(
+      "Test",
+    )} to this project?`,
+    choices: ["Vitest", "No"],
+  },
 ];
