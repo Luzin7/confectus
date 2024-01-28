@@ -20,9 +20,10 @@ export class SetupManagerRepositoryImplementation
     wichLanguage,
     willLint,
     wichManager,
+    wichTest,
   }: Pick<
     Answers,
-    "wichLanguage" | "willLint" | "wichManager"
+    "wichLanguage" | "willLint" | "wichManager" | "wichTest"
   >): Promise<void> {
     const { installCommand } = managers[wichManager];
     const isTypescript = wichLanguage === "Typescript";
@@ -40,6 +41,13 @@ export class SetupManagerRepositoryImplementation
         isTypescript ? "EslintTS" : "Eslint",
       );
     }
+
+    if (wichTest === "Vitest") {
+      await this.depedenciesInstallerRepository.install(
+        installCommand,
+        isTypescript ? "VitestTS" : "Vitest",
+      );
+    }
   }
 
   async setupConfigurations({
@@ -48,19 +56,29 @@ export class SetupManagerRepositoryImplementation
     wichManager,
     wichLanguage,
     willLint,
+    wichTest,
   }: Pick<
     Answers,
-    "hasPackageJson" | "isVscode" | "wichManager" | "wichLanguage" | "willLint"
+    | "hasPackageJson"
+    | "isVscode"
+    | "wichLanguage"
+    | "wichManager"
+    | "wichTest"
+    | "willLint"
   >): Promise<void> {
     const isDevelopment = process.env.NODE_ENV === "development";
     const isTypescript = wichLanguage === "Typescript";
+    const willTest = wichTest === "Vitest";
 
     if (hasPackageJson === "No") {
       const { initCommand } = managers[wichManager];
       await this.initializeNewProjectRepository.install(initCommand);
     }
 
-    fs.mkdirSync(isDevelopment ? "./mock/src" : "src", { recursive: true });
+    await fs.mkdir(isDevelopment ? "./mock/src" : "src", { recursive: true });
+    await fs.mkdir(isDevelopment ? "./mock/src/test" : "src/test", {
+      recursive: true,
+    });
 
     await this.templatesManagerRepository.install(
       ["git", "gitignore"],
@@ -85,10 +103,27 @@ export class SetupManagerRepositoryImplementation
         path.join("src", "app.ts"),
       );
 
-      await this.templatesManagerRepository.install(
-        ["typescript", "tsconfig.json"],
-        "tsconfig.json",
-      );
+      wichTest === "Vitest"
+        ? await this.templatesManagerRepository.install(
+            ["typescript", "tests", "vitest", "tsconfig.json"],
+            "tsconfig.json",
+          )
+        : await this.templatesManagerRepository.install(
+            ["typescript", "tsconfig.json"],
+            "tsconfig.json",
+          );
+    }
+
+    if (willTest) {
+      isTypescript
+        ? await this.templatesManagerRepository.install(
+            ["frameworks", "configs", "vitest", "vitest.config.ts"],
+            "vitest.config.ts",
+          )
+        : await this.templatesManagerRepository.install(
+            ["frameworks", "configs", "vitest", "vitest.config.js"],
+            "vitest.config.js",
+          );
     }
 
     if (!isTypescript) {
