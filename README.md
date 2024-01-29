@@ -31,12 +31,19 @@ Confectus simplifies the setup of backend projects with various configuration op
 #### Package Manager Compatibility
 
 - Confectus is compatible with various package managers, including npm, Yarn, pnpm, and bun. You can choose the package manager that best suits your workflow during the configuration process.
+  
+#### Cross-Platform Compatibility
 
+- **Linux and Windows Support:** Confectus now seamlessly works on both Linux and Windows environments, providing a consistent experience across different operating systems.
+
+#### Testing Options
+
+- Confectus introduces testing options, allowing you to test your setup and configurations for a smoother development process.
 
 ## Key Features
 
 - **Simple Configuration:** Confectus makes setting up your development environment an easy and effective task.
-- **Linux Compatibility:** Currently, Confectus supports Linux environments, making it even more user-friendly.
+- **Cross-Platform Compatibility:** Confectus supports both Linux and Windows environments, making it even more user-friendly.
 
 ## Installation
 
