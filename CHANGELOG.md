@@ -1,5 +1,11 @@
 # confectus
 
+## 1.0.0
+
+### Major Changes
+
+- First major version of confectus
+
 ## 0.4.0
 
 ### Minor Changes
