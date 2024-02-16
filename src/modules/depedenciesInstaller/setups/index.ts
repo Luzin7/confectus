@@ -1,4 +1,4 @@
-import { SettingsProps } from "src/types/setting";
+import { SettingsProps } from "@/types/setting";
 
 export const dependeciesSetup: SettingsProps = {
   typescript: {

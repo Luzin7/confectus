@@ -1,4 +1,4 @@
-import { Managers } from "src/types/manager";
+import { Managers } from "@/types/manager";
 
 export const managers: Managers = {
   NPM: {

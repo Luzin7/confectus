@@ -1,6 +1,6 @@
-import validateManagerInitCommand from "src/providers/validators/validateInitCommand";
-import { UseCase } from "src/shared/core/modules/UseCase";
+import { UseCase } from "@/shared/core/modules/UseCase";
 import { InitializeNewProjectRepository } from "../../repositories/contracts/InitializeNewProjectRepository";
+import validateManagerInitCommand from "@/providers/validators/validateInitCommand";
 
 interface req {
   managerInitCommand: string;

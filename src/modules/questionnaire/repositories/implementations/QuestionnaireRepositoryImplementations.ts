@@ -1,7 +1,7 @@
-import questions from "src/infra/cli/questions";
 import { QuestionnaireRepository } from "../contracts/QuestionnaireRepository";
 import inquirer from "inquirer";
 import { QuestionnaireError } from "../../errors/QuestionnaireError";
+import questions from "@/infra/cli/questions";
 
 export class QuestionnaireRepositoryImplementations
   implements QuestionnaireRepository

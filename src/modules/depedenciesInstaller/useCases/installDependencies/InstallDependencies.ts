@@ -1,4 +1,4 @@
-import { UseCase } from "src/shared/core/modules/UseCase";
+import { UseCase } from "@/shared/core/modules/UseCase";
 import { DepedenciesInstallerRepository } from "../../repositories/contracts/DepedenciesInstallerRepository";
 
 interface req {

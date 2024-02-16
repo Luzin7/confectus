@@ -1,4 +1,4 @@
-import { UseCase } from "src/shared/core/modules/UseCase";
+import { UseCase } from "@/shared/core/modules/UseCase";
 import { TemplatesManagerRepository } from "../../repositories/contracts/TemplatesManagerRepository";
 
 interface req {

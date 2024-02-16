@@ -1,5 +1,5 @@
+import { QuestionProps } from "@/types/question";
 import chalk from "chalk";
-import { QuestionProps } from "src/types/question";
 
 export const questions: QuestionProps[] = [
   {

@@ -1,4 +1,4 @@
-import { UseCaseError } from "src/shared/core/errors/ErrorUseCase";
+import { UseCaseError } from "@/shared/core/errors/ErrorUseCase";
 
 export class QuestionnaireError extends Error implements UseCaseError {
   constructor() {
