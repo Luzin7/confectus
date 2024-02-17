@@ -1,5 +1,11 @@
 # confectus
 
+## 1.1.0
+
+### Minor Changes
+
+- Add BiomeJS as option for linter, improve package size, update questionnaire and more.
+
 ## 1.0.0
 
 ### Major Changes
