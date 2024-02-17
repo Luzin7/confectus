@@ -15,7 +15,7 @@ export const dependeciesSetup: SettingsProps = {
     configFiles: [
       {
         configFileName: ".eslint.json",
-        configFilePath: "lint/javascript/.eslint.json",
+        configFilePath: "linters/eslint/javascript/.eslint.json",
       },
     ],
     dependencies: null,
@@ -26,12 +26,22 @@ export const dependeciesSetup: SettingsProps = {
     configFiles: [
       {
         configFileName: ".eslint.json",
-        configFilePath: "lint/typescript/.eslint.json",
+        configFilePath: "linters/eslint/typescript/.eslint.json",
       },
     ],
     dependencies: null,
     devDependencies:
       "eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-prettier eslint-config-standard eslint-plugin-import eslint-config-prettier prettier",
+  },
+  biome: {
+    configFiles: [
+      {
+        configFileName: "biome.json",
+        configFilePath: "linters/biome/biome.json",
+      },
+    ],
+    dependencies: null,
+    devDependencies: "@biomejs/biome",
   },
   vitest: {
     configFiles: [
