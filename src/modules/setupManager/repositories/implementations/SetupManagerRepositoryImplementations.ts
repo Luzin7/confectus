@@ -1,11 +1,11 @@
 import { SetupManagerRepository } from "../contracts/SetupManagerRepository";
-import Answers from "src/types/answers";
 import path from "path";
 import fs from "fs-extra";
-import { InitializeNewProjectRepository } from "src/modules/initializeNewProject/repositories/contracts/InitializeNewProjectRepository";
-import { DepedenciesInstallerRepository } from "src/modules/depedenciesInstaller/repositories/contracts/DepedenciesInstallerRepository";
-import managers from "src/infra/cli/managers";
-import { TemplatesManagerRepository } from "src/modules/templatesManager/repositories/contracts/TemplatesManagerRepository";
+import { InitializeNewProjectRepository } from "@/modules/initializeNewProject/repositories/contracts/InitializeNewProjectRepository";
+import { DepedenciesInstallerRepository } from "@/modules/depedenciesInstaller/repositories/contracts/DepedenciesInstallerRepository";
+import { TemplatesManagerRepository } from "@/modules/templatesManager/repositories/contracts/TemplatesManagerRepository";
+import { Answers } from "inquirer";
+import managers from "@/infra/cli/managers";
 
 export class SetupManagerRepositoryImplementation
   implements SetupManagerRepository

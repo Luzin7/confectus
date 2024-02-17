@@ -11,6 +11,9 @@
     "rootDir": "./src",
     "resolveJsonModule": true,
     "baseUrl": "./src",
+    "paths": {
+      "@/*": ["./*"]
+    }
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules", "dist"]
