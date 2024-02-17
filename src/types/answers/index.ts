@@ -3,6 +3,6 @@ export default interface Answers {
   wichManager: string;
   isVscode: string;
   wichLanguage: string;
-  willLint: string;
+  wichLinter: string;
   wichTest: string;
 }
