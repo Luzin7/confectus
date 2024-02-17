@@ -5,7 +5,7 @@
     "es2021": true
   },
   "extends": [
-    "eslint:recommended",
+    "airbnb-base",
     "plugin:prettier/recommended"
   ],
   "parserOptions": {
@@ -26,6 +26,5 @@
         "semi": true
       }
     ]
-    // Add more rules if necessary to your project
   }
 }
