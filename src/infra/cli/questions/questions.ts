@@ -8,7 +8,7 @@ export const questions: QuestionProps[] = [
     message: `📦 Have you already initialized your project with a ${chalk.whiteBright.underline(
       "init command",
     )}?`,
-    choices: ["Yes", "No"],
+    choices: ["No", "Yes"],
   },
   {
     name: "wichManager",
@@ -21,7 +21,9 @@ export const questions: QuestionProps[] = [
   {
     name: "isVscode",
     type: "list",
-    message: `💻 Are you using ${chalk.blueBright("VS Code")}?`,
+    message: `💻 Do you want to create a ${chalk.blueBright(
+      ".vscode",
+    )} folder?`,
     choices: ["Yes", "No"],
   },
   {
@@ -31,12 +33,10 @@ export const questions: QuestionProps[] = [
     choices: ["Javascript", "Typescript"],
   },
   {
-    name: "willLint",
+    name: "wichLinter",
     type: "list",
-    message: `🧹 Do you want to configure ${chalk.blue(
-      "ESLint",
-    )} to lint your code?`,
-    choices: ["Yes", "No"],
+    message: `🧹 Do you want to add ${chalk.blue("linter")} to lint your code?`,
+    choices: ["Eslint", "Biome", "No"],
   },
   {
     name: "wichTest",
