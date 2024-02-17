@@ -20,7 +20,7 @@ export const dependeciesSetup: SettingsProps = {
     ],
     dependencies: null,
     devDependencies:
-      "eslint prettier eslint-plugin-prettier eslint-config-prettier",
+      "eslint eslint-config-airbnb-base eslint-plugin-import eslint-plugin-prettier eslint-config-prettier",
   },
   eslintts: {
     configFiles: [
@@ -31,7 +31,7 @@ export const dependeciesSetup: SettingsProps = {
     ],
     dependencies: null,
     devDependencies:
-      "eslint prettier @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint-config-prettier eslint-plugin-prettier",
+      "eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-prettier eslint-config-standard eslint-plugin-import eslint-config-prettier prettier",
   },
   vitest: {
     configFiles: [
