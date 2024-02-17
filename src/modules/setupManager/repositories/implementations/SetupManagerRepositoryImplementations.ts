@@ -1,11 +1,11 @@
-import { SetupManagerRepository } from "../contracts/SetupManagerRepository";
-import Answers from "src/types/answers";
-import path from "path";
+import managers from "@/infra/cli/managers";
+import { DepedenciesInstallerRepository } from "@/modules/depedenciesInstaller/repositories/contracts/DepedenciesInstallerRepository";
+import { InitializeNewProjectRepository } from "@/modules/initializeNewProject/repositories/contracts/InitializeNewProjectRepository";
+import { TemplatesManagerRepository } from "@/modules/templatesManager/repositories/contracts/TemplatesManagerRepository";
 import fs from "fs-extra";
-import { InitializeNewProjectRepository } from "src/modules/initializeNewProject/repositories/contracts/InitializeNewProjectRepository";
-import { DepedenciesInstallerRepository } from "src/modules/depedenciesInstaller/repositories/contracts/DepedenciesInstallerRepository";
-import managers from "src/infra/cli/managers";
-import { TemplatesManagerRepository } from "src/modules/templatesManager/repositories/contracts/TemplatesManagerRepository";
+import path from "path";
+import Answers from "../../../../types/answers/index";
+import { SetupManagerRepository } from "../contracts/SetupManagerRepository";
 
 export class SetupManagerRepositoryImplementation
   implements SetupManagerRepository
@@ -18,35 +18,41 @@ export class SetupManagerRepositoryImplementation
 
   async installDependencies({
     wichLanguage,
-    willLint,
+    wichLinter,
     wichManager,
     wichTest,
   }: Pick<
     Answers,
-    "wichLanguage" | "willLint" | "wichManager" | "wichTest"
+    "wichLanguage" | "wichLinter" | "wichManager" | "wichTest"
   >): Promise<void> {
     const { installCommand } = managers[wichManager];
     const isTypescript = wichLanguage === "Typescript";
 
-    if (isTypescript) {
+    const installDependency = async (dependency: string) => {
       await this.depedenciesInstallerRepository.install(
         installCommand,
-        wichLanguage,
+        dependency,
       );
+    };
+
+    if (isTypescript) {
+      await installDependency(wichLanguage);
     }
 
-    if (willLint === "Yes") {
-      await this.depedenciesInstallerRepository.install(
-        installCommand,
-        isTypescript ? "EslintTS" : "Eslint",
-      );
+    if (wichLinter !== "No") {
+      if (wichLinter === "Eslint") {
+        const lintDependency = isTypescript ? "EslintTS" : "Eslint";
+        await installDependency(lintDependency);
+      }
+      if (wichLinter === "Biome") {
+        const biomeDependency = wichLinter;
+        await installDependency(biomeDependency);
+      }
     }
 
     if (wichTest === "Vitest") {
-      await this.depedenciesInstallerRepository.install(
-        installCommand,
-        isTypescript ? "VitestTS" : "Vitest",
-      );
+      const testDependency = isTypescript ? "VitestTS" : "Vitest";
+      await installDependency(testDependency);
     }
   }
 
@@ -55,7 +61,7 @@ export class SetupManagerRepositoryImplementation
     isVscode,
     wichManager,
     wichLanguage,
-    willLint,
+    wichLinter,
     wichTest,
   }: Pick<
     Answers,
@@ -64,86 +70,88 @@ export class SetupManagerRepositoryImplementation
     | "wichLanguage"
     | "wichManager"
     | "wichTest"
-    | "willLint"
+    | "wichLinter"
   >): Promise<void> {
     const isDevelopment = process.env.NODE_ENV === "development";
     const isTypescript = wichLanguage === "Typescript";
     const willTest = wichTest === "Vitest";
+
+    const createDirectory = async (directory: string) => {
+      await fs.mkdir(isDevelopment ? `./mock/${directory}` : directory, {
+        recursive: true,
+      });
+    };
+
+    const installTemplate = async (
+      templatePath: string[],
+      outputPath: string,
+    ) => {
+      await this.templatesManagerRepository.install(templatePath, outputPath);
+    };
 
     if (hasPackageJson === "No") {
       const { initCommand } = managers[wichManager];
       await this.initializeNewProjectRepository.install(initCommand);
     }
 
-    await fs.mkdir(isDevelopment ? "./mock/src" : "src", { recursive: true });
-    willTest &&
-      (await fs.mkdir(isDevelopment ? "./mock/src/test" : "src/test", {
-        recursive: true,
-      }));
+    await createDirectory("src");
+    willTest && (await createDirectory("src/test"));
 
-    await this.templatesManagerRepository.install(
-      ["git", "gitignore"],
-      ".gitignore",
-    );
+    await installTemplate(["git", "gitignore"], ".gitignore");
 
     if (isVscode === "Yes") {
-      await this.templatesManagerRepository.install(
+      await installTemplate(
         ["ide", "vscode", ".editorconfig"],
         ".editorconfig",
       );
-
-      await this.templatesManagerRepository.install(
+      await installTemplate(
         ["ide", "vscode", "settings.json"],
         path.join(".vscode", "settings.json"),
       );
     }
 
     if (isTypescript) {
-      await this.templatesManagerRepository.install(
+      await installTemplate(
         ["greetings", "helloWorld.ts"],
         path.join("src", "app.ts"),
       );
+      await installTemplate(["typescript", "tsconfig.json"], "tsconfig.json");
 
-      wichTest === "Vitest"
-        ? await this.templatesManagerRepository.install(
-            ["typescript", "tests", "vitest", "tsconfig.json"],
-            "tsconfig.json",
-          )
-        : await this.templatesManagerRepository.install(
-            ["typescript", "tsconfig.json"],
-            "tsconfig.json",
-          );
-    }
-
-    if (willTest) {
-      isTypescript
-        ? await this.templatesManagerRepository.install(
-            ["frameworks", "configs", "vitest", "vitest.config.ts"],
-            "vitest.config.ts",
-          )
-        : await this.templatesManagerRepository.install(
-            ["frameworks", "configs", "vitest", "vitest.config.js"],
-            "vitest.config.js",
-          );
-    }
-
-    if (!isTypescript) {
-      await this.templatesManagerRepository.install(
+      if (willTest) {
+        await installTemplate(
+          ["frameworks", "configs", "vitest", "vitest.config.ts"],
+          "vitest.config.ts",
+        );
+      }
+    } else {
+      await installTemplate(
         ["greetings", "helloWorld.ts"],
         path.join("src", "app.js"),
       );
     }
 
-    if (willLint === "Yes") {
-      isTypescript
-        ? await this.templatesManagerRepository.install(
-            ["lint", "typescript", ".eslintrc.json"],
+    if (willTest && !isTypescript) {
+      await installTemplate(
+        ["frameworks", "configs", "vitest", "vitest.config.js"],
+        "vitest.config.js",
+      );
+    }
+
+    if (wichLinter !== "No") {
+      if (wichLinter === "Eslint") {
+        await installTemplate(
+          [
+            "linters",
+            "eslint",
+            isTypescript ? "typescript" : "javascript",
             ".eslintrc.json",
-          )
-        : await this.templatesManagerRepository.install(
-            ["lint", "javascript", ".eslintrc.json"],
-            ".eslintrc.json",
-          );
+          ],
+          ".eslintrc.json",
+        );
+      }
+      if (wichLinter === "Biome") {
+        await installTemplate(["linters", "biome", "biome.json"], "biome.json");
+      }
     }
   }
 }

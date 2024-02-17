@@ -1,4 +1,4 @@
-import { SettingsProps } from "src/types/setting";
+import { SettingsProps } from "@/types/setting";
 
 export const dependeciesSetup: SettingsProps = {
   typescript: {
@@ -15,23 +15,33 @@ export const dependeciesSetup: SettingsProps = {
     configFiles: [
       {
         configFileName: ".eslint.json",
-        configFilePath: "lint/javascript/.eslint.json",
+        configFilePath: "linters/eslint/javascript/.eslint.json",
       },
     ],
     dependencies: null,
     devDependencies:
-      "eslint prettier eslint-plugin-prettier eslint-config-prettier",
+      "eslint eslint-config-airbnb-base eslint-plugin-import eslint-plugin-prettier eslint-config-prettier",
   },
   eslintts: {
     configFiles: [
       {
         configFileName: ".eslint.json",
-        configFilePath: "lint/typescript/.eslint.json",
+        configFilePath: "linters/eslint/typescript/.eslint.json",
       },
     ],
     dependencies: null,
     devDependencies:
-      "eslint prettier @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint-config-prettier eslint-plugin-prettier",
+      "eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-prettier eslint-config-standard eslint-plugin-import eslint-config-prettier prettier",
+  },
+  biome: {
+    configFiles: [
+      {
+        configFileName: "biome.json",
+        configFilePath: "linters/biome/biome.json",
+      },
+    ],
+    dependencies: null,
+    devDependencies: "@biomejs/biome",
   },
   vitest: {
     configFiles: [

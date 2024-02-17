@@ -21,9 +21,10 @@ function copyFolder(originPath, _destinationPath) {
 
 function build() {
   const currentPath = new URL(".", import.meta.url).pathname;
+  const decodedCurrentPath = decodeURIComponent(currentPath);
 
-  const originPath = join(currentPath, "./src/templates");
-  const destinationPath = join(currentPath, "./dist/templates");
+  const originPath = join(decodedCurrentPath, "./src/templates");
+  const destinationPath = join(decodedCurrentPath, "./dist/templates");
 
   copyFolder(originPath, destinationPath);
 }

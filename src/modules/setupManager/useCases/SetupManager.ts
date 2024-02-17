@@ -1,7 +1,7 @@
+import { UseCase } from "@/shared/core/modules/UseCase";
 import { SetupManagerRepository } from "../repositories/contracts/SetupManagerRepository";
 import chalk from "chalk";
 import { createSpinner } from "nanospinner";
-import { UseCase } from "src/shared/core/modules/UseCase";
 
 export class SetupManager implements UseCase<Record<string, string>> {
   constructor(private setupManagerRepository: SetupManagerRepository) {}

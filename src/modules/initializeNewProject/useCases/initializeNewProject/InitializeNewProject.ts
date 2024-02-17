@@ -1,5 +1,4 @@
-import validateManagerInitCommand from "src/providers/validators/validateInitCommand";
-import { UseCase } from "src/shared/core/modules/UseCase";
+import { UseCase } from "@/shared/core/modules/UseCase";
 import { InitializeNewProjectRepository } from "../../repositories/contracts/InitializeNewProjectRepository";
 
 interface req {
@@ -12,10 +11,6 @@ export class InitializeNewProject implements UseCase<req> {
   ) {}
 
   async execute({ managerInitCommand }: req): Promise<void> {
-    validateManagerInitCommand(managerInitCommand);
-
-    const command = `${managerInitCommand}`;
-
-    await this.initializeNewProjectRepository.install(command);
+    await this.initializeNewProjectRepository.install(managerInitCommand);
   }
 }

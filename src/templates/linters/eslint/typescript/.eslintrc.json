@@ -1,19 +1,19 @@
 {
-  "root": true,
   "env": {
     "node": true,
     "es2021": true
   },
   "extends": [
-    "eslint:recommended",
-    "plugin:prettier/recommended"
-  ],
+    "standard",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended"],
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "ecmaVersion": "latest"
+    "ecmaVersion": "latest",
+    "sourceType": "module"
   },
   "plugins": [
-    "prettier"
-  ],
+    "@typescript-eslint"],
   "rules": {
     "prettier/prettier": [
       "error",
@@ -26,6 +26,10 @@
         "semi": true
       }
     ]
-    // Add more rules if necessary to your project
-  }
+  },
+    "settings": {
+      "import/parsers": {
+        "@typescript-eslint/parser": [".ts", ".tsx", ".d.ts"]
+      }
+    }
 }
