@@ -104,8 +104,15 @@ export class SetupManagerRepositoryImplementation
         ["ide", "vscode", ".editorconfig"],
         ".editorconfig",
       );
+      if (wichLinter === "Biome") {
+        return await installTemplate(
+          ["ide", "vscode", "settings", "biome", "settings.json"],
+          path.join(".vscode", "settings.json"),
+        );
+      }
+
       await installTemplate(
-        ["ide", "vscode", "settings.json"],
+        ["ide", "vscode", "settings", "eslint", "settings.json"],
         path.join(".vscode", "settings.json"),
       );
     }
