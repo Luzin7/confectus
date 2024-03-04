@@ -105,7 +105,9 @@ export class SetupManagerRepositoryImplementation
     }
 
     if (willAddScripts) {
-      const packageJsonPath = "./mock/package.json";
+      const packageJsonPath = isDevelopment
+        ? "./mock/package.json"
+        : "package.json";
 
       const scripts = generateScripts(
         willTest,
