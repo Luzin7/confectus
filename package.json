@@ -19,7 +19,7 @@
     "Configuration"
   ],
   "scripts": {
-    "build": "tsup && node ./build.js",
+    "build": "tsup --minify && node ./build.js",
     "start": "npm run build && node ./dist/main.js",
     "changeset": "changeset",
     "version": "changeset version",
