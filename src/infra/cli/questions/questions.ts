@@ -3,14 +3,6 @@ import chalk from "chalk";
 
 export const questions: QuestionProps[] = [
   {
-    name: "hasPackageJson",
-    type: "list",
-    message: `📦 Have you already initialized your project with a ${chalk.whiteBright.underline(
-      "init command",
-    )}?`,
-    choices: ["No", "Yes"],
-  },
-  {
     name: "wichManager",
     type: "list",
     message: `🛠️  Which ${chalk.bold.underline(
@@ -19,12 +11,12 @@ export const questions: QuestionProps[] = [
     choices: ["NPM", "Yarn", "Bun", "PNPM"],
   },
   {
-    name: "isVscode",
+    name: "hasPackageJson",
     type: "list",
-    message: `💻 Do you want to create a ${chalk.blueBright(
-      ".vscode",
-    )} folder?`,
-    choices: ["Yes", "No"],
+    message: `📦 Have you already initialized your project with a ${chalk.whiteBright.underline(
+      "init command",
+    )}?`,
+    choices: ["No", "Yes"],
   },
   {
     name: "wichLanguage",
@@ -45,5 +37,29 @@ export const questions: QuestionProps[] = [
       "Test",
     )} to this project?`,
     choices: ["Vitest", "No"],
+  },
+  {
+    name: "isVscode",
+    type: "list",
+    message: `💻 Do you want to create a ${chalk.blueBright(
+      ".vscode",
+    )} folder?`,
+    choices: ["Yes", "No"],
+  },
+  {
+    name: "createDirectories",
+    type: "list",
+    message: `📂 Do you want to create a ${chalk.whiteBright.underline(
+      "src",
+    )} directory?`,
+    choices: ["Yes", "No"],
+  },
+  {
+    name: "addScripts",
+    type: "list",
+    message: `💻 Do you want implement common ${chalk.greenBright(
+      "scripts",
+    )} into your package.json (dev, start, test...)?`,
+    choices: ["Yes", "No"],
   },
 ];
