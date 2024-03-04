@@ -1,5 +1,3 @@
-### This tool is currently in development :D
-
 # Confectus
 
 Welcome to Confectus, your friendly tool for automating development environment setup!
