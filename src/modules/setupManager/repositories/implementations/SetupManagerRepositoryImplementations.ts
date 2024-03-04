@@ -2,6 +2,7 @@ import managers from "@/infra/cli/managers";
 import { DepedenciesInstallerRepository } from "@/modules/depedenciesInstaller/repositories/contracts/DepedenciesInstallerRepository";
 import { InitializeNewProjectRepository } from "@/modules/initializeNewProject/repositories/contracts/InitializeNewProjectRepository";
 import { TemplatesManagerRepository } from "@/modules/templatesManager/repositories/contracts/TemplatesManagerRepository";
+import { generateScripts } from "@/templates/scripts/generateScripts";
 import fs from "fs-extra";
 import path from "path";
 import Answers from "../../../../types/answers/index";
@@ -63,6 +64,8 @@ export class SetupManagerRepositoryImplementation
     wichLanguage,
     wichLinter,
     wichTest,
+    createDirectories,
+    addScripts,
   }: Pick<
     Answers,
     | "hasPackageJson"
@@ -71,10 +74,14 @@ export class SetupManagerRepositoryImplementation
     | "wichManager"
     | "wichTest"
     | "wichLinter"
+    | "createDirectories"
+    | "addScripts"
   >): Promise<void> {
     const isDevelopment = process.env.NODE_ENV === "development";
     const isTypescript = wichLanguage === "Typescript";
     const willTest = wichTest === "Vitest";
+    const willHaveSrcDirectory = createDirectories === "Yes";
+    const willAddScripts = addScripts === "Yes";
 
     const createDirectory = async (directory: string) => {
       await fs.mkdir(isDevelopment ? `./mock/${directory}` : directory, {
@@ -89,45 +96,73 @@ export class SetupManagerRepositoryImplementation
       await this.templatesManagerRepository.install(templatePath, outputPath);
     };
 
+    await installTemplate(["git", "gitignore"], ".gitignore");
+    await installTemplate(["git", "README.md"], "README.md");
+
     if (hasPackageJson === "No") {
       const { initCommand } = managers[wichManager];
       await this.initializeNewProjectRepository.install(initCommand);
     }
 
-    await createDirectory("src");
-    willTest && (await createDirectory("src/test"));
+    if (willAddScripts) {
+      const packageJsonPath = isDevelopment
+        ? "./mock/package.json"
+        : "package.json";
 
-    await installTemplate(["git", "gitignore"], ".gitignore");
+      const scripts = generateScripts(
+        willTest,
+        willHaveSrcDirectory,
+        isTypescript,
+      );
+
+      const packageJson = await fs.readJson(packageJsonPath);
+
+      packageJson.scripts = { ...packageJson.scripts, ...scripts };
+
+      await fs.writeJson(packageJsonPath, packageJson, { spaces: 2 });
+    }
+
+    if (willHaveSrcDirectory) {
+      await createDirectory("src");
+      willTest && (await createDirectory("src/test"));
+
+      isTypescript
+        ? await installTemplate(
+            ["greetings", "helloWorld.ts"],
+            path.join("src", "app.ts"),
+          )
+        : await installTemplate(
+            ["greetings", "helloWorld.ts"],
+            path.join("src", "app.js"),
+          );
+    }
 
     if (isVscode === "Yes") {
       await installTemplate(
         ["ide", "vscode", ".editorconfig"],
         ".editorconfig",
       );
+      if (wichLinter === "Biome") {
+        return await installTemplate(
+          ["ide", "vscode", "settings", "biome", "settings.json"],
+          path.join(".vscode", "settings.json"),
+        );
+      }
+
       await installTemplate(
-        ["ide", "vscode", "settings.json"],
+        ["ide", "vscode", "settings", "eslint", "settings.json"],
         path.join(".vscode", "settings.json"),
       );
     }
 
     if (isTypescript) {
-      await installTemplate(
-        ["greetings", "helloWorld.ts"],
-        path.join("src", "app.ts"),
-      );
       await installTemplate(["typescript", "tsconfig.json"], "tsconfig.json");
-
       if (willTest) {
         await installTemplate(
           ["frameworks", "configs", "vitest", "vitest.config.ts"],
           "vitest.config.ts",
         );
       }
-    } else {
-      await installTemplate(
-        ["greetings", "helloWorld.ts"],
-        path.join("src", "app.js"),
-      );
     }
 
     if (willTest && !isTypescript) {

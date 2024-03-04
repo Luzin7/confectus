@@ -5,4 +5,6 @@ export default interface Answers {
   wichLanguage: string;
   wichLinter: string;
   wichTest: string;
+  createDirectories: string;
+  addScripts: string;
 }

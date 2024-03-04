@@ -6,4 +6,5 @@ export default defineConfig({
   outDir: "./dist",
   plugins: [rollup()],
   loader: { ".*": "copy" },
+  external: ["vitest/config"],
 });

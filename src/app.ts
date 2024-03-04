@@ -3,7 +3,8 @@ import { InitializeNewProjectRepositoryImplementations } from "./modules/initial
 import { QuestionnaireRepositoryImplementations } from "./modules/questionnaire/repositories/implementations/QuestionnaireRepositoryImplementations";
 import Questionnaire from "./modules/questionnaire/useCases/questionnaire";
 import { SetupManagerRepositoryImplementation } from "./modules/setupManager/repositories/implementations/SetupManagerRepositoryImplementations";
-import { SetupManager } from "./modules/setupManager/useCases/SetupManager";
+import { EnvironmentSettings } from "./modules/setupManager/useCases/environmentSettings/EnvironmentSettings";
+import { InstallDependencies } from "./modules/setupManager/useCases/installDependencies/installDependencies";
 import { TemplatesManagerRepositoryImplementations } from "./modules/templatesManager/repositories/implementations/TemplatesManagerRepositoryImplementations";
 
 export async function app() {
@@ -21,10 +22,16 @@ export async function app() {
       templatesManagerRepository,
     );
   const questionnaire = new Questionnaire(questionnaireRepository);
-  const setupManager = new SetupManager(setupManagerRepositoryImplementation);
+  const environmentSettings = new EnvironmentSettings(
+    setupManagerRepositoryImplementation,
+  );
+  const installDependencies = new InstallDependencies(
+    setupManagerRepositoryImplementation,
+  );
 
   await questionnaire.execute();
   const answers = questionnaireRepository.Answers;
 
-  await setupManager.execute(answers);
+  await environmentSettings.execute(answers);
+  await installDependencies.execute(answers);
 }

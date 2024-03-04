@@ -1,5 +1,11 @@
 # confectus
 
+## 1.2.0
+
+### Minor Changes
+
+- Add more configuration and options for the user, improve package size and performance, update questionnaire and more.
+
 ## 1.1.1
 
 ### Patch Changes
