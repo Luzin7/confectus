@@ -12,11 +12,11 @@ Confectus simplifies the setup of backend projects with various configuration op
 
 #### TypeScript or JavaScript
 
-- When running Confectus, you can choose to set up your backend project using TypeScript or JavaScript.
+- When running Confectus, you can choose to set up your backend project using **TypeScript** or **JavaScript**.
 
-#### ESLint Integration
+#### Linters Integration
 
-- Confectus allows you to include ESLint in your project setup if you prefer linting. You have the flexibility to enable or disable ESLint during the configuration process.
+- Confectus allows you to include `ESLint` o `Biome` in your project setup if you prefer linting.
 
 #### VSCode Integration
 
@@ -28,11 +28,11 @@ Confectus simplifies the setup of backend projects with various configuration op
 
 #### Package Manager Compatibility
 
-- Confectus is compatible with various package managers, including npm, Yarn, pnpm, and bun. You can choose the package manager that best suits your workflow during the configuration process.
-  
+- Confectus is compatible with various package managers, including NPM, Yarn, PNPM, and Bun. You can choose the package manager that best suits your workflow during the configuration process.
+
 #### Cross-Platform Compatibility
 
-- **Linux and Windows Support:** Confectus now seamlessly works on both Linux and Windows environments, providing a consistent experience across different operating systems.
+- **Linux and Windows Support:** Confectus works on both Linux and Windows environments, providing a consistent experience across different operating systems.
 
 #### Testing Options
 
@@ -48,10 +48,11 @@ Confectus simplifies the setup of backend projects with various configuration op
 To get started, ensure you have Node.js installed. Then, use the following command to install Confectus:
 
 ```bash
-npm install confectus -g #recommended
+npm install -g confectus  #recommended
 ```
 
 ## How to use Confectus
+
 After installation, you can use Confectus as follows:
 
 ```bash
@@ -59,8 +60,14 @@ confectus #if installed globally
 
 or
 
+cf #if installed globally
+
+or
+
 npx confectus
 ```
+
+After running the command, you just need to select the options that you want to and let's code!
 
 ## Contribution
 
