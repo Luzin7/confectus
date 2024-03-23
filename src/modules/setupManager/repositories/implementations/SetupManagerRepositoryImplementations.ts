@@ -2,7 +2,7 @@ import managers from "@/infra/cli/managers";
 import { DepedenciesInstallerRepository } from "@/modules/depedenciesInstaller/repositories/contracts/DepedenciesInstallerRepository";
 import { InitializeNewProjectRepository } from "@/modules/initializeNewProject/repositories/contracts/InitializeNewProjectRepository";
 import { TemplatesManagerRepository } from "@/modules/templatesManager/repositories/contracts/TemplatesManagerRepository";
-import { generateScripts } from "@/templates/scripts/generateScripts";
+import { generateScripts } from "@/templates/backend/scripts/generateScripts";
 import fs from "fs-extra";
 import path from "path";
 import Answers from "../../../../types/answers/index";
