@@ -1,6 +1,15 @@
 import { QuestionProps } from "@/types/question";
 import chalk from "chalk";
 
+export const wichStackQuestion: QuestionProps[] = [
+  {
+    name: "wichStack",
+    type: "list",
+    message: "Which stack do you will use?",
+    choices: ["Frontend", "Backend"],
+  },
+];
+
 export const backendQuestions: QuestionProps[] = [
   {
     name: "wichManager",
@@ -100,6 +109,16 @@ export const frontendQuestions: QuestionProps[] = [
       ".vscode",
     )} folder?`,
     choices: ["Yes", "No"],
+  },
+  {
+    name: "wichStack",
+    type: "list",
+    message: "🛠️  Which stack are you using?",
+    choices: [
+      chalk.blueBright("React"),
+      chalk.white("Next.js"),
+      chalk.magenta("Vue"),
+    ],
   },
   {
     name: "createDirectories",
