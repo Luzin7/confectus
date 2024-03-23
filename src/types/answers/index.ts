@@ -7,4 +7,5 @@ export default interface Answers {
   wichTest: string;
   createDirectories: string;
   addScripts: string;
+  wichStack: string;
 }
