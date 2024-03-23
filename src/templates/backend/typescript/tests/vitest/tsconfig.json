@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target": "es2018", 
+    "module": "commonjs",
+    "lib": ["es2018"],
+    "strict": true,
+    "experimentalDecorators": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "baseUrl": "./src",
+    "resolveJsonModule": true,
+    "types": ["node", "vitest/globals"],
+    "paths": {
+      "@/*": ["./*"]
+    }
+  },
+  "include": ["./src/**/*"],
+  "exclude": ["node_modules", "dist", "test"]
+}
