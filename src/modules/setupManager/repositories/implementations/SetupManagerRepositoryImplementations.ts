@@ -1,8 +1,13 @@
 import managers from "@/infra/cli/managers";
 import { DepedenciesInstallerRepository } from "@/modules/depedenciesInstaller/repositories/contracts/DepedenciesInstallerRepository";
+import {
+  backendDependeciesSetup,
+  frontendDependeciesSetup,
+} from "@/modules/depedenciesInstaller/setups";
 import { InitializeNewProjectRepository } from "@/modules/initializeNewProject/repositories/contracts/InitializeNewProjectRepository";
 import { TemplatesManagerRepository } from "@/modules/templatesManager/repositories/contracts/TemplatesManagerRepository";
-import { generateScripts } from "@/templates/scripts/generateScripts";
+import { generateScripts } from "@/templates/backend/scripts/generateScripts";
+import { SettingsProps } from "@/types/setting";
 import fs from "fs-extra";
 import path from "path";
 import Answers from "../../../../types/answers/index";
@@ -22,17 +27,21 @@ export class SetupManagerRepositoryImplementation
     wichLinter,
     wichManager,
     wichTest,
+    stack,
   }: Pick<
     Answers,
-    "wichLanguage" | "wichLinter" | "wichManager" | "wichTest"
+    "wichLanguage" | "wichLinter" | "wichManager" | "wichTest" | "stack"
   >): Promise<void> {
     const { installCommand } = managers[wichManager];
-    const isTypescript = wichLanguage === "Typescript";
+    const isTypescript: boolean = wichLanguage === "Typescript";
+    const stackChoiced: SettingsProps =
+      stack === "Backend" ? backendDependeciesSetup : frontendDependeciesSetup;
 
     const installDependency = async (dependency: string) => {
       await this.depedenciesInstallerRepository.install(
         installCommand,
         dependency,
+        stackChoiced,
       );
     };
 
@@ -66,6 +75,7 @@ export class SetupManagerRepositoryImplementation
     wichTest,
     createDirectories,
     addScripts,
+    stack,
   }: Pick<
     Answers,
     | "hasPackageJson"
@@ -76,12 +86,16 @@ export class SetupManagerRepositoryImplementation
     | "wichLinter"
     | "createDirectories"
     | "addScripts"
+    | "stack"
   >): Promise<void> {
     const isDevelopment = process.env.NODE_ENV === "development";
     const isTypescript = wichLanguage === "Typescript";
     const willTest = wichTest === "Vitest";
     const willHaveSrcDirectory = createDirectories === "Yes";
     const willAddScripts = addScripts === "Yes";
+    const linterChoiced = wichLinter;
+    const stackChoiced =
+      stack === "Backend" ? backendDependeciesSetup : frontendDependeciesSetup;
 
     const createDirectory = async (directory: string) => {
       await fs.mkdir(isDevelopment ? `./mock/${directory}` : directory, {
@@ -128,64 +142,68 @@ export class SetupManagerRepositoryImplementation
 
       isTypescript
         ? await installTemplate(
-            ["greetings", "helloWorld.ts"],
+            stackChoiced.greetings.configFiles.configFilePath,
             path.join("src", "app.ts"),
           )
         : await installTemplate(
-            ["greetings", "helloWorld.ts"],
+            stackChoiced.greetings.configFiles.configFilePath,
             path.join("src", "app.js"),
           );
     }
 
     if (isVscode === "Yes") {
       await installTemplate(
-        ["ide", "vscode", ".editorconfig"],
-        ".editorconfig",
+        stackChoiced.editorconfig.configFiles.configFilePath,
+        stackChoiced.editorconfig.configFiles.configFileName,
       );
-      if (wichLinter === "Biome") {
+      if (linterChoiced === "Biome") {
         return await installTemplate(
-          ["ide", "vscode", "settings", "biome", "settings.json"],
+          stackChoiced.biome.configFiles.configFilePath,
           path.join(".vscode", "settings.json"),
         );
       }
 
       await installTemplate(
-        ["ide", "vscode", "settings", "eslint", "settings.json"],
+        stackChoiced.vscode.configFiles.configFilePath,
         path.join(".vscode", "settings.json"),
       );
     }
 
     if (isTypescript) {
-      await installTemplate(["typescript", "tsconfig.json"], "tsconfig.json");
+      await installTemplate(
+        stackChoiced[wichLanguage.toLowerCase()].configFiles.configFilePath,
+        stackChoiced[wichLanguage.toLowerCase()].configFiles.configFileName,
+      );
       if (willTest) {
+        const typescriptTest = "vitestts";
         await installTemplate(
-          ["frameworks", "configs", "vitest", "vitest.config.ts"],
-          "vitest.config.ts",
+          stackChoiced[typescriptTest.toLowerCase()].configFiles.configFilePath,
+          stackChoiced[typescriptTest.toLowerCase()].configFiles.configFileName,
         );
       }
     }
 
     if (willTest && !isTypescript) {
       await installTemplate(
-        ["frameworks", "configs", "vitest", "vitest.config.js"],
-        "vitest.config.js",
+        stackChoiced[wichTest.toLowerCase()].configFiles.configFilePath,
+        stackChoiced[wichTest.toLowerCase()].configFiles.configFileName,
       );
     }
 
-    if (wichLinter !== "No") {
-      if (wichLinter === "Eslint") {
+    if (linterChoiced !== "No") {
+      if (linterChoiced === "Eslint") {
+        const lintDependency = isTypescript ? "eslintts" : "eslint";
+
         await installTemplate(
-          [
-            "linters",
-            "eslint",
-            isTypescript ? "typescript" : "javascript",
-            ".eslintrc.json",
-          ],
-          ".eslintrc.json",
+          stackChoiced[lintDependency.toLowerCase()].configFiles.configFilePath,
+          stackChoiced[lintDependency.toLowerCase()].configFiles.configFileName,
         );
       }
-      if (wichLinter === "Biome") {
-        await installTemplate(["linters", "biome", "biome.json"], "biome.json");
+      if (linterChoiced === "Biome") {
+        await installTemplate(
+          stackChoiced[linterChoiced.toLowerCase()].configFiles.configFilePath,
+          stackChoiced[linterChoiced.toLowerCase()].configFiles.configFileName,
+        );
       }
     }
   }

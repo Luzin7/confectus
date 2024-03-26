@@ -1,3 +1,7 @@
-import { questions } from "./questions";
+import {
+  backendQuestions,
+  frontendQuestions,
+  wichStackQuestion,
+} from "./questions";
 
-export default questions;
+export { backendQuestions, frontendQuestions, wichStackQuestion };

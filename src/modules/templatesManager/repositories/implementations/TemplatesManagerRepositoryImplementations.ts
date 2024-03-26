@@ -1,8 +1,8 @@
-import { TemplatesManagerRepository } from "../contracts/TemplatesManagerRepository";
-import path from "path";
 import fs from "fs-extra";
-import { FileCopyError } from "../../errors/FileCopyError";
+import path from "path";
 import { fileURLToPath } from "url";
+import { FileCopyError } from "../../errors/FileCopyError";
+import { TemplatesManagerRepository } from "../contracts/TemplatesManagerRepository";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -34,6 +34,10 @@ export class TemplatesManagerRepositoryImplementations
         fs.mkdirSync(path.dirname(destinationPath), { recursive: true });
         fs.copyFileSync(sourcePath, destinationPath);
       } catch (error) {
+        if (isDevelopment) {
+          console.error(error);
+        }
+
         throw new Error(fileCopyError.message);
       }
     };
