@@ -1,11 +1,12 @@
 export default interface Answers {
-  hasPackageJson: string;
-  wichManager: string;
-  isVscode: string;
-  wichLanguage: string;
-  wichLinter: string;
-  wichTest: string;
-  createDirectories: string;
-  addScripts: string;
-  wichStack: string;
+  hasPackageJson: "Yes" | "No";
+  wichManager: "NPM" | "Yarn" | "Bun" | "PNPM";
+  isVscode: "Yes" | "No";
+  wichLanguage: "Javascript" | "Typescript";
+  wichLinter: "Eslint" | "Biome" | "No";
+  wichTest: "Vitest" | "No";
+  createDirectories: "Yes" | "No";
+  addScripts: "Yes" | "No";
+  wichStack: "React" | "Next.js" | "Vue.js";
+  stack: "Frontend" | "Backend";
 }
