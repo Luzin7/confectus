@@ -3,6 +3,7 @@ import {
   frontendQuestions,
   wichStackQuestion,
 } from "@/infra/cli/questions";
+import { QuestionProps } from "@/types/question";
 import inquirer from "inquirer";
 import { QuestionnaireError } from "../../errors/QuestionnaireError";
 import { QuestionnaireRepository } from "../contracts/QuestionnaireRepository";
@@ -14,7 +15,7 @@ export class QuestionnaireRepositoryImplementations
   private answers: Record<string, string> = {};
 
   private wichStackWillUse(stackChoice: Record<string, string>) {
-    this.stackChoice = stackChoice.wichStack.toLowerCase();
+    this.stackChoice = stackChoice.stack;
   }
 
   private saveAnswers(answers: Record<string, string>) {
@@ -25,15 +26,24 @@ export class QuestionnaireRepositoryImplementations
     try {
       const stack: Record<string, string> =
         await inquirer.prompt(wichStackQuestion);
+
       this.wichStackWillUse(stack);
 
-      const isFrontend: boolean = this.stackChoice === "frontend";
+      this.saveAnswers({ stack: this.stackChoice });
 
-      const questions = isFrontend ? frontendQuestions : backendQuestions;
+      const isFrontend: boolean = this.stackChoice === "Frontend";
+
+      const questions: QuestionProps[] = isFrontend
+        ? frontendQuestions
+        : backendQuestions;
       const answers: Record<string, string> = await inquirer.prompt(questions);
 
       return this.saveAnswers(answers);
     } catch (error) {
+      if (process.env.NODE_ENV === "development") {
+        return console.error({ error });
+      }
+
       return console.error(new QuestionnaireError());
     }
   }
