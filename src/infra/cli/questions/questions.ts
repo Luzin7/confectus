@@ -3,7 +3,7 @@ import chalk from "chalk";
 
 export const wichStackQuestion: QuestionProps[] = [
   {
-    name: "wichStack",
+    name: "stack",
     type: "list",
     message: "Which stack do you will use?",
     choices: ["Frontend", "Backend"],
@@ -83,14 +83,6 @@ export const frontendQuestions: QuestionProps[] = [
     choices: ["NPM", "Yarn", "Bun", "PNPM"],
   },
   {
-    name: "hasPackageJson",
-    type: "list",
-    message: `📦 Have you already created your ${chalk.whiteBright.underline(
-      "package.json",
-    )}?`,
-    choices: ["No", "Yes"],
-  },
-  {
     name: "wichLanguage",
     type: "list",
     message: `🪛  Wich ${chalk.cyan("language")} do you want to use?`,
@@ -114,26 +106,6 @@ export const frontendQuestions: QuestionProps[] = [
     name: "wichStack",
     type: "list",
     message: "🛠️  Which stack are you using?",
-    choices: [
-      chalk.blueBright("React"),
-      chalk.white("Next.js"),
-      chalk.magenta("Vue"),
-    ],
-  },
-  {
-    name: "createDirectories",
-    type: "list",
-    message: `📂 Do you want to create a ${chalk.whiteBright.underline(
-      "src",
-    )} directory?`,
-    choices: ["Yes", "No"],
-  },
-  {
-    name: "addScripts",
-    type: "list",
-    message: `💻 Do you want implement common ${chalk.greenBright(
-      "scripts",
-    )} into your package.json (dev, start, test...)?`,
-    choices: ["Yes", "No"],
+    choices: ["React", "Next.js", "Vue.js"],
   },
 ];
