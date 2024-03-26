@@ -1,8 +1,8 @@
+import { SettingsProps } from "@/types/setting";
 import { exec } from "child_process";
 import { promisify } from "util";
 import { InstallationDependecyError } from "../../errors/InstallationDependecyError";
 import { InstallationDevelopmentDependecyError } from "../../errors/InstallationDevelopmentDependecyError";
-import { backendDependeciesSetup } from "../../setups";
 import { DepedenciesInstallerRepository } from "../contracts/DepedenciesInstallerRepository";
 
 export class DepedenciesInstallerRepositoryImplementations
@@ -11,9 +11,10 @@ export class DepedenciesInstallerRepositoryImplementations
   async install(
     managerInstallCommand: string,
     dependency: string,
+    stackChoiced: SettingsProps,
   ): Promise<void> {
     const { dependencies, devDependencies } =
-      backendDependeciesSetup[dependency.toLowerCase()] ?? {};
+      stackChoiced[dependency.toLowerCase()] ?? {};
 
     function installCommand(deps: string, dev: boolean) {
       const isDevelopment = process.env.NODE_ENV === "development";
