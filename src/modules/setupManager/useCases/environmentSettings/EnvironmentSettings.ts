@@ -11,7 +11,12 @@ export class EnvironmentSettings implements UseCase<Record<string, string>> {
       `We're rushing to setup your project!`,
     ).start();
     try {
-      await this.setupManagerRepository.setupConfigurations(answers);
+      if (answers.stack === "Frontend") {
+        return await this.setupManagerRepository.setupFrontendConfigurations(
+          answers,
+        );
+      }
+      await this.setupManagerRepository.setupBackendConfigurations(answers);
       spinner.success({ text: "Project environment is now complete!" });
     } catch (error) {
       spinner.error({
