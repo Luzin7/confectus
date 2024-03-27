@@ -1,5 +1,11 @@
 # confectus
 
+## 1.3.0
+
+### Minor Changes
+
+- Add Frontend configuration and options for the user, update questionnaire and fix minor bugs.
+
 ## 1.2.0
 
 ### Minor Changes
