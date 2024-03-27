@@ -75,6 +75,14 @@ export const backendQuestions: QuestionProps[] = [
 
 export const frontendQuestions: QuestionProps[] = [
   {
+    name: "hasPackageJson",
+    type: "list",
+    message: `📦 Have you already created your ${chalk.whiteBright.underline(
+      "package.json",
+    )}?`,
+    choices: ["No", "Yes"],
+  },
+  {
     name: "wichManager",
     type: "list",
     message: `🛠️  Which ${chalk.bold.underline(
