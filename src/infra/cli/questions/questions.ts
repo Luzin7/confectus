@@ -1,7 +1,16 @@
 import { QuestionProps } from "@/types/question";
 import chalk from "chalk";
 
-export const questions: QuestionProps[] = [
+export const wichStackQuestion: QuestionProps[] = [
+  {
+    name: "stack",
+    type: "list",
+    message: "Which stack do you will use?",
+    choices: ["Frontend", "Backend"],
+  },
+];
+
+export const backendQuestions: QuestionProps[] = [
   {
     name: "wichManager",
     type: "list",
@@ -13,8 +22,8 @@ export const questions: QuestionProps[] = [
   {
     name: "hasPackageJson",
     type: "list",
-    message: `📦 Have you already initialized your project with a ${chalk.whiteBright.underline(
-      "init command",
+    message: `📦 Have you already created your ${chalk.whiteBright.underline(
+      "package.json",
     )}?`,
     choices: ["No", "Yes"],
   },
@@ -61,5 +70,50 @@ export const questions: QuestionProps[] = [
       "scripts",
     )} into your package.json (dev, start, test...)?`,
     choices: ["Yes", "No"],
+  },
+];
+
+export const frontendQuestions: QuestionProps[] = [
+  {
+    name: "hasPackageJson",
+    type: "list",
+    message: `📦 Have you already created your ${chalk.whiteBright.underline(
+      "package.json",
+    )}?`,
+    choices: ["No", "Yes"],
+  },
+  {
+    name: "wichManager",
+    type: "list",
+    message: `🛠️  Which ${chalk.bold.underline(
+      "package manager",
+    )} do want to use?`,
+    choices: ["NPM", "Yarn", "Bun", "PNPM"],
+  },
+  {
+    name: "wichLanguage",
+    type: "list",
+    message: `🪛  Wich ${chalk.cyan("language")} do you want to use?`,
+    choices: ["Javascript", "Typescript"],
+  },
+  {
+    name: "wichLinter",
+    type: "list",
+    message: `🧹 Do you want to add ${chalk.blue("linter")} to lint your code?`,
+    choices: ["Eslint", "Biome", "No"],
+  },
+  {
+    name: "isVscode",
+    type: "list",
+    message: `💻 Do you want to create a ${chalk.blueBright(
+      ".vscode",
+    )} folder?`,
+    choices: ["Yes", "No"],
+  },
+  {
+    name: "wichStack",
+    type: "list",
+    message: "🛠️  Which stack are you using?",
+    choices: ["React", "Next.js", "Vue.js"],
   },
 ];

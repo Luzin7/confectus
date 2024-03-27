@@ -4,6 +4,7 @@
     "module": "commonjs",
     "lib": ["es2018"],
     "strict": true,
+    "experimentalDecorators": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
