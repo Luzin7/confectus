@@ -36,13 +36,13 @@ export const backendDependeciesSetup: SettingsProps = {
   },
   eslint: {
     configFiles: {
-      configFileName: ".eslint.json",
+      configFileName: ".eslintrc.json",
       configFilePath: [
         "backend",
         "linters",
         "eslint",
         "javascript",
-        ".eslint.json",
+        ".eslintrc.json",
       ],
     },
     dependencies: null,
@@ -51,13 +51,13 @@ export const backendDependeciesSetup: SettingsProps = {
   },
   eslintts: {
     configFiles: {
-      configFileName: ".eslint.json",
+      configFileName: ".eslintrc.json",
       configFilePath: [
         "backend",
         "linters",
         "eslint",
         "typescript",
-        ".eslint.json",
+        ".eslintrc.json",
       ],
     },
 
@@ -107,14 +107,14 @@ export const backendDependeciesSetup: SettingsProps = {
 export const frontendDependeciesSetup: SettingsProps = {
   eslintreact: {
     configFiles: {
-      configFileName: ".eslint.json",
+      configFileName: ".eslintrc.json",
       configFilePath: [
         "frontend",
         "linters",
         "react",
         "eslint",
         "javascript",
-        ".eslint.json",
+        ".eslintrc.json",
       ],
     },
     dependencies: null,
@@ -123,14 +123,14 @@ export const frontendDependeciesSetup: SettingsProps = {
   },
   eslintreactts: {
     configFiles: {
-      configFileName: ".eslint.json",
+      configFileName: ".eslintrc.json",
       configFilePath: [
         "frontend",
         "linters",
         "react",
         "eslint",
         "typescript",
-        ".eslint.json",
+        ".eslintrc.json",
       ],
     },
 
@@ -140,14 +140,14 @@ export const frontendDependeciesSetup: SettingsProps = {
   },
   eslintnext: {
     configFiles: {
-      configFileName: ".eslint.json",
+      configFileName: ".eslintrc.json",
       configFilePath: [
         "frontend",
         "linters",
         "next",
         "eslint",
         "javascript",
-        ".eslint.json",
+        ".eslintrc.json",
       ],
     },
     dependencies: null,
@@ -156,14 +156,14 @@ export const frontendDependeciesSetup: SettingsProps = {
   },
   eslintnextts: {
     configFiles: {
-      configFileName: ".eslint.json",
+      configFileName: ".eslintrc.json",
       configFilePath: [
         "frontend",
         "linters",
         "next",
         "eslint",
         "typescript",
-        ".eslint.json",
+        ".eslintrc.json",
       ],
     },
 
@@ -173,14 +173,14 @@ export const frontendDependeciesSetup: SettingsProps = {
   },
   eslintvue: {
     configFiles: {
-      configFileName: ".eslint.json",
+      configFileName: ".eslintrc.json",
       configFilePath: [
         "frontend",
         "linters",
         "vue",
         "eslint",
         "javascript",
-        ".eslint.json",
+        ".eslintrc.json",
       ],
     },
     dependencies: null,
@@ -189,14 +189,14 @@ export const frontendDependeciesSetup: SettingsProps = {
   },
   eslintvuets: {
     configFiles: {
-      configFileName: ".eslint.json",
+      configFileName: ".eslintrc.json",
       configFilePath: [
         "frontend",
         "linters",
         "vue",
         "eslint",
         "typescript",
-        ".eslint.json",
+        ".eslintrc.json",
       ],
     },
 
@@ -211,5 +211,21 @@ export const frontendDependeciesSetup: SettingsProps = {
     },
     dependencies: null,
     devDependencies: "@biomejs/biome",
+  },
+  editorconfig: {
+    configFiles: {
+      configFileName: ".editorconfig",
+      configFilePath: ["ide", "vscode", ".editorconfig"],
+    },
+    dependencies: null,
+    devDependencies: null,
+  },
+  vscode: {
+    configFiles: {
+      configFileName: ".vscode/settings.json",
+      configFilePath: ["ide", "vscode", "settings", "eslint", "settings.json"],
+    },
+    dependencies: null,
+    devDependencies: null,
   },
 };
