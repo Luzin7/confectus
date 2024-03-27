@@ -4,19 +4,19 @@ Welcome to Confectus, your friendly tool for automating development environment 
 
 ## About
 
-Confectus is a Command Line Interface (CLI) designed to simplify the process of configuring development environments, especially for JavaScript and TypeScript backend projects.
+Confectus is a Command Line Interface (CLI) designed to simplify the process of configuring development environments, whether for frontend or backend projects using JavaScript and TypeScript.
 
 ### Project Configuration
 
-Confectus simplifies the setup of backend projects with various configuration options:
+Confectus simplifies the setup of projects with various configuration options:
 
-#### TypeScript or JavaScript
+#### Backend and Frontend Configuration
 
-- When running Confectus, you can choose to set up your backend project using **TypeScript** or **JavaScript**.
+- You can set up your project using **TypeScript** or **JavaScript**.
 
 #### Linters Integration
 
-- Confectus allows you to include `ESLint` o `Biome` in your project setup if you prefer linting.
+- Confectus allows you to include `ESLint` or `Biome` in your project setup if you prefer linting.
 
 #### VSCode Integration
 
@@ -24,7 +24,7 @@ Confectus simplifies the setup of backend projects with various configuration op
 
 #### Git Integration
 
-- Confectus automatically generates a `.gitignore` file tailored for Node.js and TypeScript/JavaScript projects, ensuring that unnecessary files are excluded from version control.
+- Confectus automatically generates a `.gitignore` and `README.md` file tailored for Node.js and TypeScript/JavaScript projects, ensuring that unnecessary files are excluded from version control.
 
 #### Package Manager Compatibility
 
@@ -36,12 +36,13 @@ Confectus simplifies the setup of backend projects with various configuration op
 
 #### Testing Options
 
-- Confectus introduces testing options, allowing you to test your setup and configurations for a smoother development process.
+- Confectus introduces testing options for backend projects, allowing you to test your setup and configurations for a smoother development process.
 
 ## Key Features
 
 - **Simple Configuration:** Confectus makes setting up your development environment an easy and effective task.
 - **Cross-Platform Compatibility:** Confectus supports both Linux and Windows environments, making it even more user-friendly.
+- **Fullstack:** Confectus helps you in both Frontend and Backend environments, making it even more useful.
 
 ## Installation
 
@@ -50,6 +51,8 @@ To get started, ensure you have Node.js installed. Then, use the following comma
 ```bash
 npm install -g confectus  #recommended
 ```
+
+Confectus is designed not to necessarily be a dependency on your project. Just run the command, select what you want to configure, and you're free!
 
 ## How to use Confectus
 
