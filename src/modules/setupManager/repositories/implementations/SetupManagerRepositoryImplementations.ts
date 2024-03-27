@@ -12,6 +12,7 @@ import fs from "fs-extra";
 import path from "path";
 import Answers from "../../../../types/answers/index";
 import { NoPackageJsonError } from "../../errors/NoPackageJsonError";
+import { NotFoundPackageJsonError } from "../../errors/NotFoundPackageJsonError";
 import { SetupManagerRepository } from "../contracts/SetupManagerRepository";
 
 export class SetupManagerRepositoryImplementation
@@ -91,6 +92,7 @@ export class SetupManagerRepositoryImplementation
     Answers,
     "isVscode" | "wichLanguage" | "wichLinter" | "wichStack" | "hasPackageJson"
   >): Promise<void> {
+    const isDevelopment = process.env.NODE_ENV === "development";
     const isTypescript: boolean = wichLanguage === "Typescript";
     const linterSelected = wichLinter;
     const stackSelected = wichStack;
@@ -104,6 +106,14 @@ export class SetupManagerRepositoryImplementation
 
     if (hasPackageJson === "No") {
       throw new Error(new NoPackageJsonError().message);
+    }
+
+    const PackageJsonExists = fs.existsSync(
+      isDevelopment ? `./mock/package.json` : "package.json",
+    );
+
+    if (!PackageJsonExists) {
+      throw new Error(new NotFoundPackageJsonError().message);
     }
 
     await Promise.all([
@@ -135,7 +145,7 @@ export class SetupManagerRepositoryImplementation
           frontendDependeciesSetup[linterChoiced.toLowerCase()].configFiles
             .configFileName;
 
-        await installTemplate(linterConfigPath, linterConfigFileName);
+        return await installTemplate(linterConfigPath, linterConfigFileName);
       }
 
       if (stackSelected === "Next.js") {
@@ -147,7 +157,7 @@ export class SetupManagerRepositoryImplementation
           frontendDependeciesSetup[linterChoiced.toLowerCase()].configFiles
             .configFileName;
 
-        await installTemplate(linterConfigPath, linterConfigFileName);
+        return await installTemplate(linterConfigPath, linterConfigFileName);
       }
 
       if (stackSelected === "Vue.js") {
@@ -159,7 +169,7 @@ export class SetupManagerRepositoryImplementation
           frontendDependeciesSetup[linterChoiced.toLowerCase()].configFiles
             .configFileName;
 
-        await installTemplate(linterConfigPath, linterConfigFileName);
+        return await installTemplate(linterConfigPath, linterConfigFileName);
       }
 
       await installTemplate(
