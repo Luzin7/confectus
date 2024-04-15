@@ -12,9 +12,9 @@ export class EnvironmentSettings implements UseCase<Record<string, string>> {
     ).start();
     try {
       if (answers.stack === "Frontend") {
-        return await this.setupManagerRepository.setupFrontendConfigurations(
-          answers,
-        );
+        await this.setupManagerRepository.setupFrontendConfigurations(answers);
+        spinner.success({ text: "Project environment is now complete!" });
+        return;
       }
       await this.setupManagerRepository.setupBackendConfigurations(answers);
       spinner.success({ text: "Project environment is now complete!" });
