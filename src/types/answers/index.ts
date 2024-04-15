@@ -7,6 +7,6 @@ export default interface Answers {
   wichTest: "Vitest" | "No";
   createDirectories: "Yes" | "No";
   addScripts: "Yes" | "No";
-  wichStack: "React" | "Next.js" | "Vue.js";
+  wichStack: "N/A" | "React" | "Next.js" | "Vue.js";
   stack: "Frontend" | "Backend";
 }
