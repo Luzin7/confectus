@@ -1,5 +1,11 @@
 # confectus
 
+## 1.4.0
+
+### Minor Changes
+
+- Add vanilla configurations and options, update questionnaire and fix minor bugs.
+
 ## 1.3.1
 
 ### Patch Changes
