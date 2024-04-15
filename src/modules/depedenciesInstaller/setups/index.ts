@@ -105,6 +105,35 @@ export const backendDependeciesSetup: SettingsProps = {
 };
 
 export const frontendDependeciesSetup: SettingsProps = {
+  eslintts: {
+    configFiles: {
+      configFileName: ".eslintrc.json",
+      configFilePath: [
+        "frontend",
+        "linters",
+        "typescript",
+        "eslint",
+        ".eslintrc.json",
+      ],
+    },
+    dependencies: null,
+    devDependencies:
+      "eslint eslint-plugin-prettier prettier @typescript-eslint/eslint-plugin @typescript-eslint/parser",
+  },
+  eslintjs: {
+    configFiles: {
+      configFileName: ".eslintrc.json",
+      configFilePath: [
+        "frontend",
+        "linters",
+        "javascript",
+        "eslint",
+        ".eslintrc.json",
+      ],
+    },
+    dependencies: null,
+    devDependencies: "eslint eslint-plugin-prettier prettier",
+  },
   eslintreact: {
     configFiles: {
       configFileName: ".eslintrc.json",
