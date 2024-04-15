@@ -80,7 +80,7 @@ export const frontendQuestions: QuestionProps[] = [
     message: `📦 Have you already created your ${chalk.whiteBright.underline(
       "package.json",
     )}?`,
-    choices: ["No", "Yes"],
+    choices: ["Yes", "No"],
   },
   {
     name: "wichManager",
@@ -114,6 +114,6 @@ export const frontendQuestions: QuestionProps[] = [
     name: "wichStack",
     type: "list",
     message: "🛠️  Which stack are you using?",
-    choices: ["React", "Next.js", "Vue.js"],
+    choices: ["N/A", "React", "Next.js", "Vue.js"],
   },
 ];
