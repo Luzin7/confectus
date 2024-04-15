@@ -88,14 +88,21 @@ export class SetupManagerRepositoryImplementation
     isVscode,
     wichStack,
     hasPackageJson,
+    wichManager,
   }: Pick<
     Answers,
-    "isVscode" | "wichLanguage" | "wichLinter" | "wichStack" | "hasPackageJson"
+    | "isVscode"
+    | "wichLanguage"
+    | "wichLinter"
+    | "wichStack"
+    | "hasPackageJson"
+    | "wichManager"
   >): Promise<void> {
     const isDevelopment = process.env.NODE_ENV === "development";
     const isTypescript: boolean = wichLanguage === "Typescript";
     const linterSelected = wichLinter;
     const stackSelected = wichStack;
+    const { initCommand } = managers[wichManager];
 
     const installTemplate = async (
       templatePath: string[],
@@ -105,6 +112,9 @@ export class SetupManagerRepositoryImplementation
     };
 
     if (hasPackageJson === "No") {
+      if (wichStack === "N/A") {
+        return await this.initializeNewProjectRepository.install(initCommand);
+      }
       throw new Error(new NoPackageJsonError().message);
     }
 
@@ -113,6 +123,9 @@ export class SetupManagerRepositoryImplementation
     );
 
     if (!PackageJsonExists) {
+      if (wichStack === "N/A") {
+        return await this.initializeNewProjectRepository.install(initCommand);
+      }
       throw new Error(new NotFoundPackageJsonError().message);
     }
 
@@ -162,6 +175,18 @@ export class SetupManagerRepositoryImplementation
 
       if (stackSelected === "Vue.js") {
         const linterChoiced = isTypescript ? "eslintVueTs" : "eslintVue";
+        const linterConfigPath =
+          frontendDependeciesSetup[linterChoiced.toLowerCase()].configFiles
+            .configFilePath;
+        const linterConfigFileName =
+          frontendDependeciesSetup[linterChoiced.toLowerCase()].configFiles
+            .configFileName;
+
+        return await installTemplate(linterConfigPath, linterConfigFileName);
+      }
+
+      if (stackSelected === "N/A") {
+        const linterChoiced = isTypescript ? "eslintTs" : "eslintJs";
         const linterConfigPath =
           frontendDependeciesSetup[linterChoiced.toLowerCase()].configFiles
             .configFilePath;
