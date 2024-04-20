@@ -137,7 +137,9 @@ export class SetupManagerRepositoryImplementation
       throw new Error(new NotFoundPackageJsonError().message);
     }
 
-    await this.initializeNewProjectRepository.install(initCommand);
+    if (wichStack === "N/A") {
+      await this.initializeNewProjectRepository.install(initCommand);
+    }
 
     await Promise.all([
       installTemplate(["git", "gitignore"], ".gitignore"),
