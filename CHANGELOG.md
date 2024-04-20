@@ -1,5 +1,23 @@
 # confectus
 
+## 1.4.3
+
+### Patch Changes
+
+- Fix critical error
+
+## 1.4.2
+
+### Patch Changes
+
+- Fix some bugs and errors
+
+## 1.4.1
+
+### Patch Changes
+
+- Fix some bugs and errors
+
 ## 1.4.0
 
 ### Minor Changes
