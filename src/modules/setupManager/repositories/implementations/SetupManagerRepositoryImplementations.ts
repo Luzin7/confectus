@@ -58,21 +58,35 @@ export class SetupManagerRepositoryImplementation
     }
 
     if (wichLinter !== "No") {
-      if (wichLinter === "Eslint") {
-        let linterChoiced = "";
-        if (wichStack === "React") {
-          linterChoiced = isTypescript ? "eslintReactTs" : "eslintReact";
-        } else if (wichStack === "Next.js") {
-          linterChoiced = isTypescript ? "eslintNextTs" : "eslintNext";
-        } else if (wichStack === "Vue.js") {
-          linterChoiced = isTypescript ? "eslintVueTs" : "eslintVue";
-        }
-        await installDependency(linterChoiced);
+      let linterChoiced = "";
+      const lintDependency = isTypescript ? "EslintTS" : "Eslint";
+      switch (wichLinter) {
+        case "Eslint":
+          switch (wichStack) {
+            case "React":
+              linterChoiced = isTypescript ? "eslintReactTs" : "eslintReact";
+              break;
+            case "Next.js":
+              linterChoiced = isTypescript ? "eslintNextTs" : "eslintNext";
+              break;
+            case "Vue.js":
+              linterChoiced = isTypescript ? "eslintVueTs" : "eslintVue";
+              break;
+            case "N/A":
+              linterChoiced = isTypescript ? "eslintTs" : "eslintJs";
+              break;
+            default:
+              break;
+          }
+          await installDependency(linterChoiced);
 
-        const lintDependency = isTypescript ? "EslintTS" : "Eslint";
-        await installDependency(lintDependency);
-      } else if (wichLinter === "Biome") {
-        await installDependency(wichLinter);
+          await installDependency(lintDependency);
+          break;
+        case "Biome":
+          await installDependency(wichLinter);
+          break;
+        default:
+          break;
       }
     }
 
@@ -111,10 +125,7 @@ export class SetupManagerRepositoryImplementation
       await this.templatesManagerRepository.install(templatePath, outputPath);
     };
 
-    if (hasPackageJson === "No") {
-      if (wichStack === "N/A") {
-        return await this.initializeNewProjectRepository.install(initCommand);
-      }
+    if (hasPackageJson === "No" && wichStack !== "N/A") {
       throw new Error(new NoPackageJsonError().message);
     }
 
@@ -122,12 +133,11 @@ export class SetupManagerRepositoryImplementation
       isDevelopment ? `./mock/package.json` : "package.json",
     );
 
-    if (!PackageJsonExists) {
-      if (wichStack === "N/A") {
-        return await this.initializeNewProjectRepository.install(initCommand);
-      }
+    if (!PackageJsonExists && wichStack !== "N/A") {
       throw new Error(new NotFoundPackageJsonError().message);
     }
+
+    await this.initializeNewProjectRepository.install(initCommand);
 
     await Promise.all([
       installTemplate(["git", "gitignore"], ".gitignore"),
