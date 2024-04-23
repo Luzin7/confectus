@@ -1,5 +1,11 @@
 # confectus
 
+## 1.4.4
+
+### Patch Changes
+
+- Change configuration of vanilla projects
+
 ## 1.4.3
 
 ### Patch Changes
