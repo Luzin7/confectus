@@ -36,34 +36,34 @@ export const backendDependeciesSetup: SettingsProps = {
   },
   eslint: {
     configFiles: {
-      configFileName: ".eslintrc.json",
+      configFileName: "eslint.config.mjs",
       configFilePath: [
         "backend",
         "linters",
         "eslint",
         "javascript",
-        ".eslintrc.json",
+        "eslint.config.mjs",
       ],
     },
     dependencies: null,
     devDependencies:
-      "eslint eslint-config-airbnb-base eslint-plugin-import eslint-plugin-prettier eslint-config-prettier",
+      "eslint @eslint/eslintrc @eslint/js eslint-config-standard eslint-plugin-import eslint-plugin-n eslint-plugin-promise globals",
   },
   eslintts: {
     configFiles: {
-      configFileName: ".eslintrc.json",
+      configFileName: "eslint.config.mjs",
       configFilePath: [
         "backend",
         "linters",
         "eslint",
         "typescript",
-        ".eslintrc.json",
+        "eslint.config.mjs",
       ],
     },
 
     dependencies: null,
     devDependencies:
-      "eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-prettier eslint-config-standard eslint-plugin-import eslint-config-prettier prettier",
+      "eslint @eslint/eslintrc @eslint/js @typescript-eslint/eslint-plugin eslint-config-standard-with-typescript eslint-plugin-import eslint-plugin-n eslint-plugin-promise globals typescript",
   },
   biome: {
     configFiles: {
@@ -107,32 +107,33 @@ export const backendDependeciesSetup: SettingsProps = {
 export const frontendDependeciesSetup: SettingsProps = {
   eslintts: {
     configFiles: {
-      configFileName: ".eslintrc.json",
+      configFileName: "eslint.config.mjs",
       configFilePath: [
         "frontend",
         "linters",
         "typescript",
         "eslint",
-        ".eslintrc.json",
+        "eslint.config.mjs",
       ],
     },
     dependencies: null,
     devDependencies:
-      "eslint eslint-plugin-prettier prettier @typescript-eslint/eslint-plugin @typescript-eslint/parser",
+      "eslint @eslint/eslintrc @eslint/js @typescript-eslint/eslint-plugin eslint-config-standard-with-typescript eslint-plugin-import eslint-plugin-n eslint-plugin-promise globals typescript",
   },
   eslintjs: {
     configFiles: {
-      configFileName: ".eslintrc.json",
+      configFileName: "eslint.config.mjs",
       configFilePath: [
         "frontend",
         "linters",
         "javascript",
         "eslint",
-        ".eslintrc.json",
+        "eslint.config.mjs",
       ],
     },
     dependencies: null,
-    devDependencies: "eslint eslint-plugin-prettier prettier",
+    devDependencies:
+      "eslint @eslint/eslintrc @eslint/js eslint-config-standard eslint-plugin-import eslint-plugin-n eslint-plugin-promise globals",
   },
   eslintreact: {
     configFiles: {
