@@ -1,4 +1,3 @@
-import managers from "@/infra/cli/managers";
 import { DepedenciesInstallerRepository } from "@/modules/depedenciesInstaller/repositories/contracts/DepedenciesInstallerRepository";
 import {
   backendDependeciesSetup,
@@ -6,6 +5,7 @@ import {
 } from "@/modules/depedenciesInstaller/setups";
 import { InitializeNewProjectRepository } from "@/modules/initializeNewProject/repositories/contracts/InitializeNewProjectRepository";
 import { TemplatesManagerRepository } from "@/modules/templatesManager/repositories/contracts/TemplatesManagerRepository";
+import managers from "@/shared/core/cli/managers";
 import { generateScripts } from "@/templates/backend/scripts/generateScripts";
 import { SettingsProps } from "@/types/setting";
 import fs from "fs-extra";
