@@ -2,7 +2,7 @@ import {
   backendQuestions,
   frontendQuestions,
   wichStackQuestion,
-} from "@/infra/cli/questions";
+} from "@/shared/core/cli/questions";
 import { QuestionProps } from "@/types/question";
 import inquirer from "inquirer";
 import { QuestionnaireError } from "../../errors/QuestionnaireError";
