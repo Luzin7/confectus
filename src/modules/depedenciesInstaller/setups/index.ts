@@ -232,7 +232,7 @@ export const frontendDependeciesSetup: SettingsProps = {
 
     dependencies: null,
     devDependencies:
-      "eslint eslint-plugin-vue @typescript-eslint/eslint-plugin @typescript-eslint/parser rettier eslint-config-prettier eslint-plugin-prettier",
+      "eslint eslint-plugin-vue @typescript-eslint/eslint-plugin @typescript-eslint/parser prettier eslint-config-prettier eslint-plugin-prettier",
   },
   biome: {
     configFiles: {
