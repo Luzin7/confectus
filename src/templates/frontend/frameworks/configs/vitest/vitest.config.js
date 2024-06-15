@@ -1,11 +1,11 @@
 /// <reference types="vitest"/>
-const { defineConfig } = require("vite");
+const { defineConfig } = require('vite');
 
 defineConfig({
   test: {
     globals: true,
-    include: ["src/**/*.spec.ts"],
-    dir: "src/test",
+    include: ['src/**/*.spec.ts'],
+    dir: 'src/test',
   },
 });
 
