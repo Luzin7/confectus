@@ -4,25 +4,25 @@ export function generateScripts(
   isTypescript: boolean,
 ): Record<string, string> {
   const scripts: Record<string, string> = {
-    start: isTypescript ? "npm run build && node ./dist/app.js" : "node app.js",
-    dev: isTypescript ? "tsx app.ts" : "node --watch app.js",
+    start: isTypescript ? 'npm run build && node ./dist/app.js' : 'node app.js',
+    dev: isTypescript ? 'tsx app.ts' : 'node --watch app.js',
   };
 
   if (isTypescript) {
-    scripts.build = "tsc";
+    scripts.build = 'tsc';
   }
 
   if (willHaveSrcDirectory) {
     if (!isTypescript) {
-      scripts.start = "node ./src/app.js";
+      scripts.start = 'node ./src/app.js';
     }
     scripts.dev = isTypescript
-      ? "tsx ./src/app.ts"
-      : "node --watch ./src/app.js";
+      ? 'tsx ./src/app.ts'
+      : 'node --watch ./src/app.js';
   }
 
   if (willTest) {
-    scripts.test = "vitest";
+    scripts.test = 'vitest';
   }
 
   return scripts;
