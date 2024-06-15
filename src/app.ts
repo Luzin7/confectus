@@ -1,11 +1,11 @@
-import { DepedenciesInstallerRepositoryImplementations } from "./modules/depedenciesInstaller/repositories/implementations/DepedenciesInstallerRepositoryImplementations";
-import { InitializeNewProjectRepositoryImplementations } from "./modules/initializeNewProject/repositories/implementations/InitializeNewProjectRepositoryImplementations";
-import { QuestionnaireRepositoryImplementations } from "./modules/questionnaire/repositories/implementations/QuestionnaireRepositoryImplementations";
-import Questionnaire from "./modules/questionnaire/useCases/questionnaire";
-import { SetupManagerRepositoryImplementation } from "./modules/setupManager/repositories/implementations/SetupManagerRepositoryImplementations";
-import { EnvironmentSettings } from "./modules/setupManager/useCases/environmentSettings/EnvironmentSettings";
-import { InstallDependencies } from "./modules/setupManager/useCases/installDependencies/installDependencies";
-import { TemplatesManagerRepositoryImplementations } from "./modules/templatesManager/repositories/implementations/TemplatesManagerRepositoryImplementations";
+import { DepedenciesInstallerRepositoryImplementations } from "@modules/depedenciesInstaller/repositories/implementations/DepedenciesInstallerRepositoryImplementations.js";
+import { InitializeNewProjectRepositoryImplementations } from "@modules/initializeNewProject/repositories/implementations/InitializeNewProjectRepositoryImplementations.js";
+import { QuestionnaireRepositoryImplementations } from "@modules/questionnaire/repositories/implementations/QuestionnaireRepositoryImplementations.js";
+import { Questionnaire } from "@modules/questionnaire/useCases/Questionnaire.js";
+import { SetupManagerRepositoryImplementation } from "@modules/setupManager/repositories/implementations/SetupManagerRepositoryImplementations.js";
+import { EnvironmentSettings } from "@modules/setupManager/useCases/environmentSettings/EnvironmentSettings.js";
+import { InstallDependencies } from "@modules/setupManager/useCases/installDependencies/installDependencies.js";
+import { TemplatesManagerRepositoryImplementations } from "@modules/templatesManager/repositories/implementations/TemplatesManagerRepositoryImplementations.js";
 
 export async function app() {
   const questionnaireRepository = new QuestionnaireRepositoryImplementations();
