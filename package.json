@@ -19,12 +19,12 @@
     "Configuration"
   ],
   "scripts": {
-    "build": "tsc",
-    "start": "npm run build && node ./dist/app.js",
+    "build": "tsup --minify && node ./build.js",
+    "start": "npm run build && node ./dist/main.js",
     "changeset": "changeset",
     "version": "changeset version",
     "release": "npm run build && changeset publish",
-    "dev": "tsx app.ts",
+    "dev": "tsx ./src/main.ts",
     "test": "vitest"
   },
   "bin": {
