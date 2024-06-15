@@ -1,4 +1,4 @@
-export default interface Answers {
+export type Answers = {
   hasPackageJson: "Yes" | "No";
   wichManager: "NPM" | "Yarn" | "Bun" | "PNPM";
   isVscode: "Yes" | "No";
@@ -9,4 +9,4 @@ export default interface Answers {
   addScripts: "Yes" | "No";
   wichStack: "N/A" | "React" | "Next.js" | "Vue.js";
   stack: "Frontend" | "Backend";
-}
+};

@@ -1,7 +1,7 @@
-export interface ManagerProps {
+export type ManagerProps = {
   initCommand: string;
   installCommand: string;
-}
+};
 
 export interface Managers {
   NPM: ManagerProps;
