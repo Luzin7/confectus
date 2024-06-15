@@ -1,4 +1,4 @@
-import { SettingsProps } from "@/types/setting";
+import { SettingsProps } from "@@types/setting.js";
 
 export abstract class DepedenciesInstallerRepository {
   abstract install(

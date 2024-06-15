@@ -1,17 +1,14 @@
-import {
-  backendQuestions,
-  frontendQuestions,
-  wichStackQuestion,
-} from "@/configs/cli/questions";
-import { QuestionProps } from "@/types/question";
-import inquirer from "inquirer";
-import { QuestionnaireError } from "../../errors/QuestionnaireError";
-import { QuestionnaireRepository } from "../contracts/QuestionnaireRepository";
+import { QuestionProps } from '@@types/question.js';
+import { QuestionnaireError } from '@modules/questionnaire/errors/QuestionnaireError.js';
+
+import { backendQuestions, frontendQuestions, wichStackQuestion } from '@configs/cli/questions.js';
+import inquirer from 'inquirer';
+import { QuestionnaireRepository } from '../contracts/QuestionnaireRepository.js';
 
 export class QuestionnaireRepositoryImplementations
   implements QuestionnaireRepository
 {
-  private stackChoice: string = "";
+  private stackChoice: string = '';
   private answers: Record<string, string> = {};
 
   private wichStackWillUse(stackChoice: Record<string, string>) {
@@ -31,7 +28,7 @@ export class QuestionnaireRepositoryImplementations
 
       this.saveAnswers({ stack: this.stackChoice });
 
-      const isFrontend: boolean = this.stackChoice === "Frontend";
+      const isFrontend: boolean = this.stackChoice === 'Frontend';
 
       const questions: QuestionProps[] = isFrontend
         ? frontendQuestions
@@ -40,7 +37,7 @@ export class QuestionnaireRepositoryImplementations
 
       return this.saveAnswers(answers);
     } catch (error) {
-      if (process.env.NODE_ENV === "development") {
+      if (process.env.NODE_ENV === 'development') {
         return console.error({ error });
       }
 

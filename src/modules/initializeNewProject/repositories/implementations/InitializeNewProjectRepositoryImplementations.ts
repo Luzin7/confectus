@@ -1,12 +1,12 @@
-import { exec } from "child_process";
-import { promisify } from "util";
-import { InitializeNewProjectRepository } from "../contracts/InitializeNewProjectRepository";
+import { exec } from 'child_process';
+import { promisify } from 'util';
+import { InitializeNewProjectRepository } from '../contracts/InitializeNewProjectRepository.js';
 
 export class InitializeNewProjectRepositoryImplementations
   implements InitializeNewProjectRepository
 {
   async install(initCommand: string): Promise<void> {
-    const isDevelopment = process.env.NODE_ENV === "development";
+    const isDevelopment = process.env.NODE_ENV === 'development';
 
     isDevelopment
       ? await promisify(exec)(`cd mock && ${initCommand}`)

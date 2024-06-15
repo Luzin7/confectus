@@ -1,4 +1,4 @@
-import { SettingsProps } from '@/types/setting';
+import { SettingsProps } from "@@types/setting.js";
 
 export const backendDependeciesSetup: SettingsProps = {
   greetings: {
@@ -148,7 +148,7 @@ export const frontendDependeciesSetup: SettingsProps = {
     },
     dependencies: null,
     devDependencies:
-      'eslint eslint-plugin-react eslint-plugin-react-hooks prettier eslint-config-prettier eslint-plugin-prettier eslint-plugin-jsx-a11y eslint-config-standard',
+      'eslint@8.56.0 eslint-plugin-react eslint-plugin-react-hooks prettier eslint-config-prettier eslint-plugin-prettier eslint-plugin-jsx-a11y eslint-config-standard',
   },
   eslintreactts: {
     configFiles: {
@@ -165,7 +165,7 @@ export const frontendDependeciesSetup: SettingsProps = {
 
     dependencies: null,
     devDependencies:
-      'eslint @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint-plugin-react eslint-plugin-react-hooks prettier eslint-config-prettier eslint-plugin-prettier eslint-plugin-jsx-a11y eslint-config-standard',
+      'eslint@8.56.0 @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint-plugin-react eslint-plugin-react-hooks prettier eslint-config-prettier eslint-plugin-prettier eslint-plugin-jsx-a11y eslint-config-standard',
   },
   eslintnext: {
     configFiles: {
@@ -181,7 +181,7 @@ export const frontendDependeciesSetup: SettingsProps = {
     },
     dependencies: null,
     devDependencies:
-      'eslint eslint-plugin-react eslint-plugin-react-hooks prettier eslint-config-prettier eslint-plugin-prettier eslint-plugin-jsx-a11y eslint-config-standard',
+      'eslint@8.56.0 eslint-plugin-react eslint-plugin-react-hooks prettier eslint-config-prettier eslint-plugin-prettier eslint-plugin-jsx-a11y eslint-config-standard',
   },
   eslintnextts: {
     configFiles: {
@@ -198,7 +198,7 @@ export const frontendDependeciesSetup: SettingsProps = {
 
     dependencies: null,
     devDependencies:
-      'eslint eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-jsx-a11y @typescript-eslint/eslint-plugin @typescript-eslint/parser prettier eslint-config-prettier eslint-plugin-prettier eslint-config-standard',
+      'eslint@8.56.0 eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-jsx-a11y @typescript-eslint/eslint-plugin @typescript-eslint/parser prettier eslint-config-prettier eslint-plugin-prettier eslint-config-standard',
   },
   eslintvue: {
     configFiles: {
