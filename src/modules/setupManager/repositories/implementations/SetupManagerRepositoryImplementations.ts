@@ -1,19 +1,19 @@
-import { DepedenciesInstallerRepository } from "@/modules/depedenciesInstaller/repositories/contracts/DepedenciesInstallerRepository";
+import { Answers } from '@@types/answers.js';
+import { SettingsProps } from '@@types/setting.js';
+import { managers } from '@configs/cli/managers.js';
 import {
   backendDependeciesSetup,
   frontendDependeciesSetup,
-} from "@/modules/depedenciesInstaller/setups";
-import { InitializeNewProjectRepository } from "@/modules/initializeNewProject/repositories/contracts/InitializeNewProjectRepository";
-import { TemplatesManagerRepository } from "@/modules/templatesManager/repositories/contracts/TemplatesManagerRepository";
-import managers from "@/shared/core/cli/managers";
-import { generateScripts } from "@/templates/backend/scripts/generateScripts";
-import { SettingsProps } from "@/types/setting";
-import fs from "fs-extra";
-import path from "path";
-import Answers from "../../../../types/answers/index";
-import { NoPackageJsonError } from "../../errors/NoPackageJsonError";
-import { NotFoundPackageJsonError } from "../../errors/NotFoundPackageJsonError";
-import { SetupManagerRepository } from "../contracts/SetupManagerRepository";
+} from '@configs/depedenciesInstallerSetup/index.js';
+import { DepedenciesInstallerRepository } from '@modules/depedenciesInstaller/repositories/contracts/DepedenciesInstallerRepository.js';
+import { InitializeNewProjectRepository } from '@modules/initializeNewProject/repositories/contracts/InitializeNewProjectRepository.js';
+import { NoPackageJsonError } from '@modules/setupManager/errors/NoPackageJsonError.js';
+import { NotFoundPackageJsonError } from '@modules/setupManager/errors/NotFoundPackageJsonError.js';
+import { TemplatesManagerRepository } from '@modules/templatesManager/repositories/contracts/TemplatesManagerRepository.js';
+import fs from 'fs-extra';
+import path from 'path';
+import { generateScripts } from 'templates/backend/scripts/generateScripts.js';
+import { SetupManagerRepository } from '../contracts/SetupManagerRepository.js';
 
 export class SetupManagerRepositoryImplementation
   implements SetupManagerRepository
@@ -33,17 +33,17 @@ export class SetupManagerRepositoryImplementation
     wichStack,
   }: Pick<
     Answers,
-    | "wichLanguage"
-    | "wichLinter"
-    | "wichManager"
-    | "wichTest"
-    | "wichStack"
-    | "stack"
+    | 'wichLanguage'
+    | 'wichLinter'
+    | 'wichManager'
+    | 'wichTest'
+    | 'wichStack'
+    | 'stack'
   >): Promise<void> {
     const { installCommand } = managers[wichManager];
-    const isTypescript: boolean = wichLanguage === "Typescript";
+    const isTypescript: boolean = wichLanguage === 'Typescript';
     const stackChoiced: SettingsProps =
-      stack === "Backend" ? backendDependeciesSetup : frontendDependeciesSetup;
+      stack === 'Backend' ? backendDependeciesSetup : frontendDependeciesSetup;
 
     const installDependency = async (dependency: string) => {
       await this.depedenciesInstallerRepository.install(
@@ -57,23 +57,23 @@ export class SetupManagerRepositoryImplementation
       await installDependency(wichLanguage);
     }
 
-    if (wichLinter !== "No") {
-      let linterChoiced = "";
-      const lintDependency = isTypescript ? "EslintTS" : "Eslint";
+    if (wichLinter !== 'No') {
+      let linterChoiced = '';
+      const lintDependency = isTypescript ? 'EslintTS' : 'Eslint';
       switch (wichLinter) {
-        case "Eslint":
+        case 'Eslint':
           switch (wichStack) {
-            case "React":
-              linterChoiced = isTypescript ? "eslintReactTs" : "eslintReact";
+            case 'React':
+              linterChoiced = isTypescript ? 'eslintReactTs' : 'eslintReact';
               break;
-            case "Next.js":
-              linterChoiced = isTypescript ? "eslintNextTs" : "eslintNext";
+            case 'Next.js':
+              linterChoiced = isTypescript ? 'eslintNextTs' : 'eslintNext';
               break;
-            case "Vue.js":
-              linterChoiced = isTypescript ? "eslintVueTs" : "eslintVue";
+            case 'Vue.js':
+              linterChoiced = isTypescript ? 'eslintVueTs' : 'eslintVue';
               break;
-            case "N/A":
-              linterChoiced = isTypescript ? "eslintTs" : "eslintJs";
+            case 'N/A':
+              linterChoiced = isTypescript ? 'eslintTs' : 'eslintJs';
               break;
             default:
               break;
@@ -82,7 +82,7 @@ export class SetupManagerRepositoryImplementation
 
           await installDependency(lintDependency);
           break;
-        case "Biome":
+        case 'Biome':
           await installDependency(wichLinter);
           break;
         default:
@@ -90,8 +90,8 @@ export class SetupManagerRepositoryImplementation
       }
     }
 
-    if (wichTest === "Vitest") {
-      const testDependency = isTypescript ? "VitestTS" : "Vitest";
+    if (wichTest === 'Vitest') {
+      const testDependency = isTypescript ? 'VitestTS' : 'Vitest';
       await installDependency(testDependency);
     }
   }
@@ -105,15 +105,15 @@ export class SetupManagerRepositoryImplementation
     wichManager,
   }: Pick<
     Answers,
-    | "isVscode"
-    | "wichLanguage"
-    | "wichLinter"
-    | "wichStack"
-    | "hasPackageJson"
-    | "wichManager"
+    | 'isVscode'
+    | 'wichLanguage'
+    | 'wichLinter'
+    | 'wichStack'
+    | 'hasPackageJson'
+    | 'wichManager'
   >): Promise<void> {
-    const isDevelopment = process.env.NODE_ENV === "development";
-    const isTypescript: boolean = wichLanguage === "Typescript";
+    const isDevelopment = process.env.NODE_ENV === 'development';
+    const isTypescript: boolean = wichLanguage === 'Typescript';
     const linterSelected = wichLinter;
     const stackSelected = wichStack;
     const { initCommand } = managers[wichManager];
@@ -125,42 +125,44 @@ export class SetupManagerRepositoryImplementation
       await this.templatesManagerRepository.install(templatePath, outputPath);
     };
 
-    if (hasPackageJson === "No" && wichStack !== "N/A") {
+    if (hasPackageJson === 'No' && wichStack !== 'N/A') {
       throw new Error(new NoPackageJsonError().message);
     }
 
     const PackageJsonExists = fs.existsSync(
-      isDevelopment ? `./mock/package.json` : "package.json",
+      isDevelopment ? `./mock/package.json` : 'package.json',
     );
 
-    if (!PackageJsonExists && wichStack !== "N/A") {
+    if (!PackageJsonExists && wichStack !== 'N/A') {
       throw new Error(new NotFoundPackageJsonError().message);
     }
 
-    await this.initializeNewProjectRepository.install(initCommand);
+    if (wichStack === 'N/A') {
+      await this.initializeNewProjectRepository.install(initCommand);
+    }
 
     await Promise.all([
-      installTemplate(["git", "gitignore"], ".gitignore"),
-      installTemplate(["git", "README.md"], "README.md"),
+      installTemplate(['git', 'gitignore'], '.gitignore'),
+      installTemplate(['git', 'README.md'], 'README.md'),
     ]);
 
-    if (isVscode === "Yes") {
+    if (isVscode === 'Yes') {
       await installTemplate(
         frontendDependeciesSetup.editorconfig.configFiles.configFilePath,
         frontendDependeciesSetup.editorconfig.configFiles.configFileName,
       );
 
-      const vscodeConfigPath = path.join(".vscode", "settings.json");
+      const vscodeConfigPath = path.join('.vscode', 'settings.json');
       const linterTemplatePath =
-        linterSelected === "Biome"
+        linterSelected === 'Biome'
           ? frontendDependeciesSetup.biome.configFiles.configFilePath
           : frontendDependeciesSetup.vscode.configFiles.configFilePath;
       await installTemplate(linterTemplatePath, vscodeConfigPath);
     }
 
-    if (linterSelected !== "No") {
-      if (stackSelected === "React") {
-        const linterChoiced = isTypescript ? "eslintReactTs" : "eslintReact";
+    if (linterSelected !== 'No') {
+      if (stackSelected === 'React') {
+        const linterChoiced = isTypescript ? 'eslintReactTs' : 'eslintReact';
         const linterConfigPath =
           frontendDependeciesSetup[linterChoiced.toLowerCase()].configFiles
             .configFilePath;
@@ -171,8 +173,8 @@ export class SetupManagerRepositoryImplementation
         return await installTemplate(linterConfigPath, linterConfigFileName);
       }
 
-      if (stackSelected === "Next.js") {
-        const linterChoiced = isTypescript ? "eslintNextTs" : "eslintNext";
+      if (stackSelected === 'Next.js') {
+        const linterChoiced = isTypescript ? 'eslintNextTs' : 'eslintNext';
         const linterConfigPath =
           frontendDependeciesSetup[linterChoiced.toLowerCase()].configFiles
             .configFilePath;
@@ -183,8 +185,8 @@ export class SetupManagerRepositoryImplementation
         return await installTemplate(linterConfigPath, linterConfigFileName);
       }
 
-      if (stackSelected === "Vue.js") {
-        const linterChoiced = isTypescript ? "eslintVueTs" : "eslintVue";
+      if (stackSelected === 'Vue.js') {
+        const linterChoiced = isTypescript ? 'eslintVueTs' : 'eslintVue';
         const linterConfigPath =
           frontendDependeciesSetup[linterChoiced.toLowerCase()].configFiles
             .configFilePath;
@@ -195,8 +197,8 @@ export class SetupManagerRepositoryImplementation
         return await installTemplate(linterConfigPath, linterConfigFileName);
       }
 
-      if (stackSelected === "N/A") {
-        const linterChoiced = isTypescript ? "eslintTs" : "eslintJs";
+      if (stackSelected === 'N/A') {
+        const linterChoiced = isTypescript ? 'eslintTs' : 'eslintJs';
         const linterConfigPath =
           frontendDependeciesSetup[linterChoiced.toLowerCase()].configFiles
             .configFilePath;
@@ -225,20 +227,20 @@ export class SetupManagerRepositoryImplementation
     addScripts,
   }: Pick<
     Answers,
-    | "hasPackageJson"
-    | "isVscode"
-    | "wichLanguage"
-    | "wichManager"
-    | "wichTest"
-    | "wichLinter"
-    | "createDirectories"
-    | "addScripts"
+    | 'hasPackageJson'
+    | 'isVscode'
+    | 'wichLanguage'
+    | 'wichManager'
+    | 'wichTest'
+    | 'wichLinter'
+    | 'createDirectories'
+    | 'addScripts'
   >): Promise<void> {
-    const isDevelopment = process.env.NODE_ENV === "development";
-    const isTypescript = wichLanguage === "Typescript";
-    const willTest = wichTest === "Vitest";
-    const willHaveSrcDirectory = createDirectories === "Yes";
-    const willAddScripts = addScripts === "Yes";
+    const isDevelopment = process.env.NODE_ENV === 'development';
+    const isTypescript = wichLanguage === 'Typescript';
+    const willTest = wichTest === 'Vitest';
+    const willHaveSrcDirectory = createDirectories === 'Yes';
+    const willAddScripts = addScripts === 'Yes';
     const linterChoiced = wichLinter;
 
     const createDirectory = async (directory: string) => {
@@ -255,19 +257,19 @@ export class SetupManagerRepositoryImplementation
     };
 
     await Promise.all([
-      installTemplate(["git", "gitignore"], ".gitignore"),
-      installTemplate(["git", "README.md"], "README.md"),
+      installTemplate(['git', 'gitignore'], '.gitignore'),
+      installTemplate(['git', 'README.md'], 'README.md'),
     ]);
 
-    if (hasPackageJson === "No") {
+    if (hasPackageJson === 'No') {
       const { initCommand } = managers[wichManager];
       await this.initializeNewProjectRepository.install(initCommand);
     }
 
     if (willAddScripts) {
       const packageJsonPath = isDevelopment
-        ? "./mock/package.json"
-        : "package.json";
+        ? './mock/package.json'
+        : 'package.json';
 
       const scripts = generateScripts(
         willTest,
@@ -283,24 +285,24 @@ export class SetupManagerRepositoryImplementation
     }
 
     if (willHaveSrcDirectory) {
-      await createDirectory("src");
-      willTest && (await createDirectory("src/test"));
+      await createDirectory('src');
+      willTest && (await createDirectory('src/test'));
 
       const configFilePath =
         backendDependeciesSetup.greetings.configFiles.configFilePath;
-      const configFileName = isTypescript ? "app.ts" : "app.js";
-      await installTemplate(configFilePath, path.join("src", configFileName));
+      const configFileName = isTypescript ? 'app.ts' : 'app.js';
+      await installTemplate(configFilePath, path.join('src', configFileName));
     }
 
-    if (isVscode === "Yes") {
+    if (isVscode === 'Yes') {
       await installTemplate(
         backendDependeciesSetup.editorconfig.configFiles.configFilePath,
         backendDependeciesSetup.editorconfig.configFiles.configFileName,
       );
 
-      const vscodeConfigPath = path.join(".vscode", "settings.json");
+      const vscodeConfigPath = path.join('.vscode', 'settings.json');
       const linterTemplatePath =
-        linterChoiced === "Biome"
+        linterChoiced === 'Biome'
           ? backendDependeciesSetup.biome.configFiles.configFilePath
           : backendDependeciesSetup.vscode.configFiles.configFilePath;
       await installTemplate(linterTemplatePath, vscodeConfigPath);
@@ -332,7 +334,7 @@ export class SetupManagerRepositoryImplementation
       );
     }
 
-    if (linterChoiced !== "No") {
+    if (linterChoiced !== 'No') {
       const linterConfigPath =
         backendDependeciesSetup[linterChoiced.toLowerCase()].configFiles
           .configFilePath;
@@ -340,8 +342,8 @@ export class SetupManagerRepositoryImplementation
         backendDependeciesSetup[linterChoiced.toLowerCase()].configFiles
           .configFileName;
 
-      if (linterChoiced === "Eslint") {
-        const lintDependency = isTypescript ? "eslintts" : "eslint";
+      if (linterChoiced === 'Eslint') {
+        const lintDependency = isTypescript ? 'eslintts' : 'eslint';
         await installTemplate(
           backendDependeciesSetup[lintDependency.toLowerCase()].configFiles
             .configFilePath,

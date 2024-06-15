@@ -1,4 +1,4 @@
-import { UseCaseError } from "@/shared/core/errors/ErrorUseCase";
+import { UseCaseError } from "@shared/core/errors/ErrorUseCase.js";
 
 export class InstallationDevelopmentDependecyError
   extends Error
@@ -6,7 +6,7 @@ export class InstallationDevelopmentDependecyError
 {
   constructor() {
     super(
-      "An error occurred during the development dependencies installation process.",
+      'An error occurred during the development dependencies installation process.',
     );
   }
 }

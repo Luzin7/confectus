@@ -1,4 +1,4 @@
-import { UseCaseError } from "@/shared/core/errors/ErrorUseCase";
+import { UseCaseError } from '@shared/core/errors/ErrorUseCase.js';
 
 export class NoPackageJsonError extends Error implements UseCaseError {
   constructor() {

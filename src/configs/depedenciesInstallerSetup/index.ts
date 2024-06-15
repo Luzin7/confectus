@@ -36,34 +36,34 @@ export const backendDependeciesSetup: SettingsProps = {
   },
   eslint: {
     configFiles: {
-      configFileName: 'eslint.config.mjs',
+      configFileName: '.eslintrc.json',
       configFilePath: [
         'backend',
         'linters',
         'eslint',
         'javascript',
-        'eslint.config.mjs',
+        '.eslintrc.json',
       ],
     },
     dependencies: null,
     devDependencies:
-      'eslint @eslint/eslintrc @eslint/js eslint-config-standard eslint-plugin-import eslint-plugin-n eslint-plugin-promise globals',
+      'eslint eslint-config-airbnb-base eslint-plugin-import eslint-plugin-prettier eslint-config-prettier',
   },
   eslintts: {
     configFiles: {
-      configFileName: 'eslint.config.mjs',
+      configFileName: '.eslintrc.json',
       configFilePath: [
         'backend',
         'linters',
         'eslint',
         'typescript',
-        'eslint.config.mjs',
+        '.eslintrc.json',
       ],
     },
 
     dependencies: null,
     devDependencies:
-      'eslint @eslint/eslintrc @eslint/js @typescript-eslint/eslint-plugin eslint-config-standard-with-typescript eslint-plugin-import eslint-plugin-n eslint-plugin-promise globals typescript',
+      'eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-prettier eslint-config-standard eslint-plugin-import eslint-config-prettier prettier',
   },
   biome: {
     configFiles: {
@@ -107,33 +107,32 @@ export const backendDependeciesSetup: SettingsProps = {
 export const frontendDependeciesSetup: SettingsProps = {
   eslintts: {
     configFiles: {
-      configFileName: 'eslint.config.mjs',
+      configFileName: '.eslintrc.json',
       configFilePath: [
         'frontend',
         'linters',
         'typescript',
         'eslint',
-        'eslint.config.mjs',
+        '.eslintrc.json',
       ],
     },
     dependencies: null,
     devDependencies:
-      'eslint @eslint/eslintrc @eslint/js @typescript-eslint/eslint-plugin eslint-config-standard-with-typescript eslint-plugin-import eslint-plugin-n eslint-plugin-promise globals typescript',
+      'eslint eslint-plugin-prettier prettier @typescript-eslint/eslint-plugin @typescript-eslint/parser',
   },
   eslintjs: {
     configFiles: {
-      configFileName: 'eslint.config.mjs',
+      configFileName: '.eslintrc.json',
       configFilePath: [
         'frontend',
         'linters',
         'javascript',
         'eslint',
-        'eslint.config.mjs',
+        '.eslintrc.json',
       ],
     },
     dependencies: null,
-    devDependencies:
-      'eslint @eslint/eslintrc @eslint/js eslint-config-standard eslint-plugin-import eslint-plugin-n eslint-plugin-promise globals',
+    devDependencies: 'eslint eslint-plugin-prettier prettier',
   },
   eslintreact: {
     configFiles: {
@@ -149,7 +148,7 @@ export const frontendDependeciesSetup: SettingsProps = {
     },
     dependencies: null,
     devDependencies:
-      'eslint eslint-plugin-react eslint-plugin-react-hooks prettier eslint-config-prettier eslint-plugin-prettier eslint-plugin-jsx-a11y eslint-config-standard',
+      'eslint@8.56.0 eslint-plugin-react eslint-plugin-react-hooks prettier eslint-config-prettier eslint-plugin-prettier eslint-plugin-jsx-a11y eslint-config-standard',
   },
   eslintreactts: {
     configFiles: {
@@ -166,7 +165,7 @@ export const frontendDependeciesSetup: SettingsProps = {
 
     dependencies: null,
     devDependencies:
-      'eslint @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint-plugin-react eslint-plugin-react-hooks prettier eslint-config-prettier eslint-plugin-prettier eslint-plugin-jsx-a11y eslint-config-standard',
+      'eslint@8.56.0 @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint-plugin-react eslint-plugin-react-hooks prettier eslint-config-prettier eslint-plugin-prettier eslint-plugin-jsx-a11y eslint-config-standard',
   },
   eslintnext: {
     configFiles: {
@@ -182,7 +181,7 @@ export const frontendDependeciesSetup: SettingsProps = {
     },
     dependencies: null,
     devDependencies:
-      'eslint eslint-plugin-react eslint-plugin-react-hooks prettier eslint-config-prettier eslint-plugin-prettier eslint-plugin-jsx-a11y eslint-config-standard',
+      'eslint@8.56.0 eslint-plugin-react eslint-plugin-react-hooks prettier eslint-config-prettier eslint-plugin-prettier eslint-plugin-jsx-a11y eslint-config-standard',
   },
   eslintnextts: {
     configFiles: {
@@ -199,7 +198,7 @@ export const frontendDependeciesSetup: SettingsProps = {
 
     dependencies: null,
     devDependencies:
-      'eslint eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-jsx-a11y @typescript-eslint/eslint-plugin @typescript-eslint/parser prettier eslint-config-prettier eslint-plugin-prettier eslint-config-standard',
+      'eslint@8.56.0 eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-jsx-a11y @typescript-eslint/eslint-plugin @typescript-eslint/parser prettier eslint-config-prettier eslint-plugin-prettier eslint-config-standard',
   },
   eslintvue: {
     configFiles: {
@@ -232,7 +231,7 @@ export const frontendDependeciesSetup: SettingsProps = {
 
     dependencies: null,
     devDependencies:
-      'eslint eslint-plugin-vue @typescript-eslint/eslint-plugin @typescript-eslint/parser prettier eslint-config-prettier eslint-plugin-prettier',
+      'eslint-config-prettier eslint@8.56.0 @typescript-eslint/parser@5.59.0 @typescript-eslint/eslint-plugin@5.59.0 @vue/eslint-config-typescript@13.0.0 eslint-plugin-vue@9.11.0 eslint-plugin-prettier@5.0.0 prettier@2.8.8',
   },
   biome: {
     configFiles: {

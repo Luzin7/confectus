@@ -1,5 +1,5 @@
-import { UseCase } from "@/shared/core/modules/UseCase";
-import { TemplatesManagerRepository } from "../../repositories/contracts/TemplatesManagerRepository";
+import { UseCase } from "@shared/core/modules/UseCase.js";
+import { TemplatesManagerRepository } from "../repositories/contracts/TemplatesManagerRepository.js";
 
 interface req {
   templateSource: string[];

@@ -1,9 +1,9 @@
-import { SettingsProps } from "@/types/setting";
-import { exec } from "child_process";
-import { promisify } from "util";
-import { InstallationDependecyError } from "../../errors/InstallationDependecyError";
-import { InstallationDevelopmentDependecyError } from "../../errors/InstallationDevelopmentDependecyError";
-import { DepedenciesInstallerRepository } from "../contracts/DepedenciesInstallerRepository";
+import { SettingsProps } from '@@types/setting.js';
+import { InstallationDependecyError } from '@modules/depedenciesInstaller/errors/InstallationDependecyError/index.js';
+import { InstallationDevelopmentDependecyError } from '@modules/depedenciesInstaller/errors/InstallationDevelopmentDependecyError/index.js';
+import { exec } from 'child_process';
+import { promisify } from 'util';
+import { DepedenciesInstallerRepository } from '../contracts/DepedenciesInstallerRepository.js';
 
 export class DepedenciesInstallerRepositoryImplementations
   implements DepedenciesInstallerRepository
@@ -17,10 +17,10 @@ export class DepedenciesInstallerRepositoryImplementations
       stackChoiced[dependency.toLowerCase()] ?? {};
 
     function installCommand(deps: string, dev: boolean) {
-      const isDevelopment = process.env.NODE_ENV === "development";
+      const isDevelopment = process.env.NODE_ENV === 'development';
       return isDevelopment
-        ? `cd mock && ${managerInstallCommand} ${deps} ${dev ? "-D" : ""}`
-        : `${managerInstallCommand} ${deps} ${dev ? "-D" : ""}`;
+        ? `cd mock && ${managerInstallCommand} ${deps} ${dev ? '-D' : ''}`
+        : `${managerInstallCommand} ${deps} ${dev ? '-D' : ''}`;
     }
 
     const installDependency = async (
