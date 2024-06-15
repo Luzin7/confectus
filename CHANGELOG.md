@@ -1,5 +1,17 @@
 # confectus
 
+## 1.4.6
+
+### Patch Changes
+
+- Fix eslint configuration for vue.js using Typescript
+
+## 1.4.5
+
+### Patch Changes
+
+- Fix package error that causes erros when was installing depedencies
+
 ## 1.4.4
 
 ### Patch Changes
