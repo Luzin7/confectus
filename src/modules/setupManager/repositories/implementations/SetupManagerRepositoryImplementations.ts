@@ -1,16 +1,16 @@
-import { DepedenciesInstallerRepository } from "@/modules/depedenciesInstaller/repositories/contracts/DepedenciesInstallerRepository";
+import managers from "@/configs/cli/managers";
 import {
   backendDependeciesSetup,
   frontendDependeciesSetup,
-} from "@/modules/depedenciesInstaller/setups";
+} from "@/configs/depedenciesInstallerSetup";
+import { DepedenciesInstallerRepository } from "@/modules/depedenciesInstaller/repositories/contracts/DepedenciesInstallerRepository";
 import { InitializeNewProjectRepository } from "@/modules/initializeNewProject/repositories/contracts/InitializeNewProjectRepository";
 import { TemplatesManagerRepository } from "@/modules/templatesManager/repositories/contracts/TemplatesManagerRepository";
-import managers from "@/shared/core/cli/managers";
 import { generateScripts } from "@/templates/backend/scripts/generateScripts";
 import { SettingsProps } from "@/types/setting";
 import fs from "fs-extra";
 import path from "path";
-import Answers from "../../../../types/answers/index";
+import { Answers } from "../../../../types/answers/index";
 import { NoPackageJsonError } from "../../errors/NoPackageJsonError";
 import { NotFoundPackageJsonError } from "../../errors/NotFoundPackageJsonError";
 import { SetupManagerRepository } from "../contracts/SetupManagerRepository";
