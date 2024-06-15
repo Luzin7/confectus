@@ -2,6 +2,6 @@ import {
   backendQuestions,
   frontendQuestions,
   wichStackQuestion,
-} from "./questions";
+} from './questions';
 
 export { backendQuestions, frontendQuestions, wichStackQuestion };

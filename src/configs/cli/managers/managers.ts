@@ -1,20 +1,20 @@
-import { Managers } from "@/types/manager";
+import { Managers } from '@/types/manager';
 
 export const managers: Managers = {
   NPM: {
-    initCommand: "npm init -y",
-    installCommand: "npm install",
+    initCommand: 'npm init -y',
+    installCommand: 'npm install',
   },
   Yarn: {
-    initCommand: "yarn init -y",
-    installCommand: "yarn add",
+    initCommand: 'yarn init -y',
+    installCommand: 'yarn add',
   },
   Bun: {
-    initCommand: "npm init -y",
-    installCommand: "bun add",
+    initCommand: 'npm init -y',
+    installCommand: 'bun add',
   },
   PNPM: {
-    initCommand: "pnpm init",
-    installCommand: "pnpm install",
+    initCommand: 'pnpm init',
+    installCommand: 'pnpm install',
   },
 };

@@ -1,119 +1,119 @@
-import { QuestionProps } from "@/types/question";
-import chalk from "chalk";
+import { QuestionProps } from '@/types/question';
+import chalk from 'chalk';
 
 export const wichStackQuestion: QuestionProps[] = [
   {
-    name: "stack",
-    type: "list",
-    message: "Which stack do you will use?",
-    choices: ["Frontend", "Backend"],
+    name: 'stack',
+    type: 'list',
+    message: 'Which stack do you will use?',
+    choices: ['Frontend', 'Backend'],
   },
 ];
 
 export const backendQuestions: QuestionProps[] = [
   {
-    name: "wichManager",
-    type: "list",
+    name: 'wichManager',
+    type: 'list',
     message: `🛠️  Which ${chalk.bold.underline(
-      "package manager",
+      'package manager',
     )} do want to use?`,
-    choices: ["NPM", "Yarn", "Bun", "PNPM"],
+    choices: ['NPM', 'Yarn', 'Bun', 'PNPM'],
   },
   {
-    name: "hasPackageJson",
-    type: "list",
+    name: 'hasPackageJson',
+    type: 'list',
     message: `📦 Have you already created your ${chalk.whiteBright.underline(
-      "package.json",
+      'package.json',
     )}?`,
-    choices: ["No", "Yes"],
+    choices: ['No', 'Yes'],
   },
   {
-    name: "wichLanguage",
-    type: "list",
-    message: `🪛  Wich ${chalk.cyan("language")} do you want to use?`,
-    choices: ["Javascript", "Typescript"],
+    name: 'wichLanguage',
+    type: 'list',
+    message: `🪛  Wich ${chalk.cyan('language')} do you want to use?`,
+    choices: ['Javascript', 'Typescript'],
   },
   {
-    name: "wichLinter",
-    type: "list",
-    message: `🧹 Do you want to add ${chalk.blue("linter")} to lint your code?`,
-    choices: ["Eslint", "Biome", "No"],
+    name: 'wichLinter',
+    type: 'list',
+    message: `🧹 Do you want to add ${chalk.blue('linter')} to lint your code?`,
+    choices: ['Eslint', 'Biome', 'No'],
   },
   {
-    name: "wichTest",
-    type: "list",
+    name: 'wichTest',
+    type: 'list',
     message: `🧪 Do you want to setup a ${chalk.greenBright(
-      "Test",
+      'Test',
     )} to this project?`,
-    choices: ["Vitest", "No"],
+    choices: ['Vitest', 'No'],
   },
   {
-    name: "isVscode",
-    type: "list",
+    name: 'isVscode',
+    type: 'list',
     message: `💻 Do you want to create a ${chalk.blueBright(
-      ".vscode",
+      '.vscode',
     )} folder?`,
-    choices: ["Yes", "No"],
+    choices: ['Yes', 'No'],
   },
   {
-    name: "createDirectories",
-    type: "list",
+    name: 'createDirectories',
+    type: 'list',
     message: `📂 Do you want to create a ${chalk.whiteBright.underline(
-      "src",
+      'src',
     )} directory?`,
-    choices: ["Yes", "No"],
+    choices: ['Yes', 'No'],
   },
   {
-    name: "addScripts",
-    type: "list",
+    name: 'addScripts',
+    type: 'list',
     message: `💻 Do you want implement common ${chalk.greenBright(
-      "scripts",
+      'scripts',
     )} into your package.json (dev, start, test...)?`,
-    choices: ["Yes", "No"],
+    choices: ['Yes', 'No'],
   },
 ];
 
 export const frontendQuestions: QuestionProps[] = [
   {
-    name: "hasPackageJson",
-    type: "list",
+    name: 'hasPackageJson',
+    type: 'list',
     message: `📦 Have you already created your ${chalk.whiteBright.underline(
-      "package.json",
+      'package.json',
     )}?`,
-    choices: ["Yes", "No"],
+    choices: ['Yes', 'No'],
   },
   {
-    name: "wichManager",
-    type: "list",
+    name: 'wichManager',
+    type: 'list',
     message: `🛠️  Which ${chalk.bold.underline(
-      "package manager",
+      'package manager',
     )} do want to use?`,
-    choices: ["NPM", "Yarn", "Bun", "PNPM"],
+    choices: ['NPM', 'Yarn', 'Bun', 'PNPM'],
   },
   {
-    name: "wichLanguage",
-    type: "list",
-    message: `🪛  Wich ${chalk.cyan("language")} do you want to use?`,
-    choices: ["Javascript", "Typescript"],
+    name: 'wichLanguage',
+    type: 'list',
+    message: `🪛  Wich ${chalk.cyan('language')} do you want to use?`,
+    choices: ['Javascript', 'Typescript'],
   },
   {
-    name: "wichLinter",
-    type: "list",
-    message: `🧹 Do you want to add ${chalk.blue("linter")} to lint your code?`,
-    choices: ["Eslint", "Biome", "No"],
+    name: 'wichLinter',
+    type: 'list',
+    message: `🧹 Do you want to add ${chalk.blue('linter')} to lint your code?`,
+    choices: ['Eslint', 'Biome', 'No'],
   },
   {
-    name: "isVscode",
-    type: "list",
+    name: 'isVscode',
+    type: 'list',
     message: `💻 Do you want to create a ${chalk.blueBright(
-      ".vscode",
+      '.vscode',
     )} folder?`,
-    choices: ["Yes", "No"],
+    choices: ['Yes', 'No'],
   },
   {
-    name: "wichStack",
-    type: "list",
-    message: "🛠️  Which stack are you using?",
-    choices: ["N/A", "React", "Next.js", "Vue.js"],
+    name: 'wichStack',
+    type: 'list',
+    message: '🛠️  Which stack are you using?',
+    choices: ['N/A', 'React', 'Next.js', 'Vue.js'],
   },
 ];

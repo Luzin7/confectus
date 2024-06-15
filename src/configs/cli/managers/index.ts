@@ -1,3 +1,3 @@
-import { managers } from "./managers";
+import { managers } from './managers';
 
 export default managers;
