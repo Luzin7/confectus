@@ -3,7 +3,7 @@
   "type": "module",
   "author": "Luan Victor de Souza Dutra",
   "main": "./dist/main.js",
-  "version": "1.4.6",
+  "version": "1.6.0",
   "license": "MIT",
   "keywords": [
     "JavaScript",
