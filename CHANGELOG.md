@@ -1,5 +1,17 @@
 # confectus
 
+## 1.6.0
+
+### Minor Changes
+
+- Update Eslint configurations to v9.x.
+
+## 1.5.0
+
+### Minor Changes
+
+- Fix eslint configuration for Next.js and react using Javascript and Typescript.
+
 ## 1.4.6
 
 ### Patch Changes
