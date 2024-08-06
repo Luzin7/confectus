@@ -3,7 +3,7 @@
   "type": "module",
   "author": "Luan Victor de Souza Dutra",
   "main": "./dist/main.js",
-  "version": "1.6.0",
+  "version": "1.6.2",
   "license": "MIT",
   "keywords": [
     "JavaScript",
@@ -23,7 +23,7 @@
     "start": "npm run build && node ./dist/main.js",
     "changeset": "changeset",
     "version": "changeset version",
-    "release": "npm run build && changeset publish",
+    "release": "tsup --minify && changeset publish",
     "dev": "tsx ./src/main.ts",
     "test": "vitest"
   },

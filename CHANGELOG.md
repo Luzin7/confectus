@@ -1,5 +1,17 @@
 # confectus
 
+## 1.6.2
+
+### Patch Changes
+
+- minor adjusts
+
+## 1.6.1
+
+### Patch Changes
+
+- Adjust errors in nest and react with ts and eslint
+
 ## 1.6.0
 
 ### Minor Changes
