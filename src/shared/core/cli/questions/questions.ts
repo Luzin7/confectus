@@ -5,7 +5,7 @@ export const wichStackQuestion: QuestionProps[] = [
   {
     name: "stack",
     type: "list",
-    message: "Which stack do you will use?",
+    message: "Which stack do you want to use?",
     choices: ["Frontend", "Backend"],
   },
 ];
