@@ -1,5 +1,11 @@
 # confectus
 
+## 1.6.3
+
+### Patch Changes
+
+- Fix file creation error
+
 ## 1.6.2
 
 ### Patch Changes
