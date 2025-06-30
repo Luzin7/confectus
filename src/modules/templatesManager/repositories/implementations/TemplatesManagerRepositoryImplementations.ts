@@ -15,6 +15,7 @@ export class TemplatesManagerRepositoryImplementations
 		templateDestination: string,
 	): Promise<void> {
 		const isDevelopment = process.env.NODE_ENV === "development";
+    console.log(`isDevelopment: ${process.env.NODE_ENV}`);
 		const rootPath = isDevelopment
 			? path.resolve(__dirname, "../../../../")
 			: __dirname;
