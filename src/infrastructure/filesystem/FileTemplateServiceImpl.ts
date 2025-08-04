@@ -1,6 +1,6 @@
+import fs from "fs-extra";
 import path from "path";
 import { fileURLToPath } from "url";
-import fs from "fs-extra";
 import { FileTemplateService } from "../../core/contracts/FileTemplateService.js";
 import { FileCopyError } from "../../core/errors/FileCopyError.js";
 
@@ -13,9 +13,33 @@ export class FileTemplateServiceImpl implements FileTemplateService {
 		templateDestination: string,
 	): Promise<void> {
 		const isDevelopment = process.env.NODE_ENV === "development";
-		const rootPath = isDevelopment
-			? path.resolve(__dirname, "../../../")
-			: __dirname;
+		
+		let rootPath: string;
+		if (isDevelopment) {
+			rootPath = path.resolve(__dirname, "../../../");
+		} else {
+			const currentModulePath = path.dirname(fileURLToPath(import.meta.url));
+			
+			const possiblePaths = [
+				currentModulePath,
+				path.resolve(currentModulePath, ".."),
+				path.resolve(currentModulePath, "../.."),
+				path.resolve(currentModulePath, "..", "templates"),
+				path.resolve(currentModulePath, "../..", "templates")
+			];
+			
+			const foundPath = possiblePaths.find(checkPath => {
+				const templatesDir = path.join(checkPath, "templates");
+				return fs.existsSync(templatesDir);
+			});
+			
+			if (!foundPath) {
+				rootPath = currentModulePath;
+			} else {
+				rootPath = foundPath;
+			}
+		}
+		
 		const templatesPath = (...subpaths: string[]) =>
 			path.join(
 				rootPath,

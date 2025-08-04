@@ -13,8 +13,13 @@ export class DependencyInstallerServiceImpl
 		dependency: string,
 		stackChoiced: SettingsProps,
 	): Promise<void> {
-		const { dependencies, devDependencies } =
-			stackChoiced[dependency.toLowerCase()] ?? {};
+		const dependencyConfig = stackChoiced[dependency.toLowerCase()];
+		
+		if (!dependencyConfig) {
+			throw new Error(`Dependency configuration not found: ${dependency}`);
+		}
+		
+		const { dependencies, devDependencies } = dependencyConfig;
 
 		function installCommand(deps: string, dev: boolean) {
 			const isDevelopment = process.env.NODE_ENV === "development";
@@ -30,9 +35,18 @@ export class DependencyInstallerServiceImpl
 				| InstallationDependencyError
 				| InstallationDevelopmentDependencyError,
 		) => {
+			const command = installCommand(deps, dev);
 			try {
-				await promisify(exec)(installCommand(deps, dev));
-			} catch (_error) {
+				await promisify(exec)(command);
+			} catch (error) {
+				const isDevelopment = process.env.NODE_ENV === "development";
+				if (isDevelopment) {
+					console.error("Dependency installation failed:");
+					console.error("Command:", command);
+					console.error("Error:", error);
+					return;
+				}
+				
 				throw new Error(errorType.message);
 			}
 		};

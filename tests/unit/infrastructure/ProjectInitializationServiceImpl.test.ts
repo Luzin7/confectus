@@ -67,6 +67,10 @@ describe("ProjectInitializationServiceImpl", () => {
 
 	describe("Error Cases", () => {
 		it("should handle initialization errors", async () => {
+			// Set NODE_ENV to development to trigger console.error
+			const originalNodeEnv = process.env.NODE_ENV;
+			process.env.NODE_ENV = "development";
+
 			const mockExecPromise = vi
 				.fn()
 				.mockRejectedValue(new Error("Init failed"));
@@ -86,6 +90,9 @@ describe("ProjectInitializationServiceImpl", () => {
 				"Failed to initialize project:",
 				expect.any(Error),
 			);
+
+			// Restore original NODE_ENV
+			process.env.NODE_ENV = originalNodeEnv;
 		});
 
 		it("should handle permission errors", async () => {
