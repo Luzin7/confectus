@@ -3,7 +3,7 @@
 	"type": "module",
 	"author": "Luan Victor de Souza Dutra",
 	"main": "./dist/main.js",
-	"version": "1.7.0",
+	"version": "1.8.0",
 	"license": "MIT",
 	"keywords": [
 		"JavaScript",
@@ -35,7 +35,9 @@
 		"confectus": "dist/main.js",
 		"cf": "dist/main.js"
 	},
-	"files": ["./dist/**/*"],
+	"files": [
+		"./dist/**/*"
+	],
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/Luzin7/confectus.git"
