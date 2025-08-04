@@ -16,7 +16,16 @@ describe("ProjectInitializationServiceImpl", () => {
 		mockExec = vi.mocked(exec);
 		mockPromisify = vi.mocked(promisify);
 
+		// Mock console.error as a spy
+		vi.spyOn(console, "error").mockImplementation(() => {
+			// Mock implementation - no operation needed
+		});
+
 		process.env.NODE_ENV = "test";
+	});
+
+	afterEach(() => {
+		vi.restoreAllMocks();
 	});
 
 	describe("Success Cases", () => {
