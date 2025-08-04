@@ -1,6 +1,6 @@
 # confectus
 
-## 1.6.3
+## 1.7.3
 
 ### Minor Changes
 
