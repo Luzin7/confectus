@@ -1,24 +1,24 @@
 {
-  "compilerOptions": {
-    "target": "ESNext",
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
-    "lib": ["ES2018", "ESNext"],
-    "strict": true,
-    "allowSyntheticDefaultImports": true,
-    "experimentalDecorators": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "outDir": "./dist",
-    "rootDir": "./src",
-    "baseUrl": "./src",
-    "resolveJsonModule": true,
-    "types": ["node", "vitest/globals"],
-    "paths": {
-      "@/*": ["./*"]
-    }
-  },
-  "include": ["./src/**/*"],
-  "exclude": ["node_modules", "dist", "test"]
+	"compilerOptions": {
+		"target": "ESNext",
+		"module": "NodeNext",
+		"moduleResolution": "NodeNext",
+		"lib": ["ES2018", "ESNext"],
+		"strict": true,
+		"allowSyntheticDefaultImports": true,
+		"experimentalDecorators": true,
+		"esModuleInterop": true,
+		"skipLibCheck": true,
+		"forceConsistentCasingInFileNames": true,
+		"outDir": "./dist",
+		"rootDir": "./src",
+		"baseUrl": "./src",
+		"resolveJsonModule": true,
+		"types": ["node", "vitest/globals"],
+		"paths": {
+			"@/*": ["./*"]
+		}
+	},
+	"include": ["./src/**/*"],
+	"exclude": ["node_modules", "dist", "test"]
 }
