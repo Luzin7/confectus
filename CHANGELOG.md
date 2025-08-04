@@ -80,30 +80,6 @@
 
 - Fix package error that causes erros when was installing depedencies
 
-## 1.4.4
-
-### Patch Changes
-
-- Change configuration of vanilla projects
-
-## 1.4.3
-
-### Patch Changes
-
-- Fix critical error
-
-## 1.4.2
-
-### Patch Changes
-
-- Fix some bugs and errors
-
-## 1.4.1
-
-### Patch Changes
-
-- Fix some bugs and errors
-
 ## 1.4.0
 
 ### Minor Changes
