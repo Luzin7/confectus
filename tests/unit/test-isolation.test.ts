@@ -8,7 +8,7 @@ describe("Test Isolation Check", () => {
 
 	it("should run in isolated test environment", () => {
 		expect(process.env.NODE_ENV).toBe("test");
-		expect(process.cwd()).toContain("temp-test");
+		expect(process.cwd()).toContain("/tmp/confectus-test");
 	});
 
 	it("should not modify real project files", async () => {
