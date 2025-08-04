@@ -1,4 +1,4 @@
-import { QuestionProps } from "@@types/question.js";
+import { QuestionProps } from "@application/dtos/question";
 import chalk from "chalk";
 
 export const wichStackQuestion: QuestionProps[] = [

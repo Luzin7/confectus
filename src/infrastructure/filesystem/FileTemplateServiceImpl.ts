@@ -13,12 +13,15 @@ export class FileTemplateServiceImpl implements FileTemplateService {
 		templateDestination: string,
 	): Promise<void> {
 		const isDevelopment = process.env.NODE_ENV === "development";
-		console.log(`isDevelopment: ${process.env.NODE_ENV}`);
 		const rootPath = isDevelopment
-			? path.resolve(__dirname, "../../../../")
+			? path.resolve(__dirname, "../../../")
 			: __dirname;
 		const templatesPath = (...subpaths: string[]) =>
-			path.join(rootPath, "templates", ...subpaths);
+			path.join(
+				rootPath,
+				isDevelopment ? "src/templates" : "templates",
+				...subpaths,
+			);
 
 		const copyFiles = async (
 			source: string,
