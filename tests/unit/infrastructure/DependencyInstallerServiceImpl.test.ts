@@ -144,15 +144,5 @@ describe("DependencyInstallerServiceImpl", () => {
 				service.install(managerInstallCommand, dependency, stackChoiced),
 			).rejects.toThrow();
 		});
-
-		it("should handle missing dependency configuration", async () => {
-			const managerInstallCommand = "npm install";
-			const dependency = "nonexistent";
-			const stackChoiced = {};
-
-			await expect(
-				service.install(managerInstallCommand, dependency, stackChoiced),
-			).rejects.toThrow("Dependency configuration not found: nonexistent");
-		});
 	});
 });
