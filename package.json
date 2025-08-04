@@ -1,71 +1,69 @@
 {
-  "name": "confectus",
-  "type": "module",
-  "author": "Luan Victor de Souza Dutra",
-  "main": "./dist/main.js",
-  "version": "1.7.0",
-  "license": "MIT",
-  "keywords": [
-    "JavaScript",
-    "TypeScript",
-    "Development",
-    "Environment",
-    "CLI",
-    "Assistant",
-    "Boilerplate",
-    "Bootstrap",
-    "Setup",
-    "Tools",
-    "Configuration"
-  ],
-  "scripts": {
-    "build": "tsup --minify && node ./build.js",
-    "start": "npm run build && node ./dist/main.js",
-    "changeset": "changeset",
-    "version": "changeset version",
-    "release": "tsup --minify && changeset publish",
-    "dev": "NODE_ENV=development tsx ./src/main.ts",
-    "test": "vitest",
-    "test:coverage": "vitest --coverage",
-    "lint": "biome check .",
-    "lint:fix": "biome check . --write",
-    "type-check": "tsc --noEmit"
-  },
-  "bin": {
-    "confectus": "dist/main.js",
-    "cf": "dist/main.js"
-  },
-  "files": [
-    "./dist/**/*"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Luzin7/confectus.git"
-  },
-  "devDependencies": {
-    "@biomejs/biome": "1.8.3",
-    "@changesets/cli": "^2.27.1",
-    "@types/fs-extra": "^11.0.4",
-    "@types/inquirer": "^9.0.7",
-    "@types/jest": "^29.5.11",
-    "@types/node": "^20.14.2",
-    "rollup-plugin-multi-entry": "^2.1.0",
-    "ts-node": "^10.9.2",
-    "tsup": "^8.1.0",
-    "tsx": "^4.15.5",
-    "typescript": "^5.4.5",
-    "vite": "^6.3.5",
-    "vitest": "^3.2.4"
-  },
-  "dependencies": {
-    "chalk": "^5.3.0",
-    "fs-extra": "^11.2.0",
-    "inquirer": "^9.2.12",
-    "nanospinner": "^1.1.0"
-  },
-  "description": "#Confectus",
-  "bugs": {
-    "url": "https://github.com/Luzin7/confectus/issues"
-  },
-  "homepage": "https://github.com/Luzin7/confectus#readme"
+	"name": "confectus",
+	"type": "module",
+	"author": "Luan Victor",
+	"main": "./dist/main.js",
+	"version": "1.7.1",
+	"license": "MIT",
+	"keywords": [
+		"JavaScript",
+		"TypeScript",
+		"Development",
+		"Environment",
+		"CLI",
+		"Assistant",
+		"Boilerplate",
+		"Bootstrap",
+		"Setup",
+		"Tools",
+		"Configuration"
+	],
+	"scripts": {
+		"build": "tsup --minify && node ./build.js",
+		"start": "npm run build && node ./dist/main.js",
+		"changeset": "changeset",
+		"version": "changeset version",
+		"release": "tsup --minify && changeset publish",
+		"dev": "NODE_ENV=development tsx ./src/main.ts",
+		"test": "vitest",
+		"test:coverage": "vitest --coverage",
+		"lint": "biome check .",
+		"lint:fix": "biome check . --write",
+		"type-check": "tsc --noEmit"
+	},
+	"bin": {
+		"confectus": "dist/main.js",
+		"cf": "dist/main.js"
+	},
+	"files": ["./dist/**/*"],
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Luzin7/confectus.git"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "1.8.3",
+		"@changesets/cli": "^2.27.1",
+		"@types/fs-extra": "^11.0.4",
+		"@types/inquirer": "^9.0.7",
+		"@types/jest": "^29.5.11",
+		"@types/node": "^20.14.2",
+		"rollup-plugin-multi-entry": "^2.1.0",
+		"ts-node": "^10.9.2",
+		"tsup": "^8.1.0",
+		"tsx": "^4.15.5",
+		"typescript": "^5.4.5",
+		"vite": "^6.3.5",
+		"vitest": "^3.2.4"
+	},
+	"dependencies": {
+		"chalk": "^5.3.0",
+		"fs-extra": "^11.2.0",
+		"inquirer": "^9.2.12",
+		"nanospinner": "^1.1.0"
+	},
+	"description": "#Confectus",
+	"bugs": {
+		"url": "https://github.com/Luzin7/confectus/issues"
+	},
+	"homepage": "https://github.com/Luzin7/confectus#readme"
 }

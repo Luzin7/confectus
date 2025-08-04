@@ -16,7 +16,16 @@ describe("ProjectInitializationServiceImpl", () => {
 		mockExec = vi.mocked(exec);
 		mockPromisify = vi.mocked(promisify);
 
+		// Mock console.error as a spy
+		vi.spyOn(console, "error").mockImplementation(() => {
+			// Mock implementation - no operation needed
+		});
+
 		process.env.NODE_ENV = "test";
+	});
+
+	afterEach(() => {
+		vi.restoreAllMocks();
 	});
 
 	describe("Success Cases", () => {
@@ -67,14 +76,13 @@ describe("ProjectInitializationServiceImpl", () => {
 
 	describe("Error Cases", () => {
 		it("should handle initialization errors", async () => {
+			const originalNodeEnv = process.env.NODE_ENV;
+			process.env.NODE_ENV = "development";
+
 			const mockExecPromise = vi
 				.fn()
 				.mockRejectedValue(new Error("Init failed"));
 			mockPromisify.mockReturnValue(mockExecPromise);
-
-			vi.spyOn(console, "error").mockImplementation(() => {
-				// Intentional empty mock implementation to suppress console output in tests
-			});
 
 			const initCommand = "npm init -y";
 
@@ -86,6 +94,8 @@ describe("ProjectInitializationServiceImpl", () => {
 				"Failed to initialize project:",
 				expect.any(Error),
 			);
+
+			process.env.NODE_ENV = originalNodeEnv;
 		});
 
 		it("should handle permission errors", async () => {
@@ -93,10 +103,6 @@ describe("ProjectInitializationServiceImpl", () => {
 				.fn()
 				.mockRejectedValue(new Error("Permission denied"));
 			mockPromisify.mockReturnValue(mockExecPromise);
-
-			vi.spyOn(console, "error").mockImplementation(() => {
-				// Intentional empty mock implementation to suppress console output in tests
-			});
 
 			const initCommand = "npm init -y";
 

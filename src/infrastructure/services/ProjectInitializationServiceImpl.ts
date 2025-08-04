@@ -12,8 +12,14 @@ export class ProjectInitializationServiceImpl
 		try {
 			await promisify(exec)(command);
 		} catch (error) {
-			console.error("Failed to initialize project:", error);
-			throw new Error("Project initialization failed");
+			const isDevelopment = process.env.NODE_ENV === "development";
+			if (isDevelopment) {
+				console.error("Failed to initialize project:", error);
+			}
+
+			const errorMessage =
+				error instanceof Error ? error.message : "Unknown error";
+			throw new Error(`Project initialization failed: ${errorMessage}`);
 		}
 	}
 }

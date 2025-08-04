@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { InstallProjectDependencies } from "../../../src/application/useCases/InstallProjectDependencies.js";
+import { LoadingService } from "../../../src/core/contracts/LoadingService.js";
 import { ProjectSetupService } from "../../../src/core/contracts/ProjectSetupService.js";
 
 const createMockProjectSetupService = (): ProjectSetupService => ({
@@ -8,13 +9,25 @@ const createMockProjectSetupService = (): ProjectSetupService => ({
 	setupBackendEnvironment: vi.fn(),
 });
 
+const createMockLoadingService = (): LoadingService => ({
+	start: vi.fn(),
+	success: vi.fn(),
+	error: vi.fn(),
+	stop: vi.fn(),
+});
+
 describe("InstallProjectDependencies Use Case", () => {
 	let useCase: InstallProjectDependencies;
 	let mockProjectSetupService: ProjectSetupService;
+	let mockLoadingService: LoadingService;
 
 	beforeEach(() => {
 		mockProjectSetupService = createMockProjectSetupService();
-		useCase = new InstallProjectDependencies(mockProjectSetupService);
+		mockLoadingService = createMockLoadingService();
+		useCase = new InstallProjectDependencies(
+			mockProjectSetupService,
+			mockLoadingService,
+		);
 	});
 
 	describe("Success Cases", () => {
