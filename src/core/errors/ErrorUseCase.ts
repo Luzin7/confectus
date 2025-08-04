@@ -1,3 +1,3 @@
 export abstract class UseCaseError {
-  abstract message: string;
+	abstract message: string;
 }

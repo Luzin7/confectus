@@ -1,9 +1,9 @@
 import { exec } from "child_process";
 import { promisify } from "util";
-import { DependenciesInstallerRepository } from "../contracts/DependenciesInstallerRepository.js";
 import { SettingsProps } from "@application/dtos/setting.js";
 import { InstallationDependencyError } from "@core/errors/InstallationDependencyError.js";
 import { InstallationDevelopmentDependencyError } from "@core/errors/InstallationDevelopmentDependencyError.js";
+import { DependenciesInstallerRepository } from "../contracts/DependenciesInstallerRepository.js";
 
 export class DependenciesInstallerRepositoryImplementation
 	implements DependenciesInstallerRepository

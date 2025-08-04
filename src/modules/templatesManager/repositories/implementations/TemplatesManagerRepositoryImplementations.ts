@@ -1,8 +1,8 @@
 import path from "path";
 import { fileURLToPath } from "url";
-import fs from "fs-extra";
 import { TemplatesManagerRepository } from "@core/contracts/TemplatesManagerRepository";
 import { FileCopyError } from "@core/errors/FileCopyError";
+import fs from "fs-extra";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -15,7 +15,7 @@ export class TemplatesManagerRepositoryImplementation
 		templateDestination: string,
 	): Promise<void> {
 		const isDevelopment = process.env.NODE_ENV === "development";
-    console.log(`isDevelopment: ${process.env.NODE_ENV}`);
+		console.log(`isDevelopment: ${process.env.NODE_ENV}`);
 		const rootPath = isDevelopment
 			? path.resolve(__dirname, "../../../../")
 			: __dirname;

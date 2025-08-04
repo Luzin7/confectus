@@ -1,7 +1,7 @@
 import {
-  backendQuestions,
-  frontendQuestions,
-  wichStackQuestion,
+	backendQuestions,
+	frontendQuestions,
+	wichStackQuestion,
 } from "./questions";
 
 export { backendQuestions, frontendQuestions, wichStackQuestion };

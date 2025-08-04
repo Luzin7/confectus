@@ -1,9 +1,9 @@
 import { exec } from "child_process";
 import { promisify } from "util";
 import { SettingsProps } from "../../application/dtos/setting.js";
+import { DependencyInstallerService } from "../../core/contracts/DependencyInstallerService.js";
 import { InstallationDependencyError } from "../../core/errors/InstallationDependencyError.js";
 import { InstallationDevelopmentDependencyError } from "../../core/errors/InstallationDevelopmentDependencyError.js";
-import { DependencyInstallerService } from "../../core/contracts/DependencyInstallerService.js";
 
 export class DependencyInstallerServiceImpl
 	implements DependencyInstallerService

@@ -2,11 +2,11 @@
 const { defineConfig } = require("vite");
 
 defineConfig({
-  test: {
-    globals: true,
-    include: ["src/**/*.spec.ts"],
-    dir: "src/test",
-  },
+	test: {
+		globals: true,
+		include: ["src/**/*.spec.ts"],
+		dir: "src/test",
+	},
 });
 
 module.exports = defineConfig();

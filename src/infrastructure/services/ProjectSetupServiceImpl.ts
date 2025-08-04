@@ -1,18 +1,18 @@
+import path from "path";
+import fs from "fs-extra";
 import { Answers } from "../../application/dtos/answers.js";
 import { SettingsProps } from "../../application/dtos/setting.js";
-import { managers } from "../../infrastructure/cli/managers.js";
 import {
 	backendDependenciesSetup,
 	frontendDependenciesSetup,
 } from "../../configs/dependenciesInstallerSetup/index.js";
 import { DependencyInstallerService } from "../../core/contracts/DependencyInstallerService.js";
+import { FileTemplateService } from "../../core/contracts/FileTemplateService.js";
 import { ProjectInitializationService } from "../../core/contracts/ProjectInitializationService.js";
+import { ProjectSetupService } from "../../core/contracts/ProjectSetupService.js";
 import { NoPackageJsonError } from "../../core/errors/NoPackageJsonError.js";
 import { NotFoundPackageJsonError } from "../../core/errors/NotFoundPackageJsonError.js";
-import { FileTemplateService } from "../../core/contracts/FileTemplateService.js";
-import { ProjectSetupService } from "../../core/contracts/ProjectSetupService.js";
-import fs from "fs-extra";
-import path from "path";
+import { managers } from "../../infrastructure/cli/managers.js";
 import { generateScripts } from "../../templates/backend/scripts/generateScripts.js";
 
 export class ProjectSetupServiceImpl implements ProjectSetupService {
@@ -41,7 +41,9 @@ export class ProjectSetupServiceImpl implements ProjectSetupService {
 		const { installCommand } = managers[wichManager];
 		const isTypescript: boolean = wichLanguage === "Typescript";
 		const stackChoiced: SettingsProps =
-			stack === "Backend" ? backendDependenciesSetup : frontendDependenciesSetup;
+			stack === "Backend"
+				? backendDependenciesSetup
+				: frontendDependenciesSetup;
 
 		const installDependency = async (dependency: string) => {
 			await this.dependencyInstallerService.install(

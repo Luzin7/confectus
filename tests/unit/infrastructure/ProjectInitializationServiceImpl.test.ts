@@ -1,89 +1,108 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { ProjectInitializationServiceImpl } from '../../../src/infrastructure/services/ProjectInitializationServiceImpl.js';
-import { exec } from 'child_process';
-import { promisify } from 'util';
+import { exec } from "child_process";
+import { promisify } from "util";
+import { beforeEach, describe, expect, it, vi } from "vitest";
+import { ProjectInitializationServiceImpl } from "../../../src/infrastructure/services/ProjectInitializationServiceImpl.js";
 
-vi.mock('child_process');
-vi.mock('util');
+vi.mock("child_process");
+vi.mock("util");
 
-describe('ProjectInitializationServiceImpl', () => {
-  let service: ProjectInitializationServiceImpl;
-  let mockExec: any;
-  let mockPromisify: any;
+describe("ProjectInitializationServiceImpl", () => {
+	let service: ProjectInitializationServiceImpl;
+	let mockExec: ReturnType<typeof vi.mocked<typeof exec>>;
+	let mockPromisify: ReturnType<typeof vi.mocked<typeof promisify>>;
 
-  beforeEach(() => {
-    service = new ProjectInitializationServiceImpl();
-    mockExec = vi.mocked(exec);
-    mockPromisify = vi.mocked(promisify);
-    
-    process.env.NODE_ENV = 'test';
-  });
+	beforeEach(() => {
+		service = new ProjectInitializationServiceImpl();
+		mockExec = vi.mocked(exec);
+		mockPromisify = vi.mocked(promisify);
 
-  describe('Success Cases', () => {
-    it('should initialize project successfully in development mode', async () => {
-      process.env.NODE_ENV = 'development';
-      const service = new ProjectInitializationServiceImpl();
-      const mockExecPromise = vi.fn().mockResolvedValue({ stdout: 'success', stderr: '' });
-      mockPromisify.mockReturnValue(mockExecPromise);
+		process.env.NODE_ENV = "test";
+	});
 
-      const initCommand = 'npm init -y';
+	describe("Success Cases", () => {
+		it("should initialize project successfully in development mode", async () => {
+			process.env.NODE_ENV = "development";
+			const service = new ProjectInitializationServiceImpl();
+			const mockExecPromise = vi
+				.fn()
+				.mockResolvedValue({ stdout: "success", stderr: "" });
+			mockPromisify.mockReturnValue(mockExecPromise);
 
-      await service.initialize(initCommand);
+			const initCommand = "npm init -y";
 
-      expect(mockPromisify).toHaveBeenCalledWith(mockExec);
-      expect(mockExecPromise).toHaveBeenCalledWith('cd mock && npm init -y');
-    });
+			await service.initialize(initCommand);
 
-    it('should initialize project successfully in production mode', async () => {
-      process.env.NODE_ENV = 'production';
-      const service = new ProjectInitializationServiceImpl();
-      const mockExecPromise = vi.fn().mockResolvedValue({ stdout: 'success', stderr: '' });
-      mockPromisify.mockReturnValue(mockExecPromise);
+			expect(mockPromisify).toHaveBeenCalledWith(mockExec);
+			expect(mockExecPromise).toHaveBeenCalledWith("cd mock && npm init -y");
+		});
 
-      const initCommand = 'npm init -y';
+		it("should initialize project successfully in production mode", async () => {
+			process.env.NODE_ENV = "production";
+			const service = new ProjectInitializationServiceImpl();
+			const mockExecPromise = vi
+				.fn()
+				.mockResolvedValue({ stdout: "success", stderr: "" });
+			mockPromisify.mockReturnValue(mockExecPromise);
 
-      await service.initialize(initCommand);
+			const initCommand = "npm init -y";
 
-      expect(mockExecPromise).toHaveBeenCalledWith('npm init -y');
-    });
+			await service.initialize(initCommand);
 
-    it('should handle different package managers', async () => {
-      const mockExecPromise = vi.fn().mockResolvedValue({ stdout: 'success', stderr: '' });
-      mockPromisify.mockReturnValue(mockExecPromise);
+			expect(mockExecPromise).toHaveBeenCalledWith("npm init -y");
+		});
 
-      const initCommand = 'yarn init -y';
+		it("should handle different package managers", async () => {
+			const mockExecPromise = vi
+				.fn()
+				.mockResolvedValue({ stdout: "success", stderr: "" });
+			mockPromisify.mockReturnValue(mockExecPromise);
 
-      await service.initialize(initCommand);
+			const initCommand = "yarn init -y";
 
-      expect(mockExecPromise).toHaveBeenCalledWith('yarn init -y');
-    });
-  });
+			await service.initialize(initCommand);
 
-  describe('Error Cases', () => {
-    it('should handle initialization errors', async () => {
-      const mockExecPromise = vi.fn().mockRejectedValue(new Error('Init failed'));
-      mockPromisify.mockReturnValue(mockExecPromise);
-      
-      vi.spyOn(console, 'error').mockImplementation(() => {});
+			expect(mockExecPromise).toHaveBeenCalledWith("yarn init -y");
+		});
+	});
 
-      const initCommand = 'npm init -y';
+	describe("Error Cases", () => {
+		it("should handle initialization errors", async () => {
+			const mockExecPromise = vi
+				.fn()
+				.mockRejectedValue(new Error("Init failed"));
+			mockPromisify.mockReturnValue(mockExecPromise);
 
-      await expect(service.initialize(initCommand))
-        .rejects.toThrow('Project initialization failed');
-        
-      expect(console.error).toHaveBeenCalledWith('Failed to initialize project:', expect.any(Error));
-    });
+			vi.spyOn(console, "error").mockImplementation(() => {
+				// Intentional empty mock implementation to suppress console output in tests
+			});
 
-    it('should handle permission errors', async () => {
-      const mockExecPromise = vi.fn().mockRejectedValue(new Error('Permission denied'));
-      mockPromisify.mockReturnValue(mockExecPromise);
-      
-      vi.spyOn(console, 'error').mockImplementation(() => {});
+			const initCommand = "npm init -y";
 
-      const initCommand = 'npm init -y';
+			await expect(service.initialize(initCommand)).rejects.toThrow(
+				"Project initialization failed",
+			);
 
-      await expect(service.initialize(initCommand))
-        .rejects.toThrow('Project initialization failed');
-    });
-  });
+			expect(console.error).toHaveBeenCalledWith(
+				"Failed to initialize project:",
+				expect.any(Error),
+			);
+		});
+
+		it("should handle permission errors", async () => {
+			const mockExecPromise = vi
+				.fn()
+				.mockRejectedValue(new Error("Permission denied"));
+			mockPromisify.mockReturnValue(mockExecPromise);
+
+			vi.spyOn(console, "error").mockImplementation(() => {
+				// Intentional empty mock implementation to suppress console output in tests
+			});
+
+			const initCommand = "npm init -y";
+
+			await expect(service.initialize(initCommand)).rejects.toThrow(
+				"Project initialization failed",
+			);
+		});
+	});
 });

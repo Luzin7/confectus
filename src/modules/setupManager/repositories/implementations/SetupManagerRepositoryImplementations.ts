@@ -1,17 +1,20 @@
 import { managers } from "@configs/cli/managers.js";
 
-import fs from "fs-extra";
 import path from "path";
-import { generateScripts } from "@templates/backend/scripts/generateScripts.js";
-import { InitializeNewProjectRepository } from "@core/contracts/InitializeNewProjectRepository";
-import { SetupManagerRepository } from "@core/contracts/SetupManagerRepository";
-import { DependenciesInstallerRepository } from "@core/contracts/DependenciesInstallerRepository";
-import { TemplatesManagerRepository } from "@core/contracts/TemplatesManagerRepository";
 import { Answers } from "@application/dtos/answers";
 import { SettingsProps } from "@application/dtos/setting";
+import {
+	backendDependenciesSetup,
+	frontendDependenciesSetup,
+} from "@configs/dependenciesInstallerSetup";
+import { DependenciesInstallerRepository } from "@core/contracts/DependenciesInstallerRepository";
+import { InitializeNewProjectRepository } from "@core/contracts/InitializeNewProjectRepository";
+import { SetupManagerRepository } from "@core/contracts/SetupManagerRepository";
+import { TemplatesManagerRepository } from "@core/contracts/TemplatesManagerRepository";
 import { NoPackageJsonError } from "@core/errors/NoPackageJsonError";
 import { NotFoundPackageJsonError } from "@core/errors/NotFoundPackageJsonError";
-import { backendDependenciesSetup, frontendDependenciesSetup } from "@configs/dependenciesInstallerSetup";
+import { generateScripts } from "@templates/backend/scripts/generateScripts.js";
+import fs from "fs-extra";
 
 export class SetupManagerRepositoryImplementation
 	implements SetupManagerRepository
@@ -41,7 +44,9 @@ export class SetupManagerRepositoryImplementation
 		const { installCommand } = managers[wichManager];
 		const isTypescript: boolean = wichLanguage === "Typescript";
 		const stackChoiced: SettingsProps =
-			stack === "Backend" ? backendDependenciesSetup : frontendDependenciesSetup;
+			stack === "Backend"
+				? backendDependenciesSetup
+				: frontendDependenciesSetup;
 
 		const installDependency = async (dependency: string) => {
 			await this.dependenciesInstallerRepository.install(

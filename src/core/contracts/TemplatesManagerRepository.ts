@@ -1,6 +1,6 @@
 export abstract class TemplatesManagerRepository {
-  abstract install(
-    templateSource: string[],
-    templateDestination: string,
-  ): Promise<void>;
+	abstract install(
+		templateSource: string[],
+		templateDestination: string,
+	): Promise<void>;
 }

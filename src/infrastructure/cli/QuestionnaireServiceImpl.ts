@@ -1,8 +1,12 @@
-import { QuestionProps } from "../../application/dtos/question.js";
-import { QuestionnaireError } from "../../core/errors/QuestionnaireError.js";
-import { backendQuestions, frontendQuestions, wichStackQuestion } from "../../infrastructure/cli/questions.js";
 import inquirer from "inquirer";
+import { QuestionProps } from "../../application/dtos/question.js";
 import { QuestionnaireService } from "../../core/contracts/QuestionnaireService.js";
+import { QuestionnaireError } from "../../core/errors/QuestionnaireError.js";
+import {
+  backendQuestions,
+  frontendQuestions,
+  wichStackQuestion,
+} from "../../infrastructure/cli/questions.js";
 
 export class QuestionnaireServiceImpl implements QuestionnaireService {
 	private _answers: Record<string, string> = {};
@@ -20,7 +24,9 @@ export class QuestionnaireServiceImpl implements QuestionnaireService {
 		this._answers = { ...this._answers, ...answers };
 	}
 
-	async collectAnswers(questions: QuestionProps[]): Promise<Record<string, string>> {
+	async collectAnswers(
+		_questions: QuestionProps[],
+	): Promise<Record<string, string>> {
 		try {
 			const wichStackChoiceAnswers = await inquirer.prompt(wichStackQuestion);
 			this.wichStackWillUse(wichStackChoiceAnswers);
@@ -35,7 +41,7 @@ export class QuestionnaireServiceImpl implements QuestionnaireService {
 			}
 
 			return this._answers;
-		} catch (error) {
+		} catch (_error) {
 			throw new Error(new QuestionnaireError().message);
 		}
 	}
