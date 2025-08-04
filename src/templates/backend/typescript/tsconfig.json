@@ -1,31 +1,31 @@
 {
-  "compilerOptions": {
-    "target": "ESNext",
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
-    "lib": ["ES2018", "ESNext"],
-    "strict": true,
-    "experimentalDecorators": true,
-    "allowSyntheticDefaultImports": true,
-    "emitDecoratorMetadata": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "outDir": "./dist",
-    "rootDir": "./src",
-    "resolveJsonModule": true,
-    "baseUrl": "./src",
-    "paths": {
-      "@shared/*": ["./shared/*"],
-      "@infra/*": ["./infra/*"],
-      "@config/*": ["./config/*"],
-      "@@types/*": ["./@types/*"],
-      "@constants/*": ["./constants/*"],
-      "@modules/*": ["./modules/*"],
-      "@providers/*": ["./providers/*"],
-      "@test/*": ["./test/*"]
-    }
-  },
-  "include": ["src/**/*.ts"],
-  "exclude": ["node_modules", "dist"]
+	"compilerOptions": {
+		"target": "ESNext",
+		"module": "NodeNext",
+		"moduleResolution": "NodeNext",
+		"lib": ["ES2018", "ESNext"],
+		"strict": true,
+		"experimentalDecorators": true,
+		"allowSyntheticDefaultImports": true,
+		"emitDecoratorMetadata": true,
+		"esModuleInterop": true,
+		"skipLibCheck": true,
+		"forceConsistentCasingInFileNames": true,
+		"outDir": "./dist",
+		"rootDir": "./src",
+		"resolveJsonModule": true,
+		"baseUrl": "./src",
+		"paths": {
+			"@shared/*": ["./shared/*"],
+			"@infra/*": ["./infra/*"],
+			"@config/*": ["./config/*"],
+			"@@types/*": ["./@types/*"],
+			"@constants/*": ["./constants/*"],
+			"@modules/*": ["./modules/*"],
+			"@providers/*": ["./providers/*"],
+			"@test/*": ["./test/*"]
+		}
+	},
+	"include": ["src/**/*.ts"],
+	"exclude": ["node_modules", "dist"]
 }
