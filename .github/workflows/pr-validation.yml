@@ -30,6 +30,9 @@ jobs:
       - name: 📋 Install dependencies
         run: npm ci
 
+      - name: 🧹 Fix code
+        run: npm run lint:fix
+
       - name: 🧹 Lint code
         run: npm run lint
 
