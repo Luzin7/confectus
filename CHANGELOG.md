@@ -4,7 +4,7 @@
 
 ### Minor Changes
 
-- ee279de: # Architecture Refactoring & Test Suite Implementation
+- # Architecture Refactoring & Test Suite Implementation
 
   ## 🏗️ Architecture Changes
 
