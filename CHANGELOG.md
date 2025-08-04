@@ -1,5 +1,11 @@
 # confectus
 
+## 1.8.1
+
+### Patch Changes
+
+- 6e347c7: resolve minor errors
+
 ## 1.8.0
 
 ### Minor Changes
