@@ -1,10 +1,10 @@
-import fs from "fs-extra";
 import path from "path";
+import fs from "fs-extra";
 import { Answers } from "../../application/dtos/answers.js";
 import { SettingsProps } from "../../application/dtos/setting.js";
 import {
-  backendDependenciesSetup,
-  frontendDependenciesSetup,
+	backendDependenciesSetup,
+	frontendDependenciesSetup,
 } from "../../configs/dependenciesInstallerSetup/index.js";
 import { DependencyInstallerService } from "../../core/contracts/DependencyInstallerService.js";
 import { FileTemplateService } from "../../core/contracts/FileTemplateService.js";
@@ -117,7 +117,9 @@ export class ProjectSetupServiceImpl implements ProjectSetupService {
 		const stackSelected = wichStack;
 		const managerConfig = managers[wichManager];
 		if (!managerConfig) {
-			throw new Error(`Package manager configuration not found: ${wichManager}`);
+			throw new Error(
+				`Package manager configuration not found: ${wichManager}`,
+			);
 		}
 		const { initCommand } = managerConfig;
 
@@ -166,12 +168,15 @@ export class ProjectSetupServiceImpl implements ProjectSetupService {
 		if (linterSelected !== "No") {
 			if (stackSelected === "React") {
 				const linterChoiced = isTypescript ? "eslintReactTs" : "eslintReact";
-				const linterConfig = frontendDependenciesSetup[linterChoiced.toLowerCase()];
-				
+				const linterConfig =
+					frontendDependenciesSetup[linterChoiced.toLowerCase()];
+
 				if (!linterConfig?.configFiles) {
-					throw new Error(`Configuration not found for linter: ${linterChoiced}`);
+					throw new Error(
+						`Configuration not found for linter: ${linterChoiced}`,
+					);
 				}
-				
+
 				const linterConfigPath = linterConfig.configFiles.configFilePath;
 				const linterConfigFileName = linterConfig.configFiles.configFileName;
 
@@ -180,12 +185,15 @@ export class ProjectSetupServiceImpl implements ProjectSetupService {
 
 			if (stackSelected === "Next.js") {
 				const linterChoiced = isTypescript ? "eslintNextTs" : "eslintNext";
-				const linterConfig = frontendDependenciesSetup[linterChoiced.toLowerCase()];
-				
+				const linterConfig =
+					frontendDependenciesSetup[linterChoiced.toLowerCase()];
+
 				if (!linterConfig?.configFiles) {
-					throw new Error(`Configuration not found for linter: ${linterChoiced}`);
+					throw new Error(
+						`Configuration not found for linter: ${linterChoiced}`,
+					);
 				}
-				
+
 				const linterConfigPath = linterConfig.configFiles.configFilePath;
 				const linterConfigFileName = linterConfig.configFiles.configFileName;
 
@@ -194,12 +202,15 @@ export class ProjectSetupServiceImpl implements ProjectSetupService {
 
 			if (stackSelected === "Vue.js") {
 				const linterChoiced = isTypescript ? "eslintVueTs" : "eslintVue";
-				const linterConfig = frontendDependenciesSetup[linterChoiced.toLowerCase()];
-				
+				const linterConfig =
+					frontendDependenciesSetup[linterChoiced.toLowerCase()];
+
 				if (!linterConfig?.configFiles) {
-					throw new Error(`Configuration not found for linter: ${linterChoiced}`);
+					throw new Error(
+						`Configuration not found for linter: ${linterChoiced}`,
+					);
 				}
-				
+
 				const linterConfigPath = linterConfig.configFiles.configFilePath;
 				const linterConfigFileName = linterConfig.configFiles.configFileName;
 
@@ -208,12 +219,15 @@ export class ProjectSetupServiceImpl implements ProjectSetupService {
 
 			if (stackSelected === "N/A") {
 				const linterChoiced = isTypescript ? "eslintTs" : "eslintJs";
-				const linterConfig = frontendDependenciesSetup[linterChoiced.toLowerCase()];
-				
+				const linterConfig =
+					frontendDependenciesSetup[linterChoiced.toLowerCase()];
+
 				if (!linterConfig?.configFiles) {
-					throw new Error(`Configuration not found for linter: ${linterChoiced}`);
+					throw new Error(
+						`Configuration not found for linter: ${linterChoiced}`,
+					);
 				}
-				
+
 				const linterConfigPath = linterConfig.configFiles.configFilePath;
 				const linterConfigFileName = linterConfig.configFiles.configFileName;
 
@@ -275,7 +289,9 @@ export class ProjectSetupServiceImpl implements ProjectSetupService {
 		if (hasPackageJson === "No") {
 			const managerConfig = managers[wichManager];
 			if (!managerConfig) {
-				throw new Error(`Package manager configuration not found: ${wichManager}`);
+				throw new Error(
+					`Package manager configuration not found: ${wichManager}`,
+				);
 			}
 			const { initCommand } = managerConfig;
 			await this.projectInitializationService.initialize(initCommand);
@@ -297,8 +313,11 @@ export class ProjectSetupServiceImpl implements ProjectSetupService {
 				packageJson.scripts = { ...packageJson.scripts, ...scripts };
 				await fs.writeJson(packageJsonPath, packageJson, { spaces: 2 });
 			} catch (error) {
-				const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-				throw new Error(`Failed to update package.json scripts: ${errorMessage}`);
+				const errorMessage =
+					error instanceof Error ? error.message : "Unknown error";
+				throw new Error(
+					`Failed to update package.json scripts: ${errorMessage}`,
+				);
 			}
 		}
 

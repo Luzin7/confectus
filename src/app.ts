@@ -45,13 +45,15 @@ export async function app() {
 		console.log("✨ \x1b[36mEverything is ready to start developing!\x1b[0m");
 	} catch (error) {
 		console.log("\n💥 \x1b[31mProject setup failed!\x1b[0m");
-		
+
 		if (process.env.NODE_ENV === "development") {
 			console.error({ error });
 		} else {
-			console.error("🔴 \x1b[31mAn error occurred during setup. Please try again.\x1b[0m");
+			console.error(
+				"🔴 \x1b[31mAn error occurred during setup. Please try again.\x1b[0m",
+			);
 		}
-		
+
 		process.exit(1);
 	}
 }

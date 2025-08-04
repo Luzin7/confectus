@@ -24,7 +24,10 @@ describe("InstallProjectDependencies Use Case", () => {
 	beforeEach(() => {
 		mockProjectSetupService = createMockProjectSetupService();
 		mockLoadingService = createMockLoadingService();
-		useCase = new InstallProjectDependencies(mockProjectSetupService, mockLoadingService);
+		useCase = new InstallProjectDependencies(
+			mockProjectSetupService,
+			mockLoadingService,
+		);
 	});
 
 	describe("Success Cases", () => {

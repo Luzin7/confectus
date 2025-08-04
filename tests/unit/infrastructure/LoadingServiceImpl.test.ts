@@ -1,7 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { LoadingServiceImpl } from "../../../src/infrastructure/services/LoadingServiceImpl.js";
 
-// Mock do nanospinner
 vi.mock("nanospinner", () => ({
 	createSpinner: vi.fn(() => ({
 		start: vi.fn(),
@@ -13,7 +12,10 @@ vi.mock("nanospinner", () => ({
 
 describe("LoadingServiceImpl", () => {
 	let loadingService: LoadingServiceImpl;
-	let mockSpinner: any;
+	let mockSpinner: Record<
+		"start" | "success" | "error" | "stop",
+		ReturnType<typeof vi.fn>
+	>;
 
 	beforeEach(async () => {
 		const { createSpinner } = await import("nanospinner");
@@ -23,37 +25,43 @@ describe("LoadingServiceImpl", () => {
 			error: vi.fn(),
 			stop: vi.fn(),
 		};
-		(createSpinner as any).mockReturnValue(mockSpinner);
+		(createSpinner as unknown as ReturnType<typeof vi.fn>).mockReturnValue(
+			mockSpinner,
+		);
 		loadingService = new LoadingServiceImpl();
 	});
 
 	it("should start spinner with message", () => {
 		const message = "Loading...";
-		
+
 		loadingService.start(message);
-		
+
 		expect(mockSpinner.start).toHaveBeenCalledWith({ text: message });
 	});
 
 	it("should show success message", () => {
 		const message = "Success!";
-		
+
 		loadingService.success(message);
-		
-		expect(mockSpinner.success).toHaveBeenCalledWith({ text: `\x1b[32m${message}\x1b[0m` });
+
+		expect(mockSpinner.success).toHaveBeenCalledWith({
+			text: `\x1b[32m${message}\x1b[0m`,
+		});
 	});
 
 	it("should show error message", () => {
 		const message = "Error occurred!";
-		
+
 		loadingService.error(message);
-		
-		expect(mockSpinner.error).toHaveBeenCalledWith({ text: `\x1b[31m${message}\x1b[0m` });
+
+		expect(mockSpinner.error).toHaveBeenCalledWith({
+			text: `\x1b[31m${message}\x1b[0m`,
+		});
 	});
 
 	it("should stop spinner", () => {
 		loadingService.stop();
-		
+
 		expect(mockSpinner.stop).toHaveBeenCalled();
 	});
 });

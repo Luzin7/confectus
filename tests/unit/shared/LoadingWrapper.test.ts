@@ -43,9 +43,9 @@ describe("LoadingWrapper", () => {
 			errorMessage: "💥 Error!",
 		};
 
-		await expect(loadingWrapper.execute(mockOperation, options)).rejects.toThrow(
-			"Test error",
-		);
+		await expect(
+			loadingWrapper.execute(mockOperation, options),
+		).rejects.toThrow("Test error");
 
 		expect(mockLoadingService.start).toHaveBeenCalledWith("🔧 Starting...");
 		expect(mockOperation).toHaveBeenCalled();

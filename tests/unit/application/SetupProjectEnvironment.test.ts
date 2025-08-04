@@ -24,7 +24,10 @@ describe("SetupProjectEnvironment Use Case", () => {
 	beforeEach(() => {
 		mockProjectSetupService = createMockProjectSetupService();
 		mockLoadingService = createMockLoadingService();
-		useCase = new SetupProjectEnvironment(mockProjectSetupService, mockLoadingService);
+		useCase = new SetupProjectEnvironment(
+			mockProjectSetupService,
+			mockLoadingService,
+		);
 	});
 
 	describe("Success Cases", () => {
@@ -42,8 +45,12 @@ describe("SetupProjectEnvironment Use Case", () => {
 			expect(
 				mockProjectSetupService.setupBackendEnvironment,
 			).not.toHaveBeenCalled();
-			expect(mockLoadingService.start).toHaveBeenCalledWith("🔧 Setting up frontend environment...");
-			expect(mockLoadingService.success).toHaveBeenCalledWith("🎯 Frontend environment configured successfully!");
+			expect(mockLoadingService.start).toHaveBeenCalledWith(
+				"🔧 Setting up frontend environment...",
+			);
+			expect(mockLoadingService.success).toHaveBeenCalledWith(
+				"🎯 Frontend environment configured successfully!",
+			);
 		});
 
 		it("should setup backend environment successfully", async () => {
@@ -60,8 +67,12 @@ describe("SetupProjectEnvironment Use Case", () => {
 			expect(
 				mockProjectSetupService.setupFrontendEnvironment,
 			).not.toHaveBeenCalled();
-			expect(mockLoadingService.start).toHaveBeenCalledWith("🔧 Setting up backend environment...");
-			expect(mockLoadingService.success).toHaveBeenCalledWith("🎯 Backend environment configured successfully!");
+			expect(mockLoadingService.start).toHaveBeenCalledWith(
+				"🔧 Setting up backend environment...",
+			);
+			expect(mockLoadingService.success).toHaveBeenCalledWith(
+				"🎯 Backend environment configured successfully!",
+			);
 		});
 	});
 

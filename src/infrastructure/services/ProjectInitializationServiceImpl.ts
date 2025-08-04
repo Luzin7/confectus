@@ -16,8 +16,9 @@ export class ProjectInitializationServiceImpl
 			if (isDevelopment) {
 				console.error("Failed to initialize project:", error);
 			}
-			
-			const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+
+			const errorMessage =
+				error instanceof Error ? error.message : "Unknown error";
 			throw new Error(`Project initialization failed: ${errorMessage}`);
 		}
 	}

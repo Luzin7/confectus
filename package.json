@@ -1,7 +1,7 @@
 {
 	"name": "confectus",
 	"type": "module",
-	"author": "Luan Victor de Souza Dutra",
+	"author": "Luan Victor",
 	"main": "./dist/main.js",
 	"version": "1.7.0",
 	"license": "MIT",

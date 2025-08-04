@@ -14,11 +14,11 @@ export class DependencyInstallerServiceImpl
 		stackChoiced: SettingsProps,
 	): Promise<void> {
 		const dependencyConfig = stackChoiced[dependency.toLowerCase()];
-		
+
 		if (!dependencyConfig) {
 			throw new Error(`Dependency configuration not found: ${dependency}`);
 		}
-		
+
 		const { dependencies, devDependencies } = dependencyConfig;
 
 		function installCommand(deps: string, dev: boolean) {
@@ -46,7 +46,7 @@ export class DependencyInstallerServiceImpl
 					console.error("Error:", error);
 					return;
 				}
-				
+
 				throw new Error(errorType.message);
 			}
 		};

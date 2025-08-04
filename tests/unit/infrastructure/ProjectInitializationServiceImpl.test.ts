@@ -67,7 +67,6 @@ describe("ProjectInitializationServiceImpl", () => {
 
 	describe("Error Cases", () => {
 		it("should handle initialization errors", async () => {
-			// Set NODE_ENV to development to trigger console.error
 			const originalNodeEnv = process.env.NODE_ENV;
 			process.env.NODE_ENV = "development";
 
@@ -75,10 +74,6 @@ describe("ProjectInitializationServiceImpl", () => {
 				.fn()
 				.mockRejectedValue(new Error("Init failed"));
 			mockPromisify.mockReturnValue(mockExecPromise);
-
-			vi.spyOn(console, "error").mockImplementation(() => {
-				// Intentional empty mock implementation to suppress console output in tests
-			});
 
 			const initCommand = "npm init -y";
 
@@ -91,7 +86,6 @@ describe("ProjectInitializationServiceImpl", () => {
 				expect.any(Error),
 			);
 
-			// Restore original NODE_ENV
 			process.env.NODE_ENV = originalNodeEnv;
 		});
 
@@ -100,10 +94,6 @@ describe("ProjectInitializationServiceImpl", () => {
 				.fn()
 				.mockRejectedValue(new Error("Permission denied"));
 			mockPromisify.mockReturnValue(mockExecPromise);
-
-			vi.spyOn(console, "error").mockImplementation(() => {
-				// Intentional empty mock implementation to suppress console output in tests
-			});
 
 			const initCommand = "npm init -y";
 
