@@ -14,10 +14,11 @@
 		"resolveJsonModule": true,
 		"baseUrl": "./src",
 		"paths": {
-			"@modules/*": ["./modules/*"],
-			"@shared/*": ["./shared/*"],
-			"@@types/*": ["./types/*"],
-			"@templates/*": ["/.templates/*"],
+			"@core/*": ["./core/*"],
+			"@application/*": ["./application/*"],
+			"@infrastructure/*": ["./infrastructure/*"],
+			"@interface/*": ["./interface/*"],
+			"@templates/*": ["./templates/*"],
 			"@configs/*": ["./configs/*"]
 		}
 	},

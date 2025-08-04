@@ -1,0 +1,100 @@
+name: 🔍 Pull Request Validation
+
+on:
+  pull_request:
+    branches: [main, dev]
+    types: [opened, synchronize, reopened, ready_for_review]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: 🧪 Validate Changes
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.draft == false
+
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 📦 Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: 📋 Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: 🧹 Lint code
+        run: bun run lint
+
+      - name: 🏗️ Build project
+        run: bun run build
+
+      - name: 🧪 Run tests with coverage
+        run: bun run test --coverage
+        env:
+          NODE_ENV: test
+
+      - name: 📊 Comment coverage report
+        uses: romeovs/lcov-reporter-action@v0.3.1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          lcov-file: ./coverage/lcov.info
+          delete-old-comments: true
+
+  # 🔍 Check for changesets on feature branches
+  changeset-check:
+    name: 📝 Changeset Validation  
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.base.ref == 'main'
+    
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 📦 Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: 📋 Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: 🔍 Check for changesets
+        run: |
+          if [[ $(bun changeset status --output=json | jq '.releases | length') -eq 0 ]]; then
+            echo "❌ No changesets found. Please add a changeset for your changes."
+            echo "Run 'bun changeset' to create one."
+            exit 1
+          else
+            echo "✅ Changesets found!"
+          fi
+
+  # 🔍 Security scan
+  security:
+    name: 🛡️ Security Scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🔍 Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          scan-ref: '.'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+
+      - name: 📊 Upload Trivy scan results
+        uses: github/codeql-action/upload-sarif@v2
+        if: always()
+        with:
+          sarif_file: 'trivy-results.sarif'

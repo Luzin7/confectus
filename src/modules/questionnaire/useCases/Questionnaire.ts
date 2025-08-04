@@ -1,7 +1,7 @@
-import { UseCase } from "@shared/core/modules/UseCase.js";
-import { QuestionnaireRepository } from "../repositories/contracts/QuestionnaireRepository.js";
+import { QuestionnaireRepository } from "@core/contracts/QuestionnaireRepository";
+import { UseCase } from "@core/contracts/UseCase";
 
-export class Questionnaire implements UseCase<null> {
+export class CollectProjectRequirements implements UseCase<null> {
   constructor(private questionnaireRepository: QuestionnaireRepository) {}
 
   async execute(): Promise<void> {

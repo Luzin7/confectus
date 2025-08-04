@@ -1,8 +1,8 @@
+import { InitializeNewProjectRepository } from '@core/contracts/InitializeNewProjectRepository';
 import { exec } from 'child_process';
 import { promisify } from 'util';
-import { InitializeNewProjectRepository } from '../contracts/InitializeNewProjectRepository.js';
 
-export class InitializeNewProjectRepositoryImplementations
+export class InitializeNewProjectRepositoryImplementation
   implements InitializeNewProjectRepository
 {
   async install(initCommand: string): Promise<void> {

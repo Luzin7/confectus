@@ -1,11 +1,11 @@
-import { QuestionProps } from '@@types/question.js';
-import { QuestionnaireError } from '@modules/questionnaire/errors/QuestionnaireError.js';
 
 import { backendQuestions, frontendQuestions, wichStackQuestion } from '@configs/cli/questions.js';
+import { QuestionnaireRepository } from '@core/contracts/QuestionnaireRepository';
+import { QuestionProps } from '@application/dtos/question';
+import { QuestionnaireError } from '@core/errors/QuestionnaireError';
 import inquirer from 'inquirer';
-import { QuestionnaireRepository } from '../contracts/QuestionnaireRepository.js';
 
-export class QuestionnaireRepositoryImplementations
+export class QuestionnaireRepositoryImplementation
   implements QuestionnaireRepository
 {
   private stackChoice: string = '';
@@ -38,10 +38,10 @@ export class QuestionnaireRepositoryImplementations
       return this.saveAnswers(answers);
     } catch (error) {
       if (process.env.NODE_ENV === 'development') {
-        return console.error({ error });
+        console.error({ error });
       }
 
-      return console.error(new QuestionnaireError());
+      throw new QuestionnaireError();
     }
   }
 

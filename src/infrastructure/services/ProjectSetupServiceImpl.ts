@@ -1,25 +1,25 @@
-import { managers } from "@configs/cli/managers.js";
-
+import { Answers } from "../../application/dtos/answers.js";
+import { SettingsProps } from "../../application/dtos/setting.js";
+import { managers } from "../../infrastructure/cli/managers.js";
+import {
+	backendDependenciesSetup,
+	frontendDependenciesSetup,
+} from "../../configs/dependenciesInstallerSetup/index.js";
+import { DependencyInstallerService } from "../../core/contracts/DependencyInstallerService.js";
+import { ProjectInitializationService } from "../../core/contracts/ProjectInitializationService.js";
+import { NoPackageJsonError } from "../../core/errors/NoPackageJsonError.js";
+import { NotFoundPackageJsonError } from "../../core/errors/NotFoundPackageJsonError.js";
+import { FileTemplateService } from "../../core/contracts/FileTemplateService.js";
+import { ProjectSetupService } from "../../core/contracts/ProjectSetupService.js";
 import fs from "fs-extra";
 import path from "path";
-import { generateScripts } from "@templates/backend/scripts/generateScripts.js";
-import { InitializeNewProjectRepository } from "@core/contracts/InitializeNewProjectRepository";
-import { SetupManagerRepository } from "@core/contracts/SetupManagerRepository";
-import { DependenciesInstallerRepository } from "@core/contracts/DependenciesInstallerRepository";
-import { TemplatesManagerRepository } from "@core/contracts/TemplatesManagerRepository";
-import { Answers } from "@application/dtos/answers";
-import { SettingsProps } from "@application/dtos/setting";
-import { NoPackageJsonError } from "@core/errors/NoPackageJsonError";
-import { NotFoundPackageJsonError } from "@core/errors/NotFoundPackageJsonError";
-import { backendDependenciesSetup, frontendDependenciesSetup } from "@configs/dependenciesInstallerSetup";
+import { generateScripts } from "../../templates/backend/scripts/generateScripts.js";
 
-export class SetupManagerRepositoryImplementation
-	implements SetupManagerRepository
-{
+export class ProjectSetupServiceImpl implements ProjectSetupService {
 	constructor(
-		private initializeNewProjectRepository: InitializeNewProjectRepository,
-		private dependenciesInstallerRepository: DependenciesInstallerRepository,
-		private templatesManagerRepository: TemplatesManagerRepository,
+		private projectInitializationService: ProjectInitializationService,
+		private dependencyInstallerService: DependencyInstallerService,
+		private fileTemplateService: FileTemplateService,
 	) {}
 
 	async installDependencies({
@@ -44,7 +44,7 @@ export class SetupManagerRepositoryImplementation
 			stack === "Backend" ? backendDependenciesSetup : frontendDependenciesSetup;
 
 		const installDependency = async (dependency: string) => {
-			await this.dependenciesInstallerRepository.install(
+			await this.dependencyInstallerService.install(
 				installCommand,
 				dependency,
 				stackChoiced,
@@ -77,7 +77,6 @@ export class SetupManagerRepositoryImplementation
 							break;
 					}
 					await installDependency(linterChoiced);
-
 					await installDependency(lintDependency);
 					break;
 				case "Biome":
@@ -94,7 +93,7 @@ export class SetupManagerRepositoryImplementation
 		}
 	}
 
-	async setupFrontendConfigurations({
+	async setupFrontendEnvironment({
 		wichLanguage,
 		wichLinter,
 		isVscode,
@@ -120,7 +119,7 @@ export class SetupManagerRepositoryImplementation
 			templatePath: string[],
 			outputPath: string,
 		) => {
-			await this.templatesManagerRepository.install(templatePath, outputPath);
+			await this.fileTemplateService.copyTemplate(templatePath, outputPath);
 		};
 
 		if (hasPackageJson === "No" && wichStack !== "N/A") {
@@ -136,7 +135,7 @@ export class SetupManagerRepositoryImplementation
 		}
 
 		if (wichStack === "N/A") {
-			await this.initializeNewProjectRepository.install(initCommand);
+			await this.projectInitializationService.initialize(initCommand);
 		}
 
 		await Promise.all([
@@ -214,7 +213,7 @@ export class SetupManagerRepositoryImplementation
 		}
 	}
 
-	async setupBackendConfigurations({
+	async setupBackendEnvironment({
 		hasPackageJson,
 		isVscode,
 		wichManager,
@@ -251,7 +250,7 @@ export class SetupManagerRepositoryImplementation
 			templatePath: string[],
 			outputPath: string,
 		) => {
-			await this.templatesManagerRepository.install(templatePath, outputPath);
+			await this.fileTemplateService.copyTemplate(templatePath, outputPath);
 		};
 
 		await Promise.all([
@@ -261,7 +260,7 @@ export class SetupManagerRepositoryImplementation
 
 		if (hasPackageJson === "No") {
 			const { initCommand } = managers[wichManager];
-			await this.initializeNewProjectRepository.install(initCommand);
+			await this.projectInitializationService.initialize(initCommand);
 		}
 
 		if (willAddScripts) {

@@ -1,9 +1,9 @@
-import { SetupManagerRepository } from '@modules/setupManager/repositories/contracts/SetupManagerRepository.js';
-import { UseCase } from '@shared/core/modules/UseCase.js';
+import { SetupManagerRepository } from '@core/contracts/SetupManagerRepository';
+import { UseCase } from '@core/contracts/UseCase';
 import chalk from 'chalk';
 import { createSpinner } from 'nanospinner';
 
-export class EnvironmentSettings implements UseCase<Record<string, string>> {
+export class SetupProjectEnvironment implements UseCase<Record<string, string>> {
   constructor(private setupManagerRepository: SetupManagerRepository) {}
 
   async execute(answers: Record<string, string>): Promise<void> {
@@ -22,7 +22,7 @@ export class EnvironmentSettings implements UseCase<Record<string, string>> {
       spinner.error({
         text: chalk.red(error),
       });
-      process.exit(1);
+      throw error;
     }
   }
 }

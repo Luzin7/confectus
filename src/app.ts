@@ -1,37 +1,31 @@
-import { DepedenciesInstallerRepositoryImplementations } from "@modules/depedenciesInstaller/repositories/implementations/DepedenciesInstallerRepositoryImplementations.js";
-import { InitializeNewProjectRepositoryImplementations } from "@modules/initializeNewProject/repositories/implementations/InitializeNewProjectRepositoryImplementations.js";
-import { QuestionnaireRepositoryImplementations } from "@modules/questionnaire/repositories/implementations/QuestionnaireRepositoryImplementations.js";
-import { Questionnaire } from "@modules/questionnaire/useCases/Questionnaire.js";
-import { SetupManagerRepositoryImplementation } from "@modules/setupManager/repositories/implementations/SetupManagerRepositoryImplementations.js";
-import { EnvironmentSettings } from "@modules/setupManager/useCases/environmentSettings/EnvironmentSettings.js";
-import { InstallDependencies } from "@modules/setupManager/useCases/installDependencies/installDependencies.js";
-import { TemplatesManagerRepositoryImplementations } from "@modules/templatesManager/repositories/implementations/TemplatesManagerRepositoryImplementations.js";
+import { DependencyInstallerServiceImpl } from "@infrastructure/services/DependencyInstallerServiceImpl.js";
+import { ProjectInitializationServiceImpl } from "@infrastructure/services/ProjectInitializationServiceImpl.js";
+import { QuestionnaireServiceImpl } from "@infrastructure/cli/QuestionnaireServiceImpl.js";
+import { CollectProjectRequirements } from "@application/useCases/CollectProjectRequirements.js";
+import { ProjectSetupServiceImpl } from "@infrastructure/services/ProjectSetupServiceImpl.js";
+import { SetupProjectEnvironment } from "@application/useCases/SetupProjectEnvironment.js";
+import { InstallProjectDependencies } from "@application/useCases/InstallProjectDependencies.js";
+import { FileTemplateServiceImpl } from "@infrastructure/filesystem/FileTemplateServiceImpl.js";
 
 export async function app() {
-  const questionnaireRepository = new QuestionnaireRepositoryImplementations();
-  const initializeNewProjectRepository =
-    new InitializeNewProjectRepositoryImplementations();
-  const depedenciesRepository =
-    new DepedenciesInstallerRepositoryImplementations();
-  const templatesManagerRepository =
-    new TemplatesManagerRepositoryImplementations();
-  const setupManagerRepositoryImplementation =
-    new SetupManagerRepositoryImplementation(
-      initializeNewProjectRepository,
-      depedenciesRepository,
-      templatesManagerRepository,
-    );
-  const questionnaire = new Questionnaire(questionnaireRepository);
-  const environmentSettings = new EnvironmentSettings(
-    setupManagerRepositoryImplementation,
-  );
-  const installDependencies = new InstallDependencies(
-    setupManagerRepositoryImplementation,
+  const questionnaireService = new QuestionnaireServiceImpl();
+  const projectInitializationService = new ProjectInitializationServiceImpl();
+  const dependencyInstallerService = new DependencyInstallerServiceImpl();
+  const fileTemplateService = new FileTemplateServiceImpl();
+  
+  const projectSetupService = new ProjectSetupServiceImpl(
+    projectInitializationService,
+    dependencyInstallerService,
+    fileTemplateService,
   );
 
-  await questionnaire.execute();
-  const answers = questionnaireRepository.Answers;
+  const collectProjectRequirements = new CollectProjectRequirements(questionnaireService);
+  const setupProjectEnvironment = new SetupProjectEnvironment(projectSetupService);
+  const installProjectDependencies = new InstallProjectDependencies(projectSetupService);
 
-  await environmentSettings.execute(answers);
-  await installDependencies.execute(answers);
+  await collectProjectRequirements.execute();
+  const answers = questionnaireService.answers;
+
+  await setupProjectEnvironment.execute({ answers });
+  await installProjectDependencies.execute({ answers });
 }

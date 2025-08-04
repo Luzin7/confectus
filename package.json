@@ -24,8 +24,12 @@
     "changeset": "changeset",
     "version": "changeset version",
     "release": "tsup --minify && changeset publish",
-    "dev": "NODE_ENV=development tsx ./src/main.ts", 
-    "test": "vitest"
+    "dev": "NODE_ENV=development tsx ./src/main.ts",
+    "test": "vitest",
+    "test:coverage": "vitest --coverage",
+    "lint": "biome check .",
+    "lint:fix": "biome check . --apply",
+    "type-check": "tsc --noEmit"
   },
   "bin": {
     "confectus": "dist/main.js",
