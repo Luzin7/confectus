@@ -21,16 +21,16 @@ describe("LoadingWrapper", () => {
 	it("should execute operation with loading states - success case", async () => {
 		const mockOperation = vi.fn().mockResolvedValue("success result");
 		const options = {
-			startMessage: "Starting...",
-			successMessage: "Success!",
-			errorMessage: "Error!",
+			startMessage: "🔧 Starting...",
+			successMessage: "🎯 Success!",
+			errorMessage: "💥 Error!",
 		};
 
 		const result = await loadingWrapper.execute(mockOperation, options);
 
-		expect(mockLoadingService.start).toHaveBeenCalledWith("Starting...");
+		expect(mockLoadingService.start).toHaveBeenCalledWith("🔧 Starting...");
 		expect(mockOperation).toHaveBeenCalled();
-		expect(mockLoadingService.success).toHaveBeenCalledWith("Success!");
+		expect(mockLoadingService.success).toHaveBeenCalledWith("🎯 Success!");
 		expect(result).toBe("success result");
 	});
 
@@ -38,18 +38,18 @@ describe("LoadingWrapper", () => {
 		const mockError = new Error("Test error");
 		const mockOperation = vi.fn().mockRejectedValue(mockError);
 		const options = {
-			startMessage: "Starting...",
-			successMessage: "Success!",
-			errorMessage: "Error!",
+			startMessage: "🔧 Starting...",
+			successMessage: "🎯 Success!",
+			errorMessage: "💥 Error!",
 		};
 
 		await expect(loadingWrapper.execute(mockOperation, options)).rejects.toThrow(
 			"Test error",
 		);
 
-		expect(mockLoadingService.start).toHaveBeenCalledWith("Starting...");
+		expect(mockLoadingService.start).toHaveBeenCalledWith("🔧 Starting...");
 		expect(mockOperation).toHaveBeenCalled();
-		expect(mockLoadingService.error).toHaveBeenCalledWith("Error!");
+		expect(mockLoadingService.error).toHaveBeenCalledWith("💥 Error!");
 		expect(mockLoadingService.success).not.toHaveBeenCalled();
 	});
 });

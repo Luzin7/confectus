@@ -25,9 +25,9 @@ export class InstallProjectDependencies
 				await this.projectSetupService.installDependencies(answers);
 			},
 			{
-				startMessage: "Instalando dependências do projeto...",
-				successMessage: "✅ Dependências instaladas com sucesso!",
-				errorMessage: "❌ Erro ao instalar dependências",
+				startMessage: "📦 Installing project dependencies...",
+				successMessage: "🚀 Dependencies installed successfully!",
+				errorMessage: "🔥 Failed to install dependencies",
 			},
 		);
 	}

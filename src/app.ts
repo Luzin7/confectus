@@ -41,15 +41,15 @@ export async function app() {
 		await installProjectDependencies.execute({ answers });
 
 		// Mensagem final de sucesso
-		console.log("\n🎉 Projeto configurado com sucesso!");
-		console.log("✨ Tudo pronto para começar a desenvolver!");
+		console.log("\n🎉 \x1b[32mProject setup completed successfully!\x1b[0m");
+		console.log("✨ \x1b[36mEverything is ready to start developing!\x1b[0m");
 	} catch (error) {
-		console.log("\n❌ Falha na configuração do projeto");
+		console.log("\n💥 \x1b[31mProject setup failed!\x1b[0m");
 		
 		if (process.env.NODE_ENV === "development") {
 			console.error({ error });
 		} else {
-			console.error("Ocorreu um erro durante a configuração. Tente novamente.");
+			console.error("🔴 \x1b[31mAn error occurred during setup. Please try again.\x1b[0m");
 		}
 		
 		process.exit(1);

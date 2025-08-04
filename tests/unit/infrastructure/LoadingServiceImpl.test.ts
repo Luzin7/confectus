@@ -40,7 +40,7 @@ describe("LoadingServiceImpl", () => {
 		
 		loadingService.success(message);
 		
-		expect(mockSpinner.success).toHaveBeenCalledWith({ text: message });
+		expect(mockSpinner.success).toHaveBeenCalledWith({ text: `\x1b[32m${message}\x1b[0m` });
 	});
 
 	it("should show error message", () => {
@@ -48,7 +48,7 @@ describe("LoadingServiceImpl", () => {
 		
 		loadingService.error(message);
 		
-		expect(mockSpinner.error).toHaveBeenCalledWith({ text: message });
+		expect(mockSpinner.error).toHaveBeenCalledWith({ text: `\x1b[31m${message}\x1b[0m` });
 	});
 
 	it("should stop spinner", () => {

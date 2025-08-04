@@ -31,9 +31,9 @@ export class SetupProjectEnvironment
 				}
 			},
 			{
-				startMessage: `Configurando ambiente ${stack.toLowerCase()}...`,
-				successMessage: `✅ Ambiente ${stack.toLowerCase()} configurado com sucesso!`,
-				errorMessage: `❌ Erro ao configurar ambiente ${stack.toLowerCase()}`,
+				startMessage: `🔧 Setting up ${stack.toLowerCase()} environment...`,
+				successMessage: `🎯 ${stack} environment configured successfully!`,
+				errorMessage: `💥 Failed to configure ${stack.toLowerCase()} environment`,
 			},
 		);
 	}
