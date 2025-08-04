@@ -21,23 +21,24 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: 📦 Setup Bun
-        uses: oven-sh/setup-bun@v1
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          bun-version: latest
+          node-version: '20'
+          cache: 'npm'
 
       - name: 📋 Install dependencies
-        run: bun install --frozen-lockfile
+        run: npm ci
 
       - name: 🧹 Lint code
-        run: bun run lint
+        run: npm run lint
         continue-on-error: false
 
       - name: 🏗️ Build project
-        run: bun run build
+        run: npm run build
 
       - name: 🧪 Run tests
-        run: bun run test --coverage
+        run: npm run test --coverage
         env:
           NODE_ENV: test
 
@@ -66,23 +67,24 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: 📦 Setup Bun
-        uses: oven-sh/setup-bun@v1
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          bun-version: latest
+          node-version: '20'
+          cache: 'npm'
 
       - name: 📋 Install dependencies
-        run: bun install --frozen-lockfile
+        run: npm ci
 
       - name: 🏗️ Build project
-        run: bun run build
+        run: npm run build
 
       - name: 🔄 Create Release Pull Request or Publish
         id: changesets
         uses: changesets/action@v1
         with:
-          publish: bun run release
-          version: bun run version
+          publish: npm run release
+          version: npm run version
           commit: "chore: release packages"
           title: "🚀 Release: Version Packages"
         env:

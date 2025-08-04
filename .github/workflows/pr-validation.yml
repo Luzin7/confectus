@@ -21,22 +21,23 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: 📦 Setup Bun
-        uses: oven-sh/setup-bun@v1
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          bun-version: latest
+          node-version: '20'
+          cache: 'npm'
 
       - name: 📋 Install dependencies
-        run: bun install --frozen-lockfile
+        run: npm ci
 
       - name: 🧹 Lint code
-        run: bun run lint
+        run: npm run lint
 
       - name: 🏗️ Build project
-        run: bun run build
+        run: npm run build
 
       - name: 🧪 Run tests with coverage
-        run: bun run test --coverage
+        run: npm run test --coverage
         env:
           NODE_ENV: test
 
@@ -59,19 +60,20 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: 📦 Setup Bun
-        uses: oven-sh/setup-bun@v1
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          bun-version: latest
+          node-version: '20'
+          cache: 'npm'
 
       - name: 📋 Install dependencies
-        run: bun install --frozen-lockfile
+        run: npm ci
 
       - name: 🔍 Check for changesets
         run: |
-          if [[ $(bun changeset status --output=json | jq '.releases | length') -eq 0 ]]; then
+          if [[ $(npm run changeset status --output=json | jq '.releases | length') -eq 0 ]]; then
             echo "❌ No changesets found. Please add a changeset for your changes."
-            echo "Run 'bun changeset' to create one."
+            echo "Run 'npm run changeset' to create one."
             exit 1
           else
             echo "✅ Changesets found!"
