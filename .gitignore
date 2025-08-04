@@ -182,3 +182,4 @@ src/test/tests/package.json
 .vscode*
 mock*
 bun.lockb
+.github/copilot-instructions.md
