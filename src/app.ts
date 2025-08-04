@@ -40,7 +40,6 @@ export async function app() {
 		await setupProjectEnvironment.execute({ answers });
 		await installProjectDependencies.execute({ answers });
 
-		// Mensagem final de sucesso
 		console.log("\n🎉 \x1b[32mProject setup completed successfully!\x1b[0m");
 		console.log("✨ \x1b[36mEverything is ready to start developing!\x1b[0m");
 	} catch (error) {
