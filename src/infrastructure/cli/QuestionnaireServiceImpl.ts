@@ -3,9 +3,9 @@ import { QuestionProps } from "../../application/dtos/question.js";
 import { QuestionnaireService } from "../../core/contracts/QuestionnaireService.js";
 import { QuestionnaireError } from "../../core/errors/QuestionnaireError.js";
 import {
-  backendQuestions,
-  frontendQuestions,
-  wichStackQuestion,
+	backendQuestions,
+	frontendQuestions,
+	wichStackQuestion,
 } from "../../infrastructure/cli/questions.js";
 
 export class QuestionnaireServiceImpl implements QuestionnaireService {
