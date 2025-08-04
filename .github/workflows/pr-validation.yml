@@ -70,13 +70,20 @@ jobs:
         run: npm ci
 
       - name: 🔍 Check for changesets
+        shell: bash
         run: |
-          if [[ $(npm run changeset status --output=json | jq '.releases | length') -eq 0 ]]; then
+          # Check if there are any changeset files (excluding README.md)
+          CHANGESET_FILES=$(find .changeset -name "*.md" -not -name "README.md" 2>/dev/null || true)
+          
+          if [ -z "$CHANGESET_FILES" ]; then
             echo "❌ No changesets found. Please add a changeset for your changes."
             echo "Run 'npm run changeset' to create one."
             exit 1
           else
             echo "✅ Changesets found!"
+            echo "Files: $CHANGESET_FILES"
+            # Show changeset status for visibility
+            npm run changeset status || true
           fi
 
   # 🔍 Security scan
