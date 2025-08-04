@@ -9,11 +9,11 @@ export class LoadingServiceImpl implements LoadingService {
 	}
 
 	success(message: string): void {
-		this.spinner.success({ text: `\x1b[32m${message}\x1b[0m` }); // Green color
+		this.spinner.success({ text: `\x1b[32m${message}\x1b[0m` });
 	}
 
 	error(message: string): void {
-		this.spinner.error({ text: `\x1b[31m${message}\x1b[0m` }); // Red color
+		this.spinner.error({ text: `\x1b[31m${message}\x1b[0m` });
 	}
 
 	stop(): void {
