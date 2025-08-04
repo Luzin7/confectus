@@ -152,7 +152,7 @@ describe("DependencyInstallerServiceImpl", () => {
 
 			await expect(
 				service.install(managerInstallCommand, dependency, stackChoiced),
-			).resolves.not.toThrow();
+			).rejects.toThrow("Dependency configuration not found: nonexistent");
 		});
 	});
 });
