@@ -53,7 +53,7 @@ export class ProjectSetupServiceImpl implements ProjectSetupService {
 			);
 		};
 
-		if (isTypescript) {
+		if (isTypescript && stack !== "Frontend") {
 			await installDependency(wichLanguage);
 		}
 
@@ -135,7 +135,7 @@ export class ProjectSetupServiceImpl implements ProjectSetupService {
 		}
 
 		const PackageJsonExists = fs.existsSync(
-			isDevelopment ? `./mock/package.json` : "package.json",
+			isDevelopment ? `package.json` : "package.json",
 		);
 
 		if (!PackageJsonExists && wichStack !== "N/A") {

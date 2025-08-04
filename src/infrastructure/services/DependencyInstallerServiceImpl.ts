@@ -13,10 +13,12 @@ export class DependencyInstallerServiceImpl
 		dependency: string,
 		stackChoiced: SettingsProps,
 	): Promise<void> {
-		const dependencyConfig = stackChoiced[dependency.toLowerCase()];
+		const dependencyConfig = stackChoiced[dependency.toLowerCase()] ?? {};
 
 		if (!dependencyConfig) {
-			throw new Error(`Dependency configuration not found: ${dependency}`);
+			throw new Error(
+				`Dependency configuration not found: ${dependency.toLowerCase()}`,
+			);
 		}
 
 		const { dependencies, devDependencies } = dependencyConfig;
