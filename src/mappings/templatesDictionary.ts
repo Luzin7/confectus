@@ -25,13 +25,17 @@ const empty: DependencyRef = {
 };
 
 const parseDeps = (raw: string | null): DependencyRef => {
-	if (raw === null) return empty;
+	if (raw === null) {
+		return empty;
+	}
 	const list = raw.split(/\s+/).filter(Boolean);
 	return { dependencies: list, devDependencies: [] };
 };
 
 const parseDevDeps = (raw: string | null): DependencyRef => {
-	if (raw === null) return empty;
+	if (raw === null) {
+		return empty;
+	}
 	const list = raw.split(/\s+/).filter(Boolean);
 	return { dependencies: [], devDependencies: list };
 };
@@ -63,18 +67,15 @@ export const sharedTemplates = {
 } as const;
 
 export const backendTemplates = {
-	greetingsTs: entry(
-		["backend", "greetings", "helloWorld.ts"],
-		"src/app.ts",
-	),
-	greetingsJs: entry(
-		["backend", "greetings", "helloWorld.ts"],
-		"src/app.js",
-	),
+	greetingsTs: entry(["backend", "greetings", "helloWorld.ts"], "src/app.ts"),
+	greetingsJs: entry(["backend", "greetings", "helloWorld.ts"], "src/app.js"),
 	typescript: entry(
 		["backend", "typescript", "tsconfig.json"],
 		"tsconfig.json",
-		mergeDeps(parseDeps("tsx"), parseDevDeps("typescript @types/node ts-node tsup")),
+		mergeDeps(
+			parseDeps("tsx"),
+			parseDevDeps("typescript @types/node ts-node tsup"),
+		),
 	),
 	eslint: entry(
 		["backend", "linters", "eslint", "javascript", "eslint.config.mjs"],
@@ -121,28 +122,56 @@ export const frontendTemplates = {
 		),
 	),
 	eslintReactJs: entry(
-		["frontend", "linters", "react", "eslint", "javascript", "eslint.config.mjs"],
+		[
+			"frontend",
+			"linters",
+			"react",
+			"eslint",
+			"javascript",
+			"eslint.config.mjs",
+		],
 		"eslint.config.mjs",
 		parseDevDeps(
 			"eslint globals eslint-plugin-react eslint-plugin-react-hooks prettier eslint-config-prettier eslint-plugin-prettier eslint-plugin-jsx-a11y eslint-config-standard",
 		),
 	),
 	eslintReactTs: entry(
-		["frontend", "linters", "react", "eslint", "typescript", "eslint.config.mjs"],
+		[
+			"frontend",
+			"linters",
+			"react",
+			"eslint",
+			"typescript",
+			"eslint.config.mjs",
+		],
 		"eslint.config.mjs",
 		parseDevDeps(
 			"eslint @eslint/compat globals @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint-plugin-react eslint-plugin-react-hooks prettier eslint-config-prettier eslint-plugin-prettier eslint-plugin-jsx-a11y eslint-config-standard",
 		),
 	),
 	eslintNextJs: entry(
-		["frontend", "linters", "next", "eslint", "javascript", "eslint.config.mjs"],
+		[
+			"frontend",
+			"linters",
+			"next",
+			"eslint",
+			"javascript",
+			"eslint.config.mjs",
+		],
 		"eslint.config.mjs",
 		parseDevDeps(
 			"eslint eslint-plugin-react eslint-plugin-react-hooks prettier eslint-config-prettier eslint-plugin-prettier eslint-plugin-jsx-a11y eslint-config-standard",
 		),
 	),
 	eslintNextTs: entry(
-		["frontend", "linters", "next", "eslint", "typescript", "eslint.config.mjs"],
+		[
+			"frontend",
+			"linters",
+			"next",
+			"eslint",
+			"typescript",
+			"eslint.config.mjs",
+		],
 		"eslint.config.mjs",
 		parseDevDeps(
 			"eslint eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-jsx-a11y @typescript-eslint/eslint-plugin @typescript-eslint/parser prettier eslint-config-prettier eslint-plugin-prettier eslint-config-standard",
@@ -177,7 +206,10 @@ export type LinterLookup<T> = {
 
 export const frontendEslintByStack: Record<
 	FrontendStackKey,
-	{ readonly Javascript: keyof typeof frontendTemplates; readonly Typescript: keyof typeof frontendTemplates }
+	{
+		readonly Javascript: keyof typeof frontendTemplates;
+		readonly Typescript: keyof typeof frontendTemplates;
+	}
 > = {
 	"N/A": { Javascript: "eslintJs", Typescript: "eslintTs" },
 	React: { Javascript: "eslintReactJs", Typescript: "eslintReactTs" },

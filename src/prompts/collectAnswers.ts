@@ -1,7 +1,7 @@
-import inquirer from "inquirer";
-import chalk from "chalk";
-import type { Answers } from "@schema/configSchema";
 import { QuestionnaireError } from "@errors";
+import type { Answers } from "@schema/configSchema";
+import chalk from "chalk";
+import inquirer from "inquirer";
 
 type QuestionType = "list";
 
@@ -111,7 +111,9 @@ const frontendQuestions: PromptQuestion[] = [
 	},
 ];
 
-const prompt = async (questions: PromptQuestion[]): Promise<Record<string, string>> => {
+const prompt = async (
+	questions: PromptQuestion[],
+): Promise<Record<string, string>> => {
 	try {
 		return await inquirer.prompt(questions as never);
 	} catch (e) {
@@ -121,7 +123,9 @@ const prompt = async (questions: PromptQuestion[]): Promise<Record<string, strin
 
 export const collectAnswers = async (): Promise<Record<string, string>> => {
 	const stack = await prompt(stackQuestion);
-	const rest = await prompt(stack.stack === "Backend" ? backendQuestions : frontendQuestions);
+	const rest = await prompt(
+		stack.stack === "Backend" ? backendQuestions : frontendQuestions,
+	);
 	return { ...stack, ...rest };
 };
 

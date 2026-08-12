@@ -1,14 +1,18 @@
-import type { Answers, BackendAnswers, FrontendAnswers } from "@schema/configSchema";
 import {
+	type LinterKey,
+	type TemplateEntry,
+	type TemplateRef,
 	backendTemplates,
 	frontendEslintByStack,
 	frontendTemplates,
 	sharedTemplates,
-	type TemplateRef,
-	type LinterKey,
-	type TemplateEntry,
 } from "@mappings/templatesDictionary";
 import type { DependencyRef } from "@mappings/templatesDictionary";
+import type {
+	Answers,
+	BackendAnswers,
+	FrontendAnswers,
+} from "@schema/configSchema";
 
 export type FileOp = TemplateRef;
 
@@ -46,7 +50,11 @@ const collectBackend = (cfg: BackendAnswers): MapperResult => {
 	const isTypescript = cfg.wichLanguage === "Typescript";
 
 	if (cfg.createDirectories === "Yes") {
-		push(isTypescript ? backendTemplates.greetingsTs : backendTemplates.greetingsJs);
+		push(
+			isTypescript
+				? backendTemplates.greetingsTs
+				: backendTemplates.greetingsJs,
+		);
 	}
 
 	if (cfg.isVscode === "Yes") {
@@ -82,7 +90,7 @@ const collectFrontend = (cfg: FrontendAnswers): MapperResult => {
 	};
 
 	const pushOnlyOps = (...entries: FileOp[]) => ops.push(...entries);
-	const isTypescript = cfg.wichLanguage === "Typescript";
+	const _isTypescript = cfg.wichLanguage === "Typescript";
 
 	if (cfg.isVscode === "Yes") {
 		pushOnlyOps(...vscodeOps(cfg.wichLinter));

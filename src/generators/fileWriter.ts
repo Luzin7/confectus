@@ -1,10 +1,13 @@
-import fs from "fs-extra";
 import path from "path";
-import type { Env } from "@shared/env";
-import type { FileOp } from "@pipeline/templateMapper";
 import { TemplateCopyError } from "@errors";
+import type { FileOp } from "@pipeline/templateMapper";
+import type { Env } from "@shared/env";
+import fs from "fs-extra";
 
-export type CopyResult = { readonly copied: string[]; readonly skipped: string[] };
+export type CopyResult = {
+	readonly copied: string[];
+	readonly skipped: string[];
+};
 
 const resolveAndCopy = async (op: FileOp, env: Env, cwd: string) => {
 	const src = path.join(env.templatesRoot, ...op.src);
@@ -28,7 +31,11 @@ export const fileWriter = async (
 				const dest = await resolveAndCopy(op, env, target);
 				return { src: op.src.join("/"), dest, error: null as string | null };
 			} catch (e) {
-				return { src: op.src.join("/"), dest: op.dest, error: (e as Error).message };
+				return {
+					src: op.src.join("/"),
+					dest: op.dest,
+					error: (e as Error).message,
+				};
 			}
 		}),
 	);
@@ -37,6 +44,12 @@ export const fileWriter = async (
 	if (failures.length > 0) {
 		const [first] = failures;
 		const op = ops.find((o) => o.src.join("/") === first?.src);
-		if (op) throw new TemplateCopyError(op.src, op.dest, new Error(first.error ?? "unknown"));
+		if (op) {
+			throw new TemplateCopyError(
+				op.src,
+				op.dest,
+				new Error(first.error ?? "unknown"),
+			);
+		}
 	}
 };

@@ -1,9 +1,9 @@
 import { exec } from "child_process";
-import { promisify } from "util";
 import path from "path";
-import type { Env } from "@shared/env";
-import type { PackageManagerConfig } from "@mappings/packageManagers";
+import { promisify } from "util";
 import { DependencyInstallError } from "@errors";
+import type { PackageManagerConfig } from "@mappings/packageManagers";
+import type { Env } from "@shared/env";
 
 const execAsync = promisify(exec);
 
@@ -27,7 +27,9 @@ export const packageInstaller = async (
 	const cwd = env.isDev ? path.join(env.cwd, "mock") : env.cwd;
 
 	const run = async (pkgs: readonly string[], isDev: boolean) => {
-		if (pkgs.length === 0) return;
+		if (pkgs.length === 0) {
+			return;
+		}
 		const cmd = buildInstallCommand(manager, pkgs, isDev);
 		try {
 			await execAsync(cmd, { cwd });

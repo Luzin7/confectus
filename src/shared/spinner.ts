@@ -1,4 +1,4 @@
-import { createSpinner, type Spinner } from "nanospinner";
+import { type Spinner, createSpinner } from "nanospinner";
 
 export type SpinnerLike = {
 	readonly start: (text?: string) => unknown;

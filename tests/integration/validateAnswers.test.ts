@@ -1,5 +1,5 @@
-import { describe, expect, it } from "vitest";
 import { validateAnswers } from "@schema/validateAnswers";
+import { describe, expect, it } from "vitest";
 
 const validBackend = (overrides: Record<string, unknown> = {}) => ({
 	stack: "Backend",
@@ -52,7 +52,7 @@ describe("validateAnswers — schema-level failures", () => {
 
 	it("fails on missing required field (wichManager)", () => {
 		const { wichManager: _drop, ...rest } = validBackend();
-		void _drop;
+		expect(_drop).toBeDefined();
 		const result = validateAnswers(rest);
 		expect(result.kind).toBe("ParseError");
 	});
@@ -61,7 +61,7 @@ describe("validateAnswers — schema-level failures", () => {
 describe("validateAnswers — cross-field validation", () => {
 	it("fails when stack=Backend and wichTest is missing", () => {
 		const { wichTest: _drop, ...rest } = validBackend();
-		void _drop;
+		expect(_drop).toBeDefined();
 		const result = validateAnswers(rest);
 		expect(result.kind).toBe("ParseError");
 		if (result.kind === "ParseError") {
@@ -71,17 +71,19 @@ describe("validateAnswers — cross-field validation", () => {
 
 	it("fails when stack=Backend and createDirectories is missing", () => {
 		const { createDirectories: _drop, ...rest } = validBackend();
-		void _drop;
+		expect(_drop).toBeDefined();
 		const result = validateAnswers(rest);
 		expect(result.kind).toBe("ParseError");
 		if (result.kind === "ParseError") {
-			expect(result.issues.some((i) => i.includes("createDirectories"))).toBe(true);
+			expect(result.issues.some((i) => i.includes("createDirectories"))).toBe(
+				true,
+			);
 		}
 	});
 
 	it("fails when stack=Backend and addScripts is missing", () => {
 		const { addScripts: _drop, ...rest } = validBackend();
-		void _drop;
+		expect(_drop).toBeDefined();
 		const result = validateAnswers(rest);
 		expect(result.kind).toBe("ParseError");
 		if (result.kind === "ParseError") {
@@ -91,7 +93,6 @@ describe("validateAnswers — cross-field validation", () => {
 
 	it("fails when stack=Frontend and wichStack is missing", () => {
 		const { wichStack: _drop, ...rest } = validFrontend();
-		void _drop;
 		const result = validateAnswers(rest);
 		expect(result.kind).toBe("ParseError");
 		if (result.kind === "ParseError") {
@@ -105,7 +106,10 @@ describe("validateAnswers — cross-field validation", () => {
 	});
 
 	it("fails when stack=Frontend but sends backend-only fields (createDirectories)", () => {
-		const result = validateAnswers({ ...validFrontend(), createDirectories: "Yes" });
+		const result = validateAnswers({
+			...validFrontend(),
+			createDirectories: "Yes",
+		});
 		expect(result.kind).toBe("ParseError");
 	});
 

@@ -1,21 +1,23 @@
-import { describe, expect, it, vi } from "vitest";
-import path from "path";
 import { existsSync, readFileSync } from "fs";
+import path from "path";
+import { describe, expect, it, vi } from "vitest";
 
 vi.unmock("fs-extra");
 vi.unmock("child_process");
 
 const { fileWriter } = await import("@generators/fileWriter");
 const { setupTestEnv } = await import("../setup/tmpdir");
-const { Env } = await import("@shared/env");
-void Env;
 
 type FileOp = { src: readonly string[]; dest: string };
 
 const fileContent = (dir: string, rel: string): string =>
 	readFileSync(path.join(dir, rel), "utf8");
 
-const buildEnv = (env: { cwd: string; templatesRoot: string; isDev?: boolean }) => ({
+const buildEnv = (env: {
+	cwd: string;
+	templatesRoot: string;
+	isDev?: boolean;
+}) => ({
 	cwd: env.cwd,
 	templatesRoot: env.templatesRoot,
 	isDev: env.isDev ?? false,
@@ -46,13 +48,18 @@ describe("fileWriter — TDD via tmpdir", () => {
 		try {
 			const targetEnv = buildEnv(env);
 			const ops: FileOp[] = [
-				{ src: ["ide", "vscode", "settings", "eslint", "settings.json"], dest: ".vscode/settings.json" },
+				{
+					src: ["ide", "vscode", "settings", "eslint", "settings.json"],
+					dest: ".vscode/settings.json",
+				},
 				{ src: ["ide", "vscode", ".editorconfig"], dest: ".editorconfig" },
 			];
 
 			await fileWriter(ops, targetEnv);
 
-			expect(existsSync(path.join(env.cwd, ".vscode", "settings.json"))).toBe(true);
+			expect(existsSync(path.join(env.cwd, ".vscode", "settings.json"))).toBe(
+				true,
+			);
 			expect(existsSync(path.join(env.cwd, ".editorconfig"))).toBe(true);
 			expect(fileContent(env.cwd, ".vscode/settings.json")).toContain("eslint");
 		} finally {
@@ -65,7 +72,10 @@ describe("fileWriter — TDD via tmpdir", () => {
 		try {
 			const targetEnv = buildEnv(env);
 			const ops: FileOp[] = [
-				{ src: ["backend", "linters", "biome", "biome.json"], dest: "biome.json" },
+				{
+					src: ["backend", "linters", "biome", "biome.json"],
+					dest: "biome.json",
+				},
 			];
 
 			await fileWriter(ops, targetEnv);
@@ -83,12 +93,25 @@ describe("fileWriter — TDD via tmpdir", () => {
 		try {
 			const targetEnv = buildEnv(env);
 			const ops: FileOp[] = [
-				{ src: ["frontend", "linters", "react", "eslint", "typescript", "eslint.config.mjs"], dest: "eslint.config.mjs" },
+				{
+					src: [
+						"frontend",
+						"linters",
+						"react",
+						"eslint",
+						"typescript",
+						"eslint.config.mjs",
+					],
+					dest: "eslint.config.mjs",
+				},
 			];
 
 			await fileWriter(ops, targetEnv);
 
-			const expectedSource = fileContent(env.templatesRoot, "frontend/linters/react/eslint/typescript/eslint.config.mjs");
+			const expectedSource = fileContent(
+				env.templatesRoot,
+				"frontend/linters/react/eslint/typescript/eslint.config.mjs",
+			);
 			const written = fileContent(env.cwd, "eslint.config.mjs");
 			expect(written).toEqual(expectedSource);
 		} finally {
@@ -116,9 +139,7 @@ describe("fileWriter — TDD via tmpdir", () => {
 		const env = setupTestEnv();
 		try {
 			const targetEnv = buildEnv(env);
-			const ops: FileOp[] = [
-				{ src: ["git", "README.md"], dest: "README.md" },
-			];
+			const ops: FileOp[] = [{ src: ["git", "README.md"], dest: "README.md" }];
 
 			const original = fileContent(env.templatesRoot, "git/README.md");
 			await fileWriter(ops, targetEnv);
@@ -134,9 +155,7 @@ describe("fileWriter — TDD via tmpdir", () => {
 		const env = setupTestEnv();
 		try {
 			const targetEnv = buildEnv({ ...env, isDev: true });
-			const ops: FileOp[] = [
-				{ src: ["git", "gitignore"], dest: ".gitignore" },
-			];
+			const ops: FileOp[] = [{ src: ["git", "gitignore"], dest: ".gitignore" }];
 
 			await fileWriter(ops, targetEnv);
 

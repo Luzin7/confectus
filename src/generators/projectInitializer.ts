@@ -1,9 +1,9 @@
 import { exec } from "child_process";
-import { promisify } from "util";
 import path from "path";
-import type { Env } from "@shared/env";
-import type { PackageManagerConfig } from "@mappings/packageManagers";
+import { promisify } from "util";
 import { ProjectInitializationError } from "@errors";
+import type { PackageManagerConfig } from "@mappings/packageManagers";
+import type { Env } from "@shared/env";
 
 const execAsync = promisify(exec);
 

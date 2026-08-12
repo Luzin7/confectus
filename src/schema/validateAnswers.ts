@@ -1,5 +1,11 @@
-import { configSchema, type Answers, type BackendAnswers, type FrontendAnswers, type RawAnswers } from "./configSchema";
 import type { z } from "zod";
+import {
+	type Answers,
+	type BackendAnswers,
+	type FrontendAnswers,
+	type RawAnswers,
+	configSchema,
+} from "./configSchema";
 
 export type ParseError = {
 	readonly kind: "ParseError";
@@ -23,16 +29,30 @@ const collectIssues = (raw: Partial<RawAnswers>): string[] => {
 	const issues: string[] = [];
 
 	if (raw.stack === "Backend") {
-		if (raw.wichTest === undefined) issues.push("wichTest is required when stack is Backend");
-		if (raw.createDirectories === undefined) issues.push("createDirectories is required when stack is Backend");
-		if (raw.addScripts === undefined) issues.push("addScripts is required when stack is Backend");
+		if (raw.wichTest === undefined) {
+			issues.push("wichTest is required when stack is Backend");
+		}
+		if (raw.createDirectories === undefined) {
+			issues.push("createDirectories is required when stack is Backend");
+		}
+		if (raw.addScripts === undefined) {
+			issues.push("addScripts is required when stack is Backend");
+		}
 	}
 
 	if (raw.stack === "Frontend") {
-		if (raw.wichStack === undefined) issues.push("wichStack is required when stack is Frontend");
-		if (raw.wichTest !== undefined) issues.push("wichTest is only valid for Backend");
-		if (raw.createDirectories !== undefined) issues.push("createDirectories is only valid for Backend");
-		if (raw.addScripts !== undefined) issues.push("addScripts is only valid for Backend");
+		if (raw.wichStack === undefined) {
+			issues.push("wichStack is required when stack is Frontend");
+		}
+		if (raw.wichTest !== undefined) {
+			issues.push("wichTest is only valid for Backend");
+		}
+		if (raw.createDirectories !== undefined) {
+			issues.push("createDirectories is only valid for Backend");
+		}
+		if (raw.addScripts !== undefined) {
+			issues.push("addScripts is only valid for Backend");
+		}
 	}
 
 	return issues;
@@ -63,15 +83,21 @@ const buildFrontend = (raw: z.infer<typeof configSchema>): FrontendAnswers => ({
 export const validateAnswers = (raw: unknown): ValidationResult => {
 	const parsed = configSchema.safeParse(raw);
 	if (!parsed.success) {
-		const issues = parsed.error.issues.map((i) => `${i.path.join(".")}: ${i.message}`);
+		const issues = parsed.error.issues.map(
+			(i) => `${i.path.join(".")}: ${i.message}`,
+		);
 		return err(issues);
 	}
 
 	const crossIssues = collectIssues(parsed.data);
-	if (crossIssues.length > 0) return err(crossIssues);
+	if (crossIssues.length > 0) {
+		return err(crossIssues);
+	}
 
 	const answers: Answers =
-		parsed.data.stack === "Backend" ? buildBackend(parsed.data) : buildFrontend(parsed.data);
+		parsed.data.stack === "Backend"
+			? buildBackend(parsed.data)
+			: buildFrontend(parsed.data);
 
 	return ok(answers);
 };

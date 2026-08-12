@@ -1,8 +1,10 @@
-import { describe, expect, it } from "vitest";
 import { templateMapper } from "@pipeline/templateMapper";
 import type { BackendAnswers, FrontendAnswers } from "@schema/configSchema";
+import { describe, expect, it } from "vitest";
 
-const baseBackend = (overrides: Partial<BackendAnswers> = {}): BackendAnswers => ({
+const baseBackend = (
+	overrides: Partial<BackendAnswers> = {},
+): BackendAnswers => ({
 	stack: "Backend",
 	wichManager: "NPM",
 	wichLanguage: "Typescript",
@@ -15,7 +17,9 @@ const baseBackend = (overrides: Partial<BackendAnswers> = {}): BackendAnswers =>
 	...overrides,
 });
 
-const baseFrontend = (overrides: Partial<FrontendAnswers> = {}): FrontendAnswers => ({
+const baseFrontend = (
+	overrides: Partial<FrontendAnswers> = {},
+): FrontendAnswers => ({
 	stack: "Frontend",
 	wichManager: "NPM",
 	wichLanguage: "Typescript",
@@ -115,7 +119,9 @@ describe("templateMapper — backend bug-fix regression suite", () => {
 	});
 
 	it("uses vitest.config.ts for TS backend and vitest.config.js for JS backend (path matches name)", () => {
-		const ts = templateMapper(baseBackend({ wichLanguage: "Typescript", wichTest: "Vitest" }));
+		const ts = templateMapper(
+			baseBackend({ wichLanguage: "Typescript", wichTest: "Vitest" }),
+		);
 		const tsCfg = ts.ops.find((o) => o.dest === "vitest.config.ts");
 		expect(tsCfg).toBeDefined();
 		expect(tsCfg?.src.join("/").endsWith("vitest.config.ts")).toBe(true);
@@ -138,7 +144,11 @@ describe("templateMapper — backend bug-fix regression suite", () => {
 describe("templateMapper — frontend Eslint routing by stack", () => {
 	it("uses eslintReactTs for React + TS", () => {
 		const result = templateMapper(
-			baseFrontend({ wichStack: "React", wichLanguage: "Typescript", wichLinter: "Eslint" }),
+			baseFrontend({
+				wichStack: "React",
+				wichLanguage: "Typescript",
+				wichLinter: "Eslint",
+			}),
 		);
 		const eslint = result.ops.find((o) => o.dest === "eslint.config.mjs");
 		expect(eslint?.src.join("/")).toContain("react/eslint/typescript");
@@ -146,7 +156,11 @@ describe("templateMapper — frontend Eslint routing by stack", () => {
 
 	it("uses eslintNextJs for Next + JS", () => {
 		const result = templateMapper(
-			baseFrontend({ wichStack: "Next.js", wichLanguage: "Javascript", wichLinter: "Eslint" }),
+			baseFrontend({
+				wichStack: "Next.js",
+				wichLanguage: "Javascript",
+				wichLinter: "Eslint",
+			}),
 		);
 		const eslint = result.ops.find((o) => o.dest === "eslint.config.mjs");
 		expect(eslint?.src.join("/")).toContain("next/eslint/javascript");
@@ -154,7 +168,11 @@ describe("templateMapper — frontend Eslint routing by stack", () => {
 
 	it("uses eslintVueTs for Vue + TS", () => {
 		const result = templateMapper(
-			baseFrontend({ wichStack: "Vue.js", wichLanguage: "Typescript", wichLinter: "Eslint" }),
+			baseFrontend({
+				wichStack: "Vue.js",
+				wichLanguage: "Typescript",
+				wichLinter: "Eslint",
+			}),
 		);
 		const eslint = result.ops.find((o) => o.dest === "eslint.config.mjs");
 		expect(eslint?.src.join("/")).toContain("vue/eslint/typescript");
@@ -162,7 +180,11 @@ describe("templateMapper — frontend Eslint routing by stack", () => {
 
 	it("uses eslintTs for N/A + TS", () => {
 		const result = templateMapper(
-			baseFrontend({ wichStack: "N/A", wichLanguage: "Typescript", wichLinter: "Eslint" }),
+			baseFrontend({
+				wichStack: "N/A",
+				wichLanguage: "Typescript",
+				wichLinter: "Eslint",
+			}),
 		);
 		const eslint = result.ops.find((o) => o.dest === "eslint.config.mjs");
 		expect(eslint?.src.join("/")).toContain("typescript/eslint");
@@ -181,7 +203,9 @@ describe("templateMapper — frontend Biome", () => {
 		const result = templateMapper(baseFrontend({ wichLinter: "Biome" }));
 		const vscode = result.ops.find((o) => o.dest === ".vscode/settings.json");
 		expect(vscode).toBeDefined();
-		expect(vscode?.src.join("/")).toBe("ide/vscode/settings/biome/settings.json");
+		expect(vscode?.src.join("/")).toBe(
+			"ide/vscode/settings/biome/settings.json",
+		);
 	});
 });
 
@@ -189,12 +213,16 @@ describe("templateMapper — VSCode routing", () => {
 	it("routes VSCode settings to eslint variant when linter=Eslint (frontend)", () => {
 		const result = templateMapper(baseFrontend({ wichLinter: "Eslint" }));
 		const vscode = result.ops.find((o) => o.dest === ".vscode/settings.json");
-		expect(vscode?.src.join("/")).toBe("ide/vscode/settings/eslint/settings.json");
+		expect(vscode?.src.join("/")).toBe(
+			"ide/vscode/settings/eslint/settings.json",
+		);
 	});
 
 	it("does not create vscode settings when isVscode=No", () => {
 		const result = templateMapper(baseBackend({ isVscode: "No" }));
-		expect(result.ops.find((o) => o.dest === ".vscode/settings.json")).toBeUndefined();
+		expect(
+			result.ops.find((o) => o.dest === ".vscode/settings.json"),
+		).toBeUndefined();
 		expect(result.ops.find((o) => o.dest === ".editorconfig")).toBeUndefined();
 	});
 });
@@ -203,7 +231,9 @@ describe("templateMapper — no linter", () => {
 	it("does not install any linter file when wichLinter=No (backend)", () => {
 		const result = templateMapper(baseBackend({ wichLinter: "No" }));
 		expect(result.ops.find((o) => o.dest === "biome.json")).toBeUndefined();
-		expect(result.ops.find((o) => o.dest === "eslint.config.mjs")).toBeUndefined();
+		expect(
+			result.ops.find((o) => o.dest === "eslint.config.mjs"),
+		).toBeUndefined();
 	});
 
 	it("cannot pull biome or eslint deps when wichLinter=No (frontend)", () => {

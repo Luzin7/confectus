@@ -1,7 +1,7 @@
-import fs from "fs-extra";
 import path from "path";
-import type { Env } from "@shared/env";
 import { PackageJsonScriptsUpdateError } from "@errors";
+import type { Env } from "@shared/env";
+import fs from "fs-extra";
 
 export const packageJsonUpdater = async (
 	scripts: Record<string, string>,

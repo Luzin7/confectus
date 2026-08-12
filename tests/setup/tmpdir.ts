@@ -1,6 +1,14 @@
-import { mkdtempSync, copyFileSync, mkdirSync, existsSync, readdirSync, rmSync, statSync } from "fs";
-import path from "path";
+import {
+	copyFileSync,
+	existsSync,
+	mkdirSync,
+	mkdtempSync,
+	readdirSync,
+	rmSync,
+	statSync,
+} from "fs";
 import os from "os";
+import path from "path";
 
 export type TestEnv = {
 	readonly cwd: string;
@@ -9,7 +17,9 @@ export type TestEnv = {
 };
 
 const copyTemplatesInto = (dest: string, source: string): void => {
-	if (!existsSync(source)) return;
+	if (!existsSync(source)) {
+		return;
+	}
 	const entries = readdirSync(source);
 	for (const entry of entries) {
 		const srcPath = path.join(source, entry);
@@ -23,7 +33,9 @@ const copyTemplatesInto = (dest: string, source: string): void => {
 	}
 };
 
-export const setupTestEnv = (templatesSource: string = path.resolve(__dirname, "../../src/templates")): TestEnv => {
+export const setupTestEnv = (
+	templatesSource: string = path.resolve(__dirname, "../../src/templates"),
+): TestEnv => {
 	const cwd = mkdtempSync(path.join(os.tmpdir(), "confectus-test-"));
 	const templatesRoot = path.join(cwd, "templates");
 	mkdirSync(templatesRoot, { recursive: true });

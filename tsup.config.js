@@ -1,10 +1,10 @@
-import rollup from "rollup-plugin-multi-entry";
 import { defineConfig } from "tsup";
+
 export default defineConfig({
-	entry: ["src/**/*.ts", "!src/test/**/*", "!src/**/*.spec.*"],
+	entry: ["src/main.ts"],
 	format: "esm",
 	outDir: "./dist",
-	plugins: [rollup()],
+	splitting: false,
 	loader: { ".*": "copy" },
 	external: ["vitest/config"],
 });

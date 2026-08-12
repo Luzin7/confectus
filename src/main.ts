@@ -1,11 +1,13 @@
 #!/usr/bin/env node
-import { pipeline } from "@pipeline";
-import chalk from "chalk";
-import { buildEnv } from "@shared/env";
 import { ConfectusError } from "@errors";
+import { pipeline } from "@pipeline";
+import { buildEnv } from "@shared/env";
+import chalk from "chalk";
 
 export async function main(): Promise<void> {
-	const result = await pipeline(buildEnv({ isDev: process.env.NODE_ENV === "development" }));
+	const result = await pipeline(
+		buildEnv({ isDev: process.env.NODE_ENV === "development" }),
+	);
 
 	if (result.kind === "Right") {
 		console.log(`\n${chalk.green("✔")} Project setup completed successfully!`);
