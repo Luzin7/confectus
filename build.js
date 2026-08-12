@@ -1,5 +1,11 @@
-import { copyFileSync, existsSync, mkdirSync, readdirSync, statSync } from "fs";
-import { join } from "path";
+import {
+	copyFileSync,
+	existsSync,
+	mkdirSync,
+	readdirSync,
+	statSync,
+} from "node:fs";
+import { join } from "node:path";
 
 function copyFolder(originPath, _destinationPath) {
 	if (!existsSync(_destinationPath)) {

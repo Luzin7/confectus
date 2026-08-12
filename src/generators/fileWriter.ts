@@ -1,4 +1,4 @@
-import path from "path";
+import path from "node:path";
 import { TemplateCopyError } from "@errors";
 import type { FileOp } from "@pipeline/templateMapper";
 import type { Env } from "@shared/env";

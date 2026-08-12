@@ -1,5 +1,5 @@
 import { QuestionnaireError } from "@errors";
-import type { Answers } from "@schema/configSchema";
+
 import chalk from "chalk";
 import inquirer from "inquirer";
 
@@ -129,4 +129,4 @@ export const collectAnswers = async (): Promise<Record<string, string>> => {
 	return { ...stack, ...rest };
 };
 
-export type { Answers };
+export { type Answers } from "@schema/configSchema";

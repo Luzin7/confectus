@@ -1,4 +1,4 @@
-import path from "path";
+import path from "node:path";
 import {
 	ConfectusError,
 	NotFoundPackageJsonError,
@@ -52,7 +52,7 @@ export const pipeline = async (env: Env): Promise<EitherError> => {
 	if (validation.kind === "ParseError") {
 		return left(
 			new ConfectusError(
-				`Configuração inválida: ${(validation as ParseError).issues.join("; ")}`,
+				`Invalid configuration: ${(validation as ParseError).issues.join("; ")}`,
 				"VALIDATION_ERROR",
 			),
 		);
@@ -124,7 +124,7 @@ export const pipeline = async (env: Env): Promise<EitherError> => {
 			return left(e);
 		}
 		return left(
-			new ConfectusError("Erro inesperado durante o setup.", "UNKNOWN", e),
+			new ConfectusError("Unexpected error during setup.", "UNKNOWN", e),
 		);
 	}
 };

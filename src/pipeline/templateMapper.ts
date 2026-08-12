@@ -7,7 +7,6 @@ import {
 	frontendTemplates,
 	sharedTemplates,
 } from "@mappings/templatesDictionary";
-import type { DependencyRef } from "@mappings/templatesDictionary";
 import type {
 	Answers,
 	BackendAnswers,

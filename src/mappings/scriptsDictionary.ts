@@ -1,4 +1,4 @@
-import type { LanguageKey, TestKey } from "./templatesDictionary";
+import type { TestKey } from "./templatesDictionary";
 
 export type ScriptsDictionary = {
 	readonly willTest: TestKey;
