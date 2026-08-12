@@ -3,7 +3,7 @@
 	"type": "module",
 	"author": "Luan Victor",
 	"main": "./dist/main.js",
-	"version": "1.8.1",
+	"version": "2.0.0",
 	"license": "MIT",
 	"keywords": [
 		"JavaScript",
@@ -35,9 +35,7 @@
 		"confectus": "dist/main.js",
 		"cf": "dist/main.js"
 	},
-	"files": [
-		"./dist/**/*"
-	],
+	"files": ["./dist/**/*"],
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/Luzin7/confectus.git"
@@ -47,10 +45,8 @@
 		"@changesets/cli": "^2.27.1",
 		"@types/fs-extra": "^11.0.4",
 		"@types/inquirer": "^9.0.7",
-		"@types/jest": "^29.5.11",
 		"@types/node": "^20.14.2",
-		"rollup-plugin-multi-entry": "^2.1.0",
-		"ts-node": "^10.9.2",
+		"@vitest/coverage-v8": "^3.2.7",
 		"tsup": "^8.1.0",
 		"tsx": "^4.15.5",
 		"typescript": "^5.4.5",
@@ -61,7 +57,8 @@
 		"chalk": "^5.3.0",
 		"fs-extra": "^11.2.0",
 		"inquirer": "^9.2.12",
-		"nanospinner": "^1.1.0"
+		"nanospinner": "^1.1.0",
+		"zod": "^4.4.3"
 	},
 	"description": "#Confectus",
 	"bugs": {

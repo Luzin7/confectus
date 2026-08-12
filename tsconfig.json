@@ -1,8 +1,8 @@
 {
 	"compilerOptions": {
 		"target": "ESNext",
-		"module": "ES2022",
-		"moduleResolution": "Node",
+		"module": "ESNext",
+		"moduleResolution": "Bundler",
 		"lib": ["ES2018", "ESNext"],
 		"strict": true,
 		"experimentalDecorators": true,
@@ -19,7 +19,16 @@
 			"@infrastructure/*": ["./infrastructure/*"],
 			"@interface/*": ["./interface/*"],
 			"@templates/*": ["./templates/*"],
-			"@configs/*": ["./configs/*"]
+			"@configs/*": ["./configs/*"],
+			"@schema/*": ["./schema/*"],
+			"@mappings/*": ["./mappings/*"],
+			"@pipeline/*": ["./pipeline/*"],
+			"@pipeline": ["./pipeline.ts"],
+			"@generators/*": ["./generators/*"],
+			"@errors": ["./errors/index.ts"],
+			"@errors/*": ["./errors/*"],
+			"@shared/*": ["./shared/*"],
+			"@prompts/*": ["./prompts/*"]
 		}
 	},
 	"include": ["./src/**/*"],
