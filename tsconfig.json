@@ -23,7 +23,9 @@
 			"@schema/*": ["./schema/*"],
 			"@mappings/*": ["./mappings/*"],
 			"@pipeline/*": ["./pipeline/*"],
+			"@pipeline": ["./pipeline.ts"],
 			"@generators/*": ["./generators/*"],
+			"@errors": ["./errors/index.ts"],
 			"@errors/*": ["./errors/*"],
 			"@shared/*": ["./shared/*"],
 			"@prompts/*": ["./prompts/*"]
