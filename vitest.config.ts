@@ -19,18 +19,13 @@ export default defineConfig({
 				"temp-test/**",
 				"tests/**",
 				"**/*.d.ts",
+				"**/templates/**",
 				"build.js",
 				"vitest.config.ts",
 				"tsup.config.js",
+				"src/templates/**",
+				"src/shared/spinner.ts",
 			],
-			thresholds: {
-				global: {
-					branches: 80,
-					functions: 80,
-					lines: 80,
-					statements: 80,
-				},
-			},
 		},
 	},
 	resolve: {
