@@ -41,6 +41,13 @@ export default defineConfig({
 			"@interface/": "/src/interface/",
 			"@configs/": "/src/configs/",
 			"@templates/": "/src/templates/",
+			"@schema/": "/src/schema/",
+			"@mappings/": "/src/mappings/",
+			"@pipeline/": "/src/pipeline/",
+			"@generators/": "/src/generators/",
+			"@errors/": "/src/errors/",
+			"@shared/": "/src/shared/",
+			"@prompts/": "/src/prompts/",
 		},
 	},
 });
