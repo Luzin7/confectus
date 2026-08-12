@@ -1,5 +1,11 @@
 # confectus
 
+## 2.0.1
+
+### Patch Changes
+
+- e10ab0e: adjust package-lock.json to sync
+
 ## 2.0.0
 
 ### Major Changes
