@@ -1,4 +1,4 @@
-name: 🚀 CI/CD Pipeline
+name: CI/CD Pipeline
 
 on:
   push:
@@ -61,7 +61,7 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
-      id-token: write
+      id-token: write # 🔑 OBRIGATÓRIO para o OIDC funcionar
       
     steps:
       - name: 📥 Checkout repository
@@ -73,8 +73,9 @@ jobs:
       - name: 📦 Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22' # Atualizado para 22 (recomendado pelo protocolo do npm em 2026)
           cache: 'npm'
+          registry-url: 'https://registry.npmjs.org' # 🔑 OBRIGATÓRIO para OIDC
 
       - name: 📋 Install dependencies
         run: npm ci
@@ -92,7 +93,7 @@ jobs:
           title: "Release: Version Packages"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          # REMOVIDO o NPM_TOKEN antigo! O OIDC faz a auth via id-token automaticamente.
 
   # 🏷️ Auto-tag on successful release  
   tag:
