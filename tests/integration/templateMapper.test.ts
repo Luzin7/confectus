@@ -63,16 +63,19 @@ describe("templateMapper — backend TS + Biome + Vitest + VSCode + src", () => 
 		]);
 	});
 
-	it("pulls @biomejs/biome and vite/vitest as devDeps", () => {
-		expect(result.devDeps).toContain("@biomejs/biome");
-		expect(result.devDeps).toContain("vite");
-		expect(result.devDeps).toContain("vitest");
+	it("pulls pinned @biomejs/biome and vitest as devDeps (no standalone vite)", () => {
+		expect(result.devDeps).toContain("@biomejs/biome@^2.5.15");
+		expect(result.devDeps).toContain("vitest@^5.0.3");
+		expect(result.devDeps.some((d) => d.startsWith("vite@"))).toBe(false);
 	});
 
-	it("pulls tsx (dep) and typescript/@types/node (devDeps) from typescript template", () => {
-		expect(result.deps).toContain("tsx");
-		expect(result.devDeps).toContain("typescript");
-		expect(result.devDeps).toContain("@types/node");
+	it("pulls pinned typescript/@types/node/tsx as devDeps (tsx moved out of deps, no tsup)", () => {
+		expect(result.deps).not.toContain("tsx");
+		expect(result.deps.some((d) => d.startsWith("tsx"))).toBe(false);
+		expect(result.devDeps).toContain("typescript@^6.0.3");
+		expect(result.devDeps).toContain("@types/node@^22.20.5");
+		expect(result.devDeps).toContain("tsx@^4.23.12");
+		expect(result.devDeps.some((d) => d.startsWith("tsup"))).toBe(false);
 	});
 });
 
@@ -100,13 +103,14 @@ describe("templateMapper — backend JS + Eslint + no test + no vscode + no src"
 	});
 
 	it("does not pull vite/vitest devDeps when test=No", () => {
-		expect(result.devDeps).not.toContain("vitest");
-		expect(result.devDeps).not.toContain("vite");
+		expect(result.devDeps.some((d) => d.startsWith("vite@"))).toBe(false);
+		expect(result.devDeps.some((d) => d.startsWith("vitest@"))).toBe(false);
 	});
 
 	it("does not pull tsx/typescript when not TS", () => {
-		expect(result.deps).not.toContain("tsx");
-		expect(result.devDeps).not.toContain("typescript");
+		expect(result.deps.some((d) => d.startsWith("tsx"))).toBe(false);
+		expect(result.devDeps.some((d) => d.startsWith("typescript"))).toBe(false);
+		expect(result.devDeps.some((d) => d.startsWith("tsx"))).toBe(false);
 	});
 });
 
@@ -238,8 +242,73 @@ describe("templateMapper — no linter", () => {
 
 	it("cannot pull biome or eslint deps when wichLinter=No (frontend)", () => {
 		const result = templateMapper(baseFrontend({ wichLinter: "No" }));
-		expect(result.devDeps).not.toContain("@biomejs/biome");
-		expect(result.devDeps).not.toContain("eslint");
+		expect(result.devDeps.some((d) => d.startsWith("@biomejs/biome"))).toBe(
+			false,
+		);
+		expect(result.devDeps.some((d) => d.startsWith("eslint"))).toBe(false);
+	});
+});
+
+describe("templateMapper — pinned dependency versions", () => {
+	const eslintBase = [
+		"eslint@^9.39.5",
+		"@eslint/js@^9.39.5",
+		"globals@^17.13.0",
+		"eslint-config-prettier@^10.1.8",
+		"eslint-plugin-prettier@^5.5.6",
+		"prettier@^3.9.9",
+	];
+
+	it("pins the ESLint 9 flat stack for backend TS", () => {
+		const result = templateMapper(
+			baseBackend({ wichLanguage: "Typescript", wichLinter: "Eslint" }),
+		);
+		for (const dep of [...eslintBase, "typescript-eslint@^8.71.1"]) {
+			expect(result.devDeps).toContain(dep);
+		}
+	});
+
+	it("pins React ESLint plugins for React + TS", () => {
+		const result = templateMapper(
+			baseFrontend({
+				wichStack: "React",
+				wichLanguage: "Typescript",
+				wichLinter: "Eslint",
+			}),
+		);
+		for (const dep of [
+			...eslintBase,
+			"eslint-plugin-react@^7.37.5",
+			"eslint-plugin-react-hooks@^7.1.1",
+			"eslint-plugin-jsx-a11y@^6.10.2",
+			"typescript-eslint@^8.71.1",
+		]) {
+			expect(result.devDeps).toContain(dep);
+		}
+	});
+
+	it("pins Vue ESLint plugins and parser for Vue + TS", () => {
+		const result = templateMapper(
+			baseFrontend({
+				wichStack: "Vue.js",
+				wichLanguage: "Typescript",
+				wichLinter: "Eslint",
+			}),
+		);
+		for (const dep of [
+			...eslintBase,
+			"eslint-plugin-vue@^10.11.1",
+			"vue-eslint-parser@^10.4.1",
+			"typescript-eslint@^8.71.1",
+			"@vue/eslint-config-typescript@^14.9.0",
+		]) {
+			expect(result.devDeps).toContain(dep);
+		}
+	});
+
+	it("pins the biome devDep for frontend Biome", () => {
+		const result = templateMapper(baseFrontend({ wichLinter: "Biome" }));
+		expect(result.devDeps).toContain("@biomejs/biome@^2.5.15");
 	});
 });
 

@@ -1,12 +1,18 @@
 #!/usr/bin/env node
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { ConfectusError } from "@errors";
 import { pipeline } from "@pipeline";
 import { buildEnv } from "@shared/env";
 import chalk from "chalk";
 
 export async function main(): Promise<void> {
+	const moduleDir = path.dirname(fileURLToPath(import.meta.url));
 	const result = await pipeline(
-		buildEnv({ isDev: process.env.NODE_ENV === "development" }),
+		buildEnv({
+			isDev: process.env.NODE_ENV === "development",
+			templatesRoot: path.join(moduleDir, "templates"),
+		}),
 	);
 
 	if (result.kind === "Right") {

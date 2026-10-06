@@ -10,15 +10,6 @@ export class ConfectusError extends Error {
 	}
 }
 
-export class NoPackageJsonError extends ConfectusError {
-	constructor() {
-		super(
-			"Por favor, inicialize um arquivo package.json antes de continuar.",
-			"NO_PACKAGE_JSON",
-		);
-	}
-}
-
 export class NotFoundPackageJsonError extends ConfectusError {
 	constructor() {
 		super(
@@ -64,15 +55,6 @@ export class DependencyInstallError extends ConfectusError {
 			`Falha ao instalar dependência "${dependency}".`,
 			"DEPENDENCY_INSTALL_ERROR",
 			cause,
-		);
-	}
-}
-
-export class LinterConfigNotFoundError extends ConfectusError {
-	constructor(key: string) {
-		super(
-			`Configuração não encontrada para linter "${key}".`,
-			"LINTER_CONFIG_NOT_FOUND",
 		);
 	}
 }

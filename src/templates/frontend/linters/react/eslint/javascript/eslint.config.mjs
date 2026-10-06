@@ -1,62 +1,42 @@
-import path from "node:path";
-import { fileURLToPath } from "node:url";
-import { fixupConfigRules, fixupPluginRules } from "@eslint/compat";
-import { FlatCompat } from "@eslint/eslintrc";
 import js from "@eslint/js";
-import jsxA11Y from "eslint-plugin-jsx-a11y";
+import eslintConfigPrettier from "eslint-config-prettier";
+import jsxA11y from "eslint-plugin-jsx-a11y";
+import eslintPluginPrettier from "eslint-plugin-prettier";
 import react from "eslint-plugin-react";
+import reactHooks from "eslint-plugin-react-hooks";
 import globals from "globals";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const compat = new FlatCompat({
-	baseDirectory: __dirname,
-	recommendedConfig: js.configs.recommended,
-	allConfig: js.configs.all,
-});
-
 export default [
+	{ ignores: ["eslint.config.mjs", "dist/**", "node_modules/**"] },
+	js.configs.recommended,
+	react.configs.flat.recommended,
+	react.configs.flat["jsx-runtime"],
+	reactHooks.configs.flat.recommended,
+	jsxA11y.flatConfigs.recommended,
 	{
-		ignores: ["**/node_modules"],
-	},
-	...fixupConfigRules(
-		compat.extends(
-			"plugin:react/recommended",
-			"plugin:react-hooks/recommended",
-			"standard",
-			"plugin:prettier/recommended",
-		),
-	),
-	{
+		files: ["**/*.{js,jsx,mjs,cjs}"],
 		plugins: {
-			react: fixupPluginRules(react),
-			"jsx-a11y": jsxA11Y,
+			prettier: eslintPluginPrettier,
 		},
-
 		languageOptions: {
 			globals: {
 				...globals.browser,
 			},
-
 			ecmaVersion: 2021,
 			sourceType: "module",
-
 			parserOptions: {
 				ecmaFeatures: {
 					jsx: true,
 				},
 			},
 		},
-
 		settings: {
 			react: {
 				version: "detect",
 			},
 		},
-
 		rules: {
 			"react/self-closing-comp": "error",
-
 			"prettier/prettier": [
 				"error",
 				{
@@ -69,10 +49,8 @@ export default [
 					endOfLine: "auto",
 				},
 			],
-
 			"react/react-in-jsx-scope": "off",
 			"react/prop-types": "off",
-
 			"jsx-a11y/alt-text": [
 				"warn",
 				{
@@ -80,7 +58,6 @@ export default [
 					img: ["Image"],
 				},
 			],
-
 			"jsx-a11y/aria-props": "warn",
 			"jsx-a11y/aria-proptypes": "warn",
 			"jsx-a11y/aria-unsupported-elements": "warn",
@@ -88,4 +65,5 @@ export default [
 			"jsx-a11y/role-supports-aria-props": "warn",
 		},
 	},
+	eslintConfigPrettier,
 ];

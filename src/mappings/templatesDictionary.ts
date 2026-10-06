@@ -8,8 +8,6 @@ export type DependencyRef = {
 	readonly devDependencies: readonly string[];
 };
 
-export type StackKey = "Backend" | "Frontend";
-export type LanguageKey = "Javascript" | "Typescript";
 export type LinterKey = "Eslint" | "Biome" | "No";
 export type TestKey = "Vitest" | "No";
 export type FrontendStackKey = "N/A" | "React" | "Next.js" | "Vue.js";
@@ -24,26 +22,12 @@ const empty: DependencyRef = {
 	devDependencies: [],
 };
 
-const parseDeps = (raw: string | null): DependencyRef => {
-	if (raw === null) {
-		return empty;
-	}
-	const list = raw.split(/\s+/).filter(Boolean);
-	return { dependencies: list, devDependencies: [] };
-};
-
 const parseDevDeps = (raw: string | null): DependencyRef => {
 	if (raw === null) {
 		return empty;
 	}
 	const list = raw.split(/\s+/).filter(Boolean);
 	return { dependencies: [], devDependencies: list };
-};
-
-const mergeDeps = (...refs: DependencyRef[]): DependencyRef => {
-	const dependencies = refs.flatMap((r) => r.dependencies);
-	const devDependencies = refs.flatMap((r) => r.devDependencies);
-	return { dependencies, devDependencies };
 };
 
 const entry = (
@@ -72,39 +56,36 @@ export const backendTemplates = {
 	typescript: entry(
 		["backend", "typescript", "tsconfig.json"],
 		"tsconfig.json",
-		mergeDeps(
-			parseDeps("tsx"),
-			parseDevDeps("typescript @types/node ts-node tsup"),
-		),
+		parseDevDeps("typescript@^6.0.3 @types/node@^22.20.5 tsx@^4.23.12"),
 	),
 	eslint: entry(
 		["backend", "linters", "eslint", "javascript", "eslint.config.mjs"],
 		"eslint.config.mjs",
 		parseDevDeps(
-			"eslint eslint-config-airbnb-base eslint-plugin-import eslint-plugin-prettier eslint-config-prettier",
+			"eslint@^9.39.5 @eslint/js@^9.39.5 globals@^17.13.0 eslint-config-prettier@^10.1.8 eslint-plugin-prettier@^5.5.6 prettier@^3.9.9",
 		),
 	),
 	eslintts: entry(
 		["backend", "linters", "eslint", "typescript", "eslint.config.mjs"],
 		"eslint.config.mjs",
 		parseDevDeps(
-			"eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-plugin-prettier eslint-config-standard eslint-plugin-import eslint-config-prettier prettier",
+			"eslint@^9.39.5 @eslint/js@^9.39.5 globals@^17.13.0 eslint-config-prettier@^10.1.8 eslint-plugin-prettier@^5.5.6 prettier@^3.9.9 typescript-eslint@^8.71.1",
 		),
 	),
 	biome: entry(
 		["backend", "linters", "biome", "biome.json"],
 		"biome.json",
-		parseDevDeps("@biomejs/biome"),
+		parseDevDeps("@biomejs/biome@^2.5.15"),
 	),
 	vitestJs: entry(
 		["backend", "frameworks", "configs", "vitest", "vitest.config.js"],
 		"vitest.config.js",
-		parseDevDeps("vite vitest"),
+		parseDevDeps("vitest@^5.0.3"),
 	),
 	vitestTs: entry(
 		["backend", "frameworks", "configs", "vitest", "vitest.config.ts"],
 		"vitest.config.ts",
-		parseDevDeps("vite vitest"),
+		parseDevDeps("vitest@^5.0.3"),
 	),
 } as const;
 
@@ -112,13 +93,15 @@ export const frontendTemplates = {
 	eslintJs: entry(
 		["frontend", "linters", "javascript", "eslint", "eslint.config.mjs"],
 		"eslint.config.mjs",
-		parseDevDeps("eslint eslint-plugin-prettier prettier"),
+		parseDevDeps(
+			"eslint@^9.39.5 @eslint/js@^9.39.5 globals@^17.13.0 eslint-config-prettier@^10.1.8 eslint-plugin-prettier@^5.5.6 prettier@^3.9.9",
+		),
 	),
 	eslintTs: entry(
 		["frontend", "linters", "typescript", "eslint", "eslint.config.mjs"],
 		"eslint.config.mjs",
 		parseDevDeps(
-			"eslint eslint-plugin-prettier prettier @typescript-eslint/eslint-plugin @typescript-eslint/parser",
+			"eslint@^9.39.5 @eslint/js@^9.39.5 globals@^17.13.0 eslint-config-prettier@^10.1.8 eslint-plugin-prettier@^5.5.6 prettier@^3.9.9 typescript-eslint@^8.71.1",
 		),
 	),
 	eslintReactJs: entry(
@@ -132,7 +115,7 @@ export const frontendTemplates = {
 		],
 		"eslint.config.mjs",
 		parseDevDeps(
-			"eslint globals eslint-plugin-react eslint-plugin-react-hooks prettier eslint-config-prettier eslint-plugin-prettier eslint-plugin-jsx-a11y eslint-config-standard",
+			"eslint@^9.39.5 @eslint/js@^9.39.5 globals@^17.13.0 eslint-config-prettier@^10.1.8 eslint-plugin-prettier@^5.5.6 prettier@^3.9.9 eslint-plugin-react@^7.37.5 eslint-plugin-react-hooks@^7.1.1 eslint-plugin-jsx-a11y@^6.10.2",
 		),
 	),
 	eslintReactTs: entry(
@@ -146,7 +129,7 @@ export const frontendTemplates = {
 		],
 		"eslint.config.mjs",
 		parseDevDeps(
-			"eslint @eslint/compat globals @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint-plugin-react eslint-plugin-react-hooks prettier eslint-config-prettier eslint-plugin-prettier eslint-plugin-jsx-a11y eslint-config-standard",
+			"eslint@^9.39.5 @eslint/js@^9.39.5 globals@^17.13.0 eslint-config-prettier@^10.1.8 eslint-plugin-prettier@^5.5.6 prettier@^3.9.9 eslint-plugin-react@^7.37.5 eslint-plugin-react-hooks@^7.1.1 eslint-plugin-jsx-a11y@^6.10.2 typescript-eslint@^8.71.1",
 		),
 	),
 	eslintNextJs: entry(
@@ -160,7 +143,7 @@ export const frontendTemplates = {
 		],
 		"eslint.config.mjs",
 		parseDevDeps(
-			"eslint eslint-plugin-react eslint-plugin-react-hooks prettier eslint-config-prettier eslint-plugin-prettier eslint-plugin-jsx-a11y eslint-config-standard",
+			"eslint@^9.39.5 @eslint/js@^9.39.5 globals@^17.13.0 eslint-config-prettier@^10.1.8 eslint-plugin-prettier@^5.5.6 prettier@^3.9.9 eslint-plugin-react@^7.37.5 eslint-plugin-react-hooks@^7.1.1 eslint-plugin-jsx-a11y@^6.10.2",
 		),
 	),
 	eslintNextTs: entry(
@@ -174,35 +157,29 @@ export const frontendTemplates = {
 		],
 		"eslint.config.mjs",
 		parseDevDeps(
-			"eslint eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-jsx-a11y @typescript-eslint/eslint-plugin @typescript-eslint/parser prettier eslint-config-prettier eslint-plugin-prettier eslint-config-standard",
+			"eslint@^9.39.5 @eslint/js@^9.39.5 globals@^17.13.0 eslint-config-prettier@^10.1.8 eslint-plugin-prettier@^5.5.6 prettier@^3.9.9 eslint-plugin-react@^7.37.5 eslint-plugin-react-hooks@^7.1.1 eslint-plugin-jsx-a11y@^6.10.2 typescript-eslint@^8.71.1",
 		),
 	),
 	eslintVueJs: entry(
 		["frontend", "linters", "vue", "eslint", "javascript", "eslint.config.mjs"],
 		"eslint.config.mjs",
 		parseDevDeps(
-			"eslint eslint-plugin-vue prettier eslint-config-prettier eslint-plugin-prettier",
+			"eslint@^9.39.5 @eslint/js@^9.39.5 globals@^17.13.0 eslint-config-prettier@^10.1.8 eslint-plugin-prettier@^5.5.6 prettier@^3.9.9 eslint-plugin-vue@^10.11.1 vue-eslint-parser@^10.4.1",
 		),
 	),
 	eslintVueTs: entry(
 		["frontend", "linters", "vue", "eslint", "typescript", "eslint.config.mjs"],
 		"eslint.config.mjs",
 		parseDevDeps(
-			"eslint-config-prettier eslint @typescript-eslint/parser@5.59.0 @typescript-eslint/eslint-plugin@5.59.0 @vue/eslint-config-typescript@13.0.0 eslint-plugin-vue@9.11.0 eslint-plugin-prettier@5.0.0 prettier@2.8.8",
+			"eslint@^9.39.5 @eslint/js@^9.39.5 globals@^17.13.0 eslint-config-prettier@^10.1.8 eslint-plugin-prettier@^5.5.6 prettier@^3.9.9 eslint-plugin-vue@^10.11.1 vue-eslint-parser@^10.4.1 typescript-eslint@^8.71.1 @vue/eslint-config-typescript@^14.9.0",
 		),
 	),
 	biome: entry(
 		["frontend", "linters", "biome", "biome.json"],
 		"biome.json",
-		parseDevDeps("@biomejs/biome"),
+		parseDevDeps("@biomejs/biome@^2.5.15"),
 	),
 } as const;
-
-export type LinterLookup<T> = {
-	readonly No: null;
-	readonly Biome: T;
-	readonly Eslint: T;
-};
 
 export const frontendEslintByStack: Record<
 	FrontendStackKey,
