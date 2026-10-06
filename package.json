@@ -22,8 +22,8 @@
 		"build": "tsup --minify && node ./build.js",
 		"start": "npm run build && node ./dist/main.js",
 		"changeset": "changeset",
-		"version": "changeset version",
-		"release": "tsup --minify && changeset publish",
+		"version": "changeset version && npm install --package-lock-only && biome format --write package.json",
+		"release": "npm run build && changeset publish",
 		"dev": "NODE_ENV=development tsx ./src/main.ts",
 		"test": "vitest",
 		"test:coverage": "vitest --coverage",
@@ -35,9 +35,7 @@
 		"confectus": "dist/main.js",
 		"cf": "dist/main.js"
 	},
-	"files": [
-		"./dist/**/*"
-	],
+	"files": ["./dist/**/*"],
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/Luzin7/confectus.git"
