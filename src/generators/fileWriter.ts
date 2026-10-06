@@ -22,7 +22,7 @@ export const fileWriter = async (
 	ops: readonly FileOp[],
 	env: Env,
 ): Promise<void> => {
-	const target = env.isDev ? path.join(env.cwd, "mock") : env.cwd;
+	const target = env.targetDir;
 	await fs.ensureDir(target);
 
 	const results = await Promise.all(

@@ -14,12 +14,6 @@
 		"resolveJsonModule": true,
 		"baseUrl": "./src",
 		"paths": {
-			"@core/*": ["./core/*"],
-			"@application/*": ["./application/*"],
-			"@infrastructure/*": ["./infrastructure/*"],
-			"@interface/*": ["./interface/*"],
-			"@templates/*": ["./templates/*"],
-			"@configs/*": ["./configs/*"],
 			"@schema/*": ["./schema/*"],
 			"@mappings/*": ["./mappings/*"],
 			"@pipeline/*": ["./pipeline/*"],

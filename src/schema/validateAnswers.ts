@@ -2,9 +2,9 @@ import type { z } from "zod";
 import {
 	type Answers,
 	type BackendAnswers,
+	configSchema,
 	type FrontendAnswers,
 	type RawAnswers,
-	configSchema,
 } from "./configSchema";
 
 export type ParseError = {

@@ -35,13 +35,15 @@
 		"confectus": "dist/main.js",
 		"cf": "dist/main.js"
 	},
-	"files": ["./dist/**/*"],
+	"files": [
+		"./dist/**/*"
+	],
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/Luzin7/confectus.git"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "1.8.3",
+		"@biomejs/biome": "^2.5.15",
 		"@changesets/cli": "^2.27.1",
 		"@types/fs-extra": "^11.0.4",
 		"@types/inquirer": "^9.0.7",

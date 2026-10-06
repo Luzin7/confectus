@@ -30,12 +30,6 @@ export default defineConfig({
 	},
 	resolve: {
 		alias: {
-			"@core/": "/src/core/",
-			"@application/": "/src/application/",
-			"@infrastructure/": "/src/infrastructure/",
-			"@interface/": "/src/interface/",
-			"@configs/": "/src/configs/",
-			"@templates/": "/src/templates/",
 			"@schema/": "/src/schema/",
 			"@mappings/": "/src/mappings/",
 			"@pipeline/": "/src/pipeline/",
@@ -43,7 +37,6 @@ export default defineConfig({
 			"@generators/": "/src/generators/",
 			"@errors": "/src/errors/index.ts",
 			"@errors/": "/src/errors/",
-			"@errors/index": "/src/errors/index.ts",
 			"@shared/": "/src/shared/",
 			"@prompts/": "/src/prompts/",
 		},

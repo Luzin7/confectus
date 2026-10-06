@@ -1,27 +1,27 @@
 {
+	"$schema": "https://biomejs.dev/schemas/2.5.15/schema.json",
 	"files": {
-		"ignore": [
-			"dist/**",
-			"node_modules/**",
-			"coverage/**",
-			"build/**",
-			"out/**",
-			".next/**",
-			".turbo/**",
-			".vercel/**"
+		"includes": [
+			"**",
+			"!**/dist/**",
+			"!**/node_modules/**",
+			"!**/coverage/**",
+			"!**/build/**",
+			"!**/out/**",
+			"!**/.next/**",
+			"!**/.turbo/**",
+			"!**/.vercel/**",
+			"!**/mock/**"
 		]
 	},
-	"organizeImports": {
-		"enabled": true
-	},
+	"assist": { "actions": { "source": { "organizeImports": "on" } } },
 	"linter": {
 		"enabled": true,
 		"rules": {
-			"recommended": false,
+			"preset": "none",
 			"complexity": {
 				"noBannedTypes": "error",
 				"noExtraBooleanCast": "error",
-				"noMultipleSpacesInRegularExpressionLiterals": "error",
 				"noUselessCatch": "error",
 				"noUselessConstructor": "off",
 				"noUselessLoneBlockStatements": "error",
@@ -30,10 +30,11 @@
 				"noUselessThisAlias": "error",
 				"noUselessTypeConstraint": "error",
 				"noVoid": "error",
-				"noWith": "error",
 				"useArrowFunction": "off",
 				"useLiteralKeys": "error",
-				"useRegexLiterals": "error"
+				"useRegexLiterals": "error",
+				"noAdjacentSpacesInRegex": "error",
+				"noCommaOperator": "error"
 			},
 			"correctness": {
 				"noConstAssign": "error",
@@ -43,7 +44,6 @@
 				"noGlobalObjectCalls": "error",
 				"noInvalidConstructorSuper": "error",
 				"noInvalidUseBeforeDeclaration": "error",
-				"noNewSymbol": "error",
 				"noPrecisionLoss": "error",
 				"noSelfAssign": "error",
 				"noSwitchDeclarations": "error",
@@ -52,20 +52,20 @@
 				"noUnreachableSuper": "error",
 				"noUnsafeFinally": "error",
 				"noUnusedVariables": "error",
-				"useArrayLiterals": "error",
-				"useIsNan": "error"
+				"useIsNan": "error",
+				"noInvalidBuiltinInstantiation": "error",
+				"useValidTypeof": "error"
 			},
 			"security": {
 				"noGlobalEval": "error"
 			},
 			"style": {
-				"noCommaOperator": "error",
 				"noNamespace": "error",
-				"noVar": "warn",
 				"useAsConstAssertion": "error",
 				"useBlockStatements": "error",
 				"useConst": "error",
-				"useSingleVarDeclarator": "error"
+				"useSingleVarDeclarator": "error",
+				"useArrayLiterals": "error"
 			},
 			"suspicious": {
 				"noAssignInExpressions": "error",
@@ -97,7 +97,8 @@
 				"noUnsafeDeclarationMerging": "error",
 				"noUnsafeNegation": "error",
 				"useDefaultSwitchClauseLast": "error",
-				"useValidTypeof": "error"
+				"noWith": "error",
+				"noVar": "warn"
 			}
 		}
 	},
@@ -106,23 +107,20 @@
 	},
 	"overrides": [
 		{
-			"include": ["*.ts", "*.tsx", "*.mts", "*.cts"],
+			"includes": ["**/*.ts", "**/*.tsx", "**/*.mts", "**/*.cts"],
 			"linter": {
 				"rules": {
 					"correctness": {
 						"noConstAssign": "off",
 						"noGlobalObjectCalls": "off",
 						"noInvalidConstructorSuper": "off",
-						"noInvalidNewBuiltin": "off",
-						"noNewSymbol": "off",
 						"noSetterReturn": "off",
 						"noUndeclaredVariables": "off",
 						"noUnreachable": "off",
-						"noUnreachableSuper": "off"
+						"noUnreachableSuper": "off",
+						"noInvalidBuiltinInstantiation": "off"
 					},
 					"style": {
-						"noArguments": "error",
-						"noVar": "error",
 						"useConst": "error"
 					},
 					"suspicious": {
@@ -133,7 +131,11 @@
 						"noImportAssign": "off",
 						"noRedeclare": "off",
 						"noUnsafeNegation": "off",
-						"useGetterReturn": "off"
+						"useGetterReturn": "off",
+						"noVar": "error"
+					},
+					"complexity": {
+						"noArguments": "error"
 					}
 				}
 			}
