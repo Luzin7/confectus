@@ -1,11 +1,11 @@
 import {
-	type LinterKey,
-	type TemplateEntry,
-	type TemplateRef,
 	backendTemplates,
 	frontendEslintByStack,
 	frontendTemplates,
+	type LinterKey,
 	sharedTemplates,
+	type TemplateEntry,
+	type TemplateRef,
 } from "@mappings/templatesDictionary";
 import type {
 	Answers,

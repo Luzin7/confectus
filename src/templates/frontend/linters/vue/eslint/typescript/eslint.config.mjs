@@ -1,45 +1,29 @@
-import path from "node:path";
-import { fileURLToPath } from "node:url";
-import { FlatCompat } from "@eslint/eslintrc";
 import js from "@eslint/js";
-import typescriptEslint from "@typescript-eslint/eslint-plugin";
-import prettier from "eslint-plugin-prettier";
-import vue from "eslint-plugin-vue";
+import {
+	defineConfigWithVueTs,
+	vueTsConfigs,
+} from "@vue/eslint-config-typescript";
+import eslintConfigPrettier from "eslint-config-prettier";
+import eslintPluginPrettier from "eslint-plugin-prettier";
+import pluginVue from "eslint-plugin-vue";
 import globals from "globals";
-import parser from "vue-eslint-parser";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const compat = new FlatCompat({
-	baseDirectory: __dirname,
-	recommendedConfig: js.configs.recommended,
-	allConfig: js.configs.all,
-});
-
-export default [
-	...compat.extends(
-		"eslint:recommended",
-		"plugin:vue/vue3-recommended",
-		"@vue/eslint-config-typescript/recommended",
-		"prettier",
-	),
+export default defineConfigWithVueTs(
+	{ ignores: ["eslint.config.mjs", "dist/**", "node_modules/**"] },
+	js.configs.recommended,
+	...pluginVue.configs["flat/recommended"],
+	vueTsConfigs.recommended,
 	{
 		plugins: {
-			vue,
-			"@typescript-eslint": typescriptEslint,
-			prettier,
+			prettier: eslintPluginPrettier,
 		},
-
 		languageOptions: {
 			globals: {
 				...globals.browser,
 			},
-
-			parser: parser,
 			ecmaVersion: 2021,
 			sourceType: "module",
 		},
-
 		rules: {
 			"prettier/prettier": [
 				"error",
@@ -54,4 +38,5 @@ export default [
 			],
 		},
 	},
-];
+	eslintConfigPrettier,
+);

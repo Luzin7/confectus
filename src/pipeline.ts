@@ -38,7 +38,7 @@ const assertPackageJsonPresent = async (
 	env: Env,
 ): Promise<void> => {
 	if (cfg.hasPackageJson === "Yes") {
-		const cwd = env.isDev ? path.join(env.cwd, "mock") : env.cwd;
+		const cwd = env.targetDir;
 		const exists = await fs.pathExists(path.join(cwd, "package.json"));
 		if (!exists) {
 			throw new NotFoundPackageJsonError();
@@ -66,6 +66,10 @@ export const pipeline = async (env: Env): Promise<EitherError> => {
 	}
 
 	try {
+		if (env.isDev) {
+			await fs.remove(env.targetDir);
+		}
+		await fs.ensureDir(env.targetDir);
 		await assertPackageJsonPresent(cfg, env);
 
 		if (cfg.hasPackageJson === "No") {

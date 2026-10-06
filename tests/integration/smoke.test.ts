@@ -1,34 +1,16 @@
-import { spawn } from "child_process";
-import { promises as fs, existsSync, readFileSync } from "fs";
+import { execSync, spawn } from "child_process";
+import { existsSync, promises as fs, readdirSync, readFileSync } from "fs";
 import os from "os";
 import path from "path";
-import { describe, expect, it } from "vitest";
+import { beforeAll, describe, expect, it } from "vitest";
 
-const REPO_TEMPLATES = path.resolve(__dirname, "../../src/templates");
-
-const copyRecursive = async (src: string, dest: string): Promise<void> => {
-	const entries = await fs.readdir(src);
-	for (const e of entries) {
-		const s = path.join(src, e);
-		const d = path.join(dest, e);
-		const stat = await fs.stat(s);
-		if (stat.isDirectory()) {
-			await fs.mkdir(d, { recursive: true });
-			await copyRecursive(s, d);
-		} else {
-			await fs.copyFile(s, d);
-		}
-	}
-};
+const REPO_ROOT = path.resolve(__dirname, "../..");
 
 const setupSmoke = async (): Promise<{
 	cwd: string;
 	cleanup: () => Promise<void>;
 }> => {
 	const cwd = await fs.mkdtemp(path.join(os.tmpdir(), "smoke-"));
-	const templatesRoot = path.join(cwd, "templates");
-	await fs.mkdir(templatesRoot, { recursive: true });
-	await copyRecursive(REPO_TEMPLATES, templatesRoot);
 	// Pre-create empty package.json so assertPackageJsonPresent doesn't fail
 	await fs.writeFile(
 		path.join(cwd, "package.json"),
@@ -86,7 +68,62 @@ const mustExist = (cwd: string, rel: string): void => {
 	}
 };
 
+beforeAll(() => {
+	// The built CLI resolves templates relative to its own module (dist/templates),
+	// so guarantee dist/main.js and dist/templates are fresh before spawning it.
+	execSync("npm run build", { cwd: REPO_ROOT, stdio: "inherit" });
+}, 180000);
+
 describe("smoke — real CLI binary end-to-end", () => {
+	it("resolves templates module-relative (no copy into cwd) and writes nothing to the repo root", async () => {
+		const { cwd, cleanup } = await setupSmoke();
+		try {
+			const repoEntriesBefore = readdirSync(REPO_ROOT).sort();
+			const repoGitignoreBefore = readFileSync(
+				path.join(REPO_ROOT, ".gitignore"),
+				"utf8",
+			);
+			const repoReadmeBefore = readFileSync(
+				path.join(REPO_ROOT, "README.md"),
+				"utf8",
+			);
+
+			// Backend / NPM / Yes / Javascript / No linter / No test / No vscode / No src / No scripts
+			// No deps => no real install, so this scenario stays fast.
+			const inputs = encodeAnswers([
+				{ key: "stack", arrows: 1 }, // Backend
+				{ key: "wichManager", arrows: 0 }, // NPM
+				{ key: "hasPackageJson", arrows: 0 }, // Yes
+				{ key: "wichLanguage", arrows: 0 }, // Javascript
+				{ key: "wichLinter", arrows: 2 }, // No
+				{ key: "wichTest", arrows: 1 }, // No
+				{ key: "isVscode", arrows: 1 }, // No
+				{ key: "createDirectories", arrows: 1 }, // No
+				{ key: "addScripts", arrows: 1 }, // No
+			]);
+
+			const result = await runCli(cwd, inputs);
+			expect(result.code).toBe(0);
+
+			mustExist(cwd, ".gitignore");
+			mustExist(cwd, "README.md");
+			expect(existsSync(path.join(cwd, "biome.json"))).toBe(false);
+			expect(existsSync(path.join(cwd, "eslint.config.mjs"))).toBe(false);
+			expect(existsSync(path.join(cwd, "tsconfig.json"))).toBe(false);
+
+			// Nothing must leak into the repository root.
+			expect(readdirSync(REPO_ROOT).sort()).toEqual(repoEntriesBefore);
+			expect(readFileSync(path.join(REPO_ROOT, ".gitignore"), "utf8")).toBe(
+				repoGitignoreBefore,
+			);
+			expect(readFileSync(path.join(REPO_ROOT, "README.md"), "utf8")).toBe(
+				repoReadmeBefore,
+			);
+		} finally {
+			await cleanup();
+		}
+	}, 30000);
+
 	it("backend TS + Biome + No-test + VSCode + No-src + No-scripts", async () => {
 		const { cwd, cleanup } = await setupSmoke();
 		try {

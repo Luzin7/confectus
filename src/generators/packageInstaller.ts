@@ -1,5 +1,4 @@
 import { exec } from "node:child_process";
-import path from "node:path";
 import { promisify } from "node:util";
 import { DependencyInstallError } from "@errors";
 import type { PackageManagerConfig } from "@mappings/packageManagers";
@@ -24,7 +23,7 @@ export const packageInstaller = async (
 	manager: PackageManagerConfig,
 	env: Env,
 ): Promise<void> => {
-	const cwd = env.isDev ? path.join(env.cwd, "mock") : env.cwd;
+	const cwd = env.targetDir;
 
 	const run = async (pkgs: readonly string[], isDev: boolean) => {
 		if (pkgs.length === 0) {

@@ -5,7 +5,8 @@ import {
 	readdirSync,
 	statSync,
 } from "node:fs";
-import { join } from "node:path";
+import path, { join } from "node:path";
+import { fileURLToPath } from "node:url";
 
 function copyFolder(originPath, _destinationPath) {
 	if (!existsSync(_destinationPath)) {
@@ -26,11 +27,10 @@ function copyFolder(originPath, _destinationPath) {
 }
 
 function build() {
-	const currentPath = new URL(".", import.meta.url).pathname;
-	const decodedCurrentPath = decodeURIComponent(currentPath);
+	const currentPath = path.dirname(fileURLToPath(import.meta.url));
 
-	const originPath = join(decodedCurrentPath, "./src/templates");
-	const destinationPath = join(decodedCurrentPath, "./dist/templates");
+	const originPath = join(currentPath, "./src/templates");
+	const destinationPath = join(currentPath, "./dist/templates");
 
 	copyFolder(originPath, destinationPath);
 }

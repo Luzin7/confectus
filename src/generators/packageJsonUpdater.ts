@@ -7,7 +7,7 @@ export const packageJsonUpdater = async (
 	scripts: Record<string, string>,
 	env: Env,
 ): Promise<void> => {
-	const cwd = env.isDev ? path.join(env.cwd, "mock") : env.cwd;
+	const cwd = env.targetDir;
 	const packageJsonPath = path.join(cwd, "package.json");
 
 	try {

@@ -1,3 +1,4 @@
+import type { Env } from "@shared/env";
 import { existsSync, readFileSync } from "fs";
 import path from "path";
 import { describe, expect, it, vi } from "vitest";
@@ -17,11 +18,15 @@ const buildEnv = (env: {
 	cwd: string;
 	templatesRoot: string;
 	isDev?: boolean;
-}) => ({
-	cwd: env.cwd,
-	templatesRoot: env.templatesRoot,
-	isDev: env.isDev ?? false,
-});
+}): Env => {
+	const isDev = env.isDev ?? false;
+	return {
+		cwd: env.cwd,
+		templatesRoot: env.templatesRoot,
+		isDev,
+		targetDir: isDev ? path.join(env.cwd, "mock") : env.cwd,
+	};
+};
 
 describe("fileWriter — TDD via tmpdir", () => {
 	it("copies gitignore + README from real templates into cwd", async () => {
