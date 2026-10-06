@@ -61,3 +61,4 @@ jobs:
           commitMode: github-api
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_CONFIG_LOGLEVEL: ${{ runner.debug == '1' && 'verbose' || 'notice' }}
